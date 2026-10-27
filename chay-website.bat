@@ -18,7 +18,7 @@ if %ERRORLEVEL% EQU 0 (
     echo (Nhan to hop phim Ctrl + C trong cua so nay de dung may chu)
     echo ===================================================================
     start http://localhost:8000/index.html
-    python -m http.server 8000
+    python server.py 8000
     goto end
 )
 
@@ -28,7 +28,7 @@ if %ERRORLEVEL% EQU 0 (
     echo [OK] Phat hien Python Launcher!
     echo Dang khoi dong may chu tai: http://localhost:8000/
     start http://localhost:8000/index.html
-    py -m http.server 8000
+    py server.py 8000
     goto end
 )
 

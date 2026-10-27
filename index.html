@@ -40,9 +40,29 @@
       "gsap/SplitText.js": "./js/vendor/gsap/SplitText.js",
       "gsap/Flip": "./js/vendor/gsap/Flip.js",
       "gsap/Flip.js": "./js/vendor/gsap/Flip.js",
-      "lenis": "./js/vendor/lenis/lenis.mjs"
+      "lenis": "./js/vendor/lenis/lenis.js"
     }
   }
+  </script>
+
+  <!-- Protocol Guard: Detect raw file:// opening and guide user -->
+  <script>
+    if (window.location.protocol === 'file:') {
+      window.addEventListener('DOMContentLoaded', function() {
+        var banner = document.createElement('div');
+        banner.style.cssText = 'position:fixed;inset:0;z-index:999999;background:#141312;color:#f5f0e8;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;font-family:system-ui,-apple-system,sans-serif;';
+        banner.innerHTML = '<div style="font-size:2.8rem;margin-bottom:14px;">🏛️</div>' +
+          '<h2 style="font-size:1.35rem;font-weight:600;margin-bottom:10px;color:#d4af37;letter-spacing:0.02em;">BẠN ĐANG MỞ TRỰC TIẾP TỆP TIN (file://)</h2>' +
+          '<p style="max-width:520px;font-size:0.92rem;line-height:1.6;opacity:0.85;margin-bottom:20px;">' +
+          'Trình duyệt máy tính tự động chặn mã JavaScript Module và đồ họa 3D vì chính sách bảo mật nội bộ (CORS policy). Website không hề bị lỗi hay quá nặng!' +
+          '</p>' +
+          '<div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.4);padding:14px 20px;border-radius:8px;max-width:480px;font-size:0.9rem;line-height:1.6;">' +
+          '👉 <strong>CÁCH MỞ WEBSITE ĐÚNG TRONG 3 GIÂY:</strong><br>' +
+          'Quay lại thư mục dự án và nhấp đúp vào tệp <strong>chay-website.bat</strong>.' +
+          '</div>';
+        document.body.appendChild(banner);
+      });
+    }
   </script>
 </head>
 <body>
