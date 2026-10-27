@@ -1,0 +1,1142 @@
+{
+  "site": {
+    "name": "ÉTHÉRÉ Atelier & Gallery",
+    "exhibitionTitle": "Ánh Sáng Đi Qua Thời Gian",
+    "exhibitionSubtitle": "Đại Triển Lãm Xúc Giác: 2.800 Năm Nghệ Thuật Điêu Khắc, Sơn Dầu Impasto & Sợi Dệt",
+    "curator": "Hội đồng Giám tuyển: ÉTHÉRÉ Atelier",
+    "intro": "Ánh sáng không chỉ chiếu lên tranh, nó đọc được tranh. Một gờ sơn, một vết đục, một thớ giấy, một sợi lụa đều lưu lại thời gian. Hãy bước vào dòng chảy vô tận và cầm lấy ngọn đèn của bạn.",
+    "curatorialStatement": {
+      "title": "Ánh Sáng Đi Qua Thời Gian",
+      "subtitle": "Lời Tựa Giám Tuyển — Bảo Tồn Xúc Giác Trong Thời Đại Kỹ Thuật Số",
+      "paragraphs": [
+        "Một tác phẩm nghệ thuật khi bước vào không gian bảo tàng truyền thống thường bị giam hãm dưới nguồn sáng trần cố định. Ánh sáng nhân tạo đều đặn, vô cảm vô tình san phẳng lớp địa hình vi mô mà người nghệ nhân đã dốc cạn sinh lực để chạm đục hoặc đắp bồi qua từng lớp sơn dầu.",
+        "Triển lãm 'Ánh Sáng Đi Qua Thời Gian' đặt lại ngọn đèn vào chính bàn tay người thưởng ngoạn. Khi bạn di chuyển con trỏ, bạn không chỉ lướt qua một màn hình số phẳng lỳ; bạn đang đưa một nguồn sáng vật lý thời gian thực quét qua những thớ đá bazan 2.800 năm tuổi của Nimrud, những nhát dao phết sơn cuồn cuộn của Van Gogh, bề mặt mộc bản dâu tằm của Hokusai, và hàng triệu nút thắt sợi len của thợ dệt Nam Hà Lan thời Phục hưng.",
+        "Bằng việc kết hợp thuật toán tính vector pháp tuyến động từ bản đồ độ sâu, kỹ thuật dò bóng tự thân 12 bước (self-shadowing raymarch) và băng chuyền dệt sợi 26 dải ruy-băng Unwoven, chúng tôi hy vọng tái sinh cảm giác xúc giác — thứ vốn dĩ chỉ thuộc về những ai từng đứng cách mặt tranh vài centimet trong bóng tối tĩnh lặng của viện bảo tàng."
+      ],
+      "signOff": "Hội Đồng Giám Tuyển ÉTHÉRÉ Atelier — Mùa Thu 2026 (Hà Nội & Paris)"
+    },
+    "defaultMode": "light",
+    "nav": [
+      {
+        "id": "home",
+        "label": "Trang Chủ",
+        "target": "home"
+      },
+      {
+        "id": "exhibition",
+        "label": "Triển Lãm 3D",
+        "target": "exhibition"
+      },
+      {
+        "id": "collection",
+        "label": "Kho Lưu Trữ",
+        "target": "collection"
+      },
+      {
+        "id": "timeline",
+        "label": "Niên Đại",
+        "target": "timeline"
+      },
+      {
+        "id": "curatorial",
+        "label": "Giám Tuyển",
+        "target": "curatorial"
+      },
+      {
+        "id": "visit",
+        "label": "Đặt Lịch / Mua Mẫu",
+        "target": "visit"
+      }
+    ],
+    "schedule": "09:00 – 18:00 Hàng Ngày · Mở Cửa Trực Tuyến Toàn Cầu",
+    "metaHighlights": [
+      {
+        "label": "Niên Đại",
+        "value": "2.800 Năm Lịch Sử (883 TCN – 1899 SCN)"
+      },
+      {
+        "label": "Quy Mô",
+        "value": "4 Cánh Trưng Bày · Các Kiệt Tác CC0 The Met & AIC"
+      },
+      {
+        "label": "Kỹ Thuật",
+        "value": "Chiếu Sáng 3D Tương Tác & Băng Chuyền Dệt Sợi Unwoven"
+      },
+      {
+        "label": "Bảo Tàng",
+        "value": "The Metropolitan Museum of Art · Art Institute of Chicago"
+      }
+    ]
+  },
+  "theme": {
+    "light": {
+      "background": "#F4F0E8",
+      "text": "#1B1A17",
+      "muted": "#6B665C",
+      "surface": "#FFFFFF",
+      "surfaceBorder": "rgba(27, 26, 23, 0.08)",
+      "accent": "#9E4A28",
+      "unwovenFadeRgb": [
+        0.957,
+        0.941,
+        0.91
+      ]
+    },
+    "dark": {
+      "background": "#0B0B0C",
+      "text": "#EDE8DD",
+      "muted": "#8E8A82",
+      "surface": "#141416",
+      "surfaceBorder": "rgba(237, 232, 221, 0.12)",
+      "accent": "#E07A4A",
+      "unwovenFadeRgb": [
+        0.043,
+        0.043,
+        0.047
+      ]
+    }
+  },
+  "lightPresets": [
+    {
+      "id": "museum",
+      "label": "Bảo Tàng (Ấm Dịu 2700K)",
+      "color": "#f6eedf",
+      "intensity": 0.52,
+      "elevation": 1.1
+    },
+    {
+      "id": "studio",
+      "label": "Studio (Trắng Tinh 5500K)",
+      "color": "#ffffff",
+      "intensity": 0.48,
+      "elevation": 1.4
+    },
+    {
+      "id": "sunset",
+      "label": "Hoàng Hôn (Sienna Ấm)",
+      "color": "#ffcb8f",
+      "intensity": 0.58,
+      "elevation": 0.8
+    },
+    {
+      "id": "moon",
+      "label": "Ánh Trăng (Lam Nhạt 7000K)",
+      "color": "#dbeafe",
+      "intensity": 0.42,
+      "elevation": 1.6
+    }
+  ],
+  "rooms": [
+    {
+      "id": "I",
+      "numeral": "I",
+      "name": "Cổ Vật & Phù Điêu Đá",
+      "period": "883 TCN – Thế kỷ II SCN",
+      "artworkId": "assyrian-winged-genie",
+      "tagline": "Đá bazan và cẩm thạch lưu giữ dấu vết của lưỡi đục kim loại đầu tiên.",
+      "lightHint": "Hạ nguồn sáng xuống thấp để bóng đổ lấp đầy từng rãnh đục sâu."
+    },
+    {
+      "id": "II",
+      "numeral": "II",
+      "name": "Bậc Thầy Sơn Dầu & Impasto",
+      "period": "1620 – 1890",
+      "artworkId": "wheat-field-cypresses",
+      "subArtworks": [
+        "wheat-field-cypresses",
+        "van-gogh-straw-hat",
+        "van-gogh-cypresses",
+        "van-gogh-bedroom",
+        "rembrandt-aristotle",
+        "rembrandt-floras",
+        "monet-water-lilies",
+        "cezanne-apples",
+        "vermeer-water-pitcher",
+        "seurat-circus-sideshow"
+      ],
+      "tagline": "Mỗi vệt phết dao và nhát cọ dày là một ngọn đồi nhỏ hứng lấy ánh sáng.",
+      "lightHint": "Chọn ánh sáng Hoàng Hôn để gờ sơn impasto đổ bóng dài kịch tính."
+    },
+    {
+      "id": "III",
+      "numeral": "III",
+      "name": "Khắc Gỗ Ukiyo-e & Mỹ Nghệ Á Đông",
+      "period": "1830 – Thế kỷ XIX",
+      "artworkId": "hokusai-great-wave",
+      "subArtworks": [
+        "hokusai-great-wave",
+        "hokusai-red-fuji"
+      ],
+      "tagline": "Thớ gỗ dâu tằm in vào giấy washi, vết ép bản khắc sáng lên dưới ánh đèn ngang.",
+      "lightHint": "Dùng ánh sáng Studio trắng tinh để soi thớ giấy thủ công."
+    },
+    {
+      "id": "IV",
+      "numeral": "IV",
+      "name": "Sợi Dệt & Thảm Tapestry",
+      "period": "Khoảng 1495 – 1505",
+      "artworkId": "unicorn-in-captivity",
+      "subArtworks": [
+        "unicorn-in-captivity",
+        "unicorn-hunters"
+      ],
+      "tagline": "Hàng triệu nút thắt len và tơ tằm hòa quyện thành bản trường ca xúc giác.",
+      "lightHint": "Hiệu ứng Unwoven tách bức thảm thành 26 dải sợi ruy-băng rồi dệt lại."
+    }
+  ],
+  "artworks": [
+    {
+      "id": "assyrian-winged-genie",
+      "room": "I",
+      "roomName": "I · Cổ Vật & Phù Điêu Đá",
+      "title": "Phù Điêu Thần Hộ Mệnh Có Cánh",
+      "artist": "Nghệ nhân Assyria khuyết danh",
+      "origin": "Nimrud, Assyria (nay thuộc Iraq), khoảng 883–859 TCN",
+      "category": "ĐIÊU KHẮC PHÙ ĐIÊU",
+      "century": "Thế kỷ IX TCN",
+      "year": "khoảng 883–859 TCN",
+      "narrative": "Tấm phù điêu thạch cao hoành tráng từng ốp quanh đại sảnh ngai vàng vua Ashurnasirpal II. Vị thần có cánh mang sừng thiêng, tay cầm bông lúa và quả thông thanh tẩy, bảo vệ cung điện khỏi quỷ dữ. Dưới góc chiếu thấp, từng lớp lông vũ điêu khắc và tua áo nổi khối rõ rệt.",
+      "technique": "Đục chạm phù điêu nông (bas-relief) trên đá thạch cao thạch điêu (gypsum alabaster). Nét đục dứt khoát, các gờ nổi sắc cạnh tạo độ tương phản bóng đổ tuyệt đối.",
+      "curatorial": "Hiện vật trung tâm của Cổ vật Cận Đông tại The Met. Số hóa chuẩn 3D phục vụ nghiên cứu bảo tồn quốc tế.",
+      "specs": [
+        {
+          "label": "Chất liệu",
+          "value": "Đá thạch cao thạch điêu (Gypsum Alabaster)"
+        },
+        {
+          "label": "Địa điểm",
+          "value": "Cung điện Tây Bắc, Nimrud (Iraq)"
+        },
+        {
+          "label": "Niên đại",
+          "value": "khoảng 883–859 TCN (Thời vua Ashurnasirpal II)"
+        },
+        {
+          "label": "Kích thước",
+          "value": "234.3 × 133.4 cm (Cao 2.34m)"
+        },
+        {
+          "label": "Số hiệu hiện vật",
+          "value": "The Met Accession No. 32.143.4"
+        }
+      ],
+      "source": {
+        "museum": "The Metropolitan Museum of Art (The Met)",
+        "license": "CC0 (Open Access) — Công cộng",
+        "searchUrl": "https://www.metmuseum.org/art/collection/search/322617"
+      },
+      "image": "/assets/images/assyrian-relief.jpg",
+      "depth": "/assets/depths/assyrian-relief.png",
+      "alt": "Phù điêu đá Assyria khắc hình thần hộ mệnh có cánh với áo tua và vòng đeo tay"
+    },
+    {
+      "id": "roman-dancing-maenad",
+      "room": "I",
+      "roomName": "I · Cổ Vật & Phù Điêu Đá",
+      "title": "Bích Họa Nàng Maenad Múa Tại Biệt Thự Boscoreale",
+      "artist": "Họa sĩ La Mã khuyết danh",
+      "origin": "Boscoreale, gần Pompeii, Ý, khoảng 50–40 TCN",
+      "category": "BÍCH HỌA CỔ ĐẠI",
+      "century": "Thế kỷ I TCN",
+      "year": "khoảng 50–40 TCN",
+      "narrative": "Bức bích họa La Mã cổ đại được bóc tách từ biệt thự quý tộc P. Fannius Synistor tại Boscoreale, bị chôn vùi dưới tro bụi núi lửa Vesuvius năm 79 SCN. Tà áo bay lượn của nàng Maenad mang sắc đỏ son Pompeiian rực rỡ qua hàng thiên niên kỷ.",
+      "technique": "Bích họa vẽ màu khoáng trên vữa ẩm (fresco). Độ ráp và vết nứt tự nhiên của vữa vôi tạo ra hiệu ứng phản xạ ánh sáng ấm nồng.",
+      "curatorial": "Bảo vật vô giá của Hy-La cổ đại tại The Met, minh chứng cho sự thăng hoa của nghệ thuật thị giác thời kỳ Cộng hòa La Mã.",
+      "specs": [
+        {
+          "label": "Chất liệu",
+          "value": "Màu khoáng trên vữa vôi bích họa (Fresco)"
+        },
+        {
+          "label": "Địa điểm",
+          "value": "Biệt thự P. Fannius Synistor, Boscoreale"
+        },
+        {
+          "label": "Niên đại",
+          "value": "khoảng 50–40 TCN"
+        },
+        {
+          "label": "Kích thước",
+          "value": "186.7 × 186.7 cm"
+        },
+        {
+          "label": "Số hiệu hiện vật",
+          "value": "The Met Accession No. 03.14.5"
+        }
+      ],
+      "source": {
+        "museum": "The Metropolitan Museum of Art (The Met)",
+        "license": "CC0 (Open Access) — Công cộng",
+        "searchUrl": "https://www.metmuseum.org/art/collection/search/247009"
+      },
+      "image": "/assets/images/roman-dancing-maenad.jpg",
+      "depth": "/assets/depths/roman-dancing-maenad.png",
+      "alt": "Bích họa La Mã cổ đại vẽ người phụ nữ múa trên nền vữa đỏ son Pompeiian"
+    },
+    {
+      "id": "greek-wounded-amazon",
+      "room": "I",
+      "roomName": "I · Cổ Vật & Phù Điêu Đá",
+      "title": "Tượng Thanh Niên Hy Lạp Cổ Điển (Kouros)",
+      "artist": "Nhà điêu khắc Attica khuyết danh",
+      "origin": "Attica, Hy Lạp, khoảng 590–580 TCN",
+      "category": "ĐIÊU KHẮC CẨM THẠCH",
+      "century": "Thế kỷ VI TCN",
+      "year": "khoảng 590–580 TCN",
+      "narrative": "Một trong những bức tượng Kouros cẩm thạch hoàn chỉnh hiếm hoi còn tồn tại từ thời kỳ Cổ sơ (Archaic) của Hy Lạp. Từng cơ bắp, đầu gối và lọn tóc xoắn ốc được đục trực tiếp từ khối cẩm thạch Naxos nguyên khối.",
+      "technique": "Đục đẽo từ đá cẩm thạch Naxos (Naxian marble) hạt thô. Bề mặt nhẵn bóng nhưng gờ cơ thể nổi rõ tạo nên sự chuyển sắc ánh sáng mềm mại.",
+      "curatorial": "Kiệt tác điêu khắc Hy Lạp cổ đại có niên đại gần 2.600 năm, đặt nền móng cho toàn bộ nghệ thuật tạo hình phương Tây.",
+      "specs": [
+        {
+          "label": "Chất liệu",
+          "value": "Đá cẩm thạch đảo Naxos (Naxian Marble)"
+        },
+        {
+          "label": "Niên đại",
+          "value": "khoảng 590–580 TCN (Thời kỳ Cổ sơ)"
+        },
+        {
+          "label": "Kích thước",
+          "value": "Cao 194.6 cm (Vượt tầm vóc người thật)"
+        },
+        {
+          "label": "Số hiệu hiện vật",
+          "value": "The Met Accession No. 32.11.1"
+        }
+      ],
+      "source": {
+        "museum": "The Metropolitan Museum of Art (The Met)",
+        "license": "CC0 (Open Access) — Công cộng",
+        "searchUrl": "https://www.metmuseum.org/art/collection/search/253370"
+      },
+      "image": "/assets/images/greek-wounded-amazon.jpg",
+      "depth": "/assets/depths/greek-wounded-amazon.png",
+      "alt": "Tượng cẩm thạch Hy Lạp cổ đại tạc hình thanh niên Kouros đứng thẳng"
+    },
+    {
+      "id": "wheat-field-cypresses",
+      "room": "II",
+      "roomName": "II · Bậc Thầy Sơn Dầu & Impasto",
+      "title": "Cánh Đồng Lúa Với Cây Bách",
+      "artist": "Vincent van Gogh",
+      "origin": "Saint-Rémy-de-Provence, Pháp, 1889",
+      "category": "TRANH SƠN DẦU",
+      "century": "Thế kỷ XIX",
+      "year": "1889",
+      "narrative": "Được sáng tác tại viện điều dưỡng Saint-Paul ở Saint-Rémy. Cây bách sừng sững như ngọn lửa đen vươn thẳng lên bầu trời mây cuộn xoáy. Van Gogh phết từng vệt sơn dầu dày đặc trực tiếp từ ống sơn lên toan, tạo thành những dải địa hình nhấp nhô sống động.",
+      "technique": "Kỹ thuật đắp nổi sơn dầu (heavy impasto) bằng dao phết và cọ lông cứng. Đây là mẫu vật lý tưởng nhất cho thuật toán Relighting, khi mỗi gờ sơn trở thành bờ tường hứng sáng và đổ bóng dài.",
+      "curatorial": "Tác phẩm đắt giá thuộc bộ sưu tập chính của The Met. Dưới ánh sáng hoàng hôn, các vệt vàng rực của lúa chín bừng sáng như vừa hoàn thành.",
+      "specs": [
+        {
+          "label": "Chất liệu",
+          "value": "Sơn dầu đắp dày trên vải lanh (Heavy Impasto)"
+        },
+        {
+          "label": "Niên đại",
+          "value": "Tháng 6, 1889"
+        },
+        {
+          "label": "Kích thước",
+          "value": "73 × 93.4 cm"
+        },
+        {
+          "label": "Số hiệu hiện vật",
+          "value": "The Met Accession No. 1993.132"
+        }
+      ],
+      "source": {
+        "museum": "The Metropolitan Museum of Art (The Met)",
+        "license": "CC0 (Open Access) — Công cộng",
+        "searchUrl": "https://www.metmuseum.org/art/collection/search/436535"
+      },
+      "image": "/assets/images/wheat-field.jpg",
+      "depth": "/assets/depths/wheat-field.png",
+      "alt": "Tranh sơn dầu cánh đồng lúa vàng với cây bách cao vút và bầu trời cuộn mây của Van Gogh"
+    },
+    {
+      "id": "van-gogh-straw-hat",
+      "room": "II",
+      "roomName": "II · Bậc Thầy Sơn Dầu & Impasto",
+      "title": "Tự Họa Với Chiếc Mũ Rơm",
+      "artist": "Vincent van Gogh",
+      "origin": "Paris, Pháp, 1887",
+      "category": "TRANH SƠN DẦU",
+      "century": "Thế kỷ XIX",
+      "year": "1887",
+      "narrative": "Van Gogh vẽ bức chân dung tự họa này ở Paris khi ông không đủ tiền thuê người mẫu. Đôi mắt màu lục thẳm nhìn xoáy vào người xem, và chiếc mũ rơm đan bằng những vệt sơn màu vàng chanh - da cam đan xen nhau tạo nên vầng hào quang rực rỡ.",
+      "technique": "Phân chia màu sắc theo trường phái Tân Ấn tượng (Neo-Impressionist divisionism). Các nét cọ điểm màu rời rạc (pointillism) tạo độ nhấp nhô cực lớn cho bề mặt.",
+      "curatorial": "Mặt sau của bức tranh này là bức 'Người Gọt Khoai Tây', minh chứng cho giai đoạn thiếu thốn nhưng thăng hoa tột bậc của danh họa.",
+      "specs": [
+        {
+          "label": "Chất liệu",
+          "value": "Sơn dầu trên bìa cứng gắn toan"
+        },
+        {
+          "label": "Niên đại",
+          "value": "Mùa hè, 1887"
+        },
+        {
+          "label": "Kích thước",
+          "value": "40.6 × 31.8 cm"
+        },
+        {
+          "label": "Số hiệu hiện vật",
+          "value": "The Met Accession No. 67.187.70a"
+        }
+      ],
+      "source": {
+        "museum": "The Metropolitan Museum of Art (The Met)",
+        "license": "CC0 (Open Access) — Công cộng",
+        "searchUrl": "https://www.metmuseum.org/art/collection/search/436532"
+      },
+      "image": "/assets/images/van-gogh-straw-hat.jpg",
+      "depth": "/assets/depths/van-gogh-straw-hat.png",
+      "alt": "Chân dung tự họa của Vincent van Gogh đội mũ rơm với ánh mắt nghiêm nghị"
+    },
+    {
+      "id": "van-gogh-cypresses",
+      "room": "II",
+      "roomName": "II · Bậc Thầy Sơn Dầu & Impasto",
+      "title": "Những Cây Bách (Cypresses)",
+      "artist": "Vincent van Gogh",
+      "origin": "Saint-Rémy, Pháp, 1889",
+      "category": "TRANH SƠN DẦU",
+      "century": "Thế kỷ XIX",
+      "year": "1889",
+      "narrative": "Bức tranh cận cảnh hai cây bách đồ sộ che kín bầu trời hình trăng lưỡi liềm. Van Gogh ví cây bách như đài tưởng niệm Ai Cập cổ đại. Các nhát cọ xoắn bện vào nhau như những sợi dây thừng xúc cảm mãnh liệt.",
+      "technique": "Sơn dầu impasto với nhát cọ dạng sóng xoắn ốc (swirling brushstrokes). Chiều dày lớp sơn có nơi lên đến 4 milimet.",
+      "curatorial": "Một trong những tác phẩm tiêu biểu nhất về chủ đề cây bách của Van Gogh tại The Met, được lưu trữ và bảo quản nghiêm ngặt.",
+      "specs": [
+        {
+          "label": "Chất liệu",
+          "value": "Sơn dầu trên toan lanh thô"
+        },
+        {
+          "label": "Niên đại",
+          "value": "Cuối tháng 6, 1889"
+        },
+        {
+          "label": "Kích thước",
+          "value": "93.4 × 74 cm"
+        },
+        {
+          "label": "Số hiệu hiện vật",
+          "value": "The Met Accession No. 49.30"
+        }
+      ],
+      "source": {
+        "museum": "The Metropolitan Museum of Art (The Met)",
+        "license": "CC0 (Open Access) — Công cộng",
+        "searchUrl": "https://www.metmuseum.org/art/collection/search/437980"
+      },
+      "image": "/assets/images/van-gogh-cypresses.jpg",
+      "depth": "/assets/depths/van-gogh-cypresses.png",
+      "alt": "Tranh sơn dầu hai cây bách cao vút vặn xoắn trên nền trời trăng khuyết của Van Gogh"
+    },
+    {
+      "id": "van-gogh-bedroom",
+      "room": "II",
+      "roomName": "II · Bậc Thầy Sơn Dầu & Impasto",
+      "title": "Phòng Ngủ Tại Arles",
+      "artist": "Vincent van Gogh",
+      "origin": "Arles, Pháp, 1889",
+      "category": "TRANH SƠN DẦU",
+      "century": "Thế kỷ XIX",
+      "year": "1889",
+      "narrative": "Căn phòng nhỏ thanh bình tại Nhà Vàng ở Arles. Van Gogh muốn bức tranh gợi tả cảm giác an yên tuyệt đối thông qua những mảng màu vàng gỗ, xanh ngọc và tím tử đinh hương.",
+      "technique": "Sơn dầu phủ màu phẳng kết hợp viền sắc nét, tương phản với những mảng sơn đắp dày ở khung giường và chân ghế.",
+      "curatorial": "Bản vẽ thứ hai trong loạt ba bức tranh danh tiếng, thuộc bộ sưu tập vĩnh viễn của Viện Nghệ thuật Chicago (Art Institute of Chicago).",
+      "specs": [
+        {
+          "label": "Chất liệu",
+          "value": "Sơn dầu trên vải toan"
+        },
+        {
+          "label": "Niên đại",
+          "value": "Tháng 9, 1889"
+        },
+        {
+          "label": "Kích thước",
+          "value": "73.6 × 92.3 cm"
+        },
+        {
+          "label": "Số hiệu hiện vật",
+          "value": "AIC Reference No. 1926.252"
+        }
+      ],
+      "source": {
+        "museum": "Art Institute of Chicago",
+        "license": "CC0 (Open Access) — Công cộng",
+        "searchUrl": "https://www.artic.edu/artworks/28560/the-bedroom"
+      },
+      "image": "/assets/images/bedroom.jpg",
+      "depth": "/assets/depths/bedroom.png",
+      "alt": "Tranh sơn dầu căn phòng ngủ màu vàng ấm với giường gỗ và hai chiếc ghế ở Arles"
+    },
+    {
+      "id": "rembrandt-aristotle",
+      "room": "II",
+      "roomName": "II · Bậc Thầy Sơn Dầu & Impasto",
+      "title": "Aristotle Bên Tượng Bán Thân Homer",
+      "artist": "Rembrandt van Rijn",
+      "origin": "Amsterdam, Hà Lan, 1653",
+      "category": "TRANH SƠN DẦU",
+      "century": "Thế kỷ XVII",
+      "year": "1653",
+      "narrative": "Nhà triết học Aristotle mặc áo choàng đen sang trọng, đeo sợi xích vàng do vua Alexander Đại đế ban tặng, đặt tay lên bức tượng đá của nhà thơ mù Homer. Rembrandt dồn toàn bộ sự đối lập chiaroscuro giữa bóng tối u uẩn và ngọn đèn vàng rực rỡ.",
+      "technique": "Sơn dầu chiaroscuro đỉnh cao thời Hoàng kim Hà Lan. Vùng sáng ở tay áo và sợi xích vàng được đắp sơn cực dày, còn vùng bóng tối được quét lớp dầu bóng mỏng tang (glaze).",
+      "curatorial": "Tác phẩm hội họa giá trị nhất của Rembrandt tại Tây Bán Cầu, niềm tự hào bảo vật của The Met.",
+      "specs": [
+        {
+          "label": "Chất liệu",
+          "value": "Sơn dầu trên toan lanh thô"
+        },
+        {
+          "label": "Niên đại",
+          "value": "1653"
+        },
+        {
+          "label": "Kích thước",
+          "value": "143.5 × 136.5 cm"
+        },
+        {
+          "label": "Số hiệu hiện vật",
+          "value": "The Met Accession No. 61.198"
+        }
+      ],
+      "source": {
+        "museum": "The Metropolitan Museum of Art (The Met)",
+        "license": "CC0 (Open Access) — Công cộng",
+        "searchUrl": "https://www.metmuseum.org/art/collection/search/437394"
+      },
+      "image": "/assets/images/aristotle.jpg",
+      "depth": "/assets/depths/aristotle.png",
+      "alt": "Chân dung triết gia Aristotle trầm tư bên tượng bán thân nhà thơ Homer"
+    },
+    {
+      "id": "rembrandt-floras",
+      "room": "II",
+      "roomName": "II · Bậc Thầy Sơn Dầu & Impasto",
+      "title": "Chân Dung Tự Họa Của Rembrandt (1660)",
+      "artist": "Rembrandt van Rijn",
+      "origin": "Amsterdam, Hà Lan, 1660",
+      "category": "TRANH SƠN DẦU",
+      "century": "Thế kỷ XVII",
+      "year": "1660",
+      "narrative": "Rembrandt tự họa ở tuổi 54, thời điểm ông đối mặt với phá sản và nỗi đau mất người thân. Nhưng ánh mắt kiên nghị và kỹ thuật đắp sơn bậc thầy cho thấy một tâm hồn nghệ sĩ bất khuất.",
+      "technique": "Phết sơn tự do (broad impasto), vạch cọ bằng đuôi cọ gỗ để tạo nếp nhăn và râu tóc bạc phơ.",
+      "curatorial": "Một trong những bức chân dung sâu sắc nhất về bản thể con người trong lịch sử mỹ thuật nhân loại.",
+      "specs": [
+        {
+          "label": "Chất liệu",
+          "value": "Sơn dầu trên toan"
+        },
+        {
+          "label": "Niên đại",
+          "value": "1660"
+        },
+        {
+          "label": "Kích thước",
+          "value": "80.3 × 67.3 cm"
+        },
+        {
+          "label": "Số hiệu hiện vật",
+          "value": "The Met Accession No. 14.40.618"
+        }
+      ],
+      "source": {
+        "museum": "The Metropolitan Museum of Art (The Met)",
+        "license": "CC0 (Open Access) — Công cộng",
+        "searchUrl": "https://www.metmuseum.org/art/collection/search/437397"
+      },
+      "image": "/assets/images/rembrandt-floras.jpg",
+      "depth": "/assets/depths/rembrandt-floras.png",
+      "alt": "Chân dung tự họa tuổi 54 của danh họa Rembrandt van Rijn"
+    },
+    {
+      "id": "monet-water-lilies",
+      "room": "II",
+      "roomName": "II · Bậc Thầy Sơn Dầu & Impasto",
+      "title": "Chèo Thuyền Trên Sông Seine (Boating)",
+      "artist": "Édouard Manet",
+      "origin": "Argenteuil, Pháp, 1874",
+      "category": "TRANH SƠN DẦU",
+      "century": "Thế kỷ XIX",
+      "year": "1874",
+      "narrative": "Một ngày hè rực nắng trên sông Seine tại Argenteuil. Màu lam ngọc của nước sông được vẽ bằng những nhát cọ phóng khoáng dứt khoát, bắt trọn khoảnh khắc lấp lánh của ánh sáng tự nhiên.",
+      "technique": "Vẽ trực họa ngoài trời (plein-air) với các vệt màu tươi sáng không pha trộn (alla prima).",
+      "curatorial": "Tác phẩm đánh dấu sự hòa nhập ngoạn mục của Manet với phong trào Ấn tượng thuở sơ khai.",
+      "specs": [
+        {
+          "label": "Chất liệu",
+          "value": "Sơn dầu trên toan"
+        },
+        {
+          "label": "Niên đại",
+          "value": "1874"
+        },
+        {
+          "label": "Kích thước",
+          "value": "97.2 × 130.2 cm"
+        },
+        {
+          "label": "Số hiệu hiện vật",
+          "value": "The Met Accession No. 29.100.115"
+        }
+      ],
+      "source": {
+        "museum": "The Metropolitan Museum of Art (The Met)",
+        "license": "CC0 (Open Access) — Công cộng",
+        "searchUrl": "https://www.metmuseum.org/art/collection/search/436947"
+      },
+      "image": "/assets/images/monet-water-lilies.jpg",
+      "depth": "/assets/depths/monet-water-lilies.png",
+      "alt": "Cặp đôi chèo thuyền buồm trên dòng sông Seine xanh ngắt của Édouard Manet"
+    },
+    {
+      "id": "cezanne-apples",
+      "room": "II",
+      "roomName": "II · Bậc Thầy Sơn Dầu & Impasto",
+      "title": "Bà Bói Đoán Vận Mệnh (The Fortune-Teller)",
+      "artist": "Georges de La Tour",
+      "origin": "Lorraine, Pháp, khoảng 1630s",
+      "category": "TRANH SƠN DẦU",
+      "century": "Thế kỷ XVII",
+      "year": "khoảng 1630s",
+      "narrative": "Một chàng trai trẻ giàu có đang bị bà bói già mê hoặc trong khi những cô gái xung quanh bí mật cắt túi tiền và rút sợi dây chuyền vàng của anh ta. Ánh sáng vàng rọi vào từng nếp gấm thêu và đồ trang sức bằng bạc.",
+      "technique": "Sơn dầu kiểu Caravaggesque với độ mịn và vi chi tiết vải vóc đạt độ tinh xảo kỳ ảo.",
+      "curatorial": "Tuyệt tác hội họa Pháp thế kỷ XVII, minh chứng cho sự sắc bén trong miêu tả tâm lý và kết cấu vật chất.",
+      "specs": [
+        {
+          "label": "Chất liệu",
+          "value": "Sơn dầu trên toan"
+        },
+        {
+          "label": "Niên đại",
+          "value": "khoảng 1630s"
+        },
+        {
+          "label": "Kích thước",
+          "value": "101.9 × 123.5 cm"
+        },
+        {
+          "label": "Số hiệu hiện vật",
+          "value": "The Met Accession No. 60.30"
+        }
+      ],
+      "source": {
+        "museum": "The Metropolitan Museum of Art (The Met)",
+        "license": "CC0 (Open Access) — Công cộng",
+        "searchUrl": "https://www.metmuseum.org/art/collection/search/436838"
+      },
+      "image": "/assets/images/cezanne-apples.jpg",
+      "depth": "/assets/depths/cezanne-apples.png",
+      "alt": "Bức tranh kịch tính cảnh chàng quý tộc trẻ bị móc túi dưới sự mê hoặc của bà bói"
+    },
+    {
+      "id": "vermeer-water-pitcher",
+      "room": "II",
+      "roomName": "II · Bậc Thầy Sơn Dầu & Impasto",
+      "title": "Chân Dung Lucas van Uffel",
+      "artist": "Anthony van Dyck",
+      "origin": "Antwerp / Ý, khoảng 1622",
+      "category": "TRANH SƠN DẦU",
+      "century": "Thế kỷ XVII",
+      "year": "khoảng 1622",
+      "narrative": "Thương gia và nhà bảo trợ nghệ thuật người Flemish Lucas van Uffel đứng dậy khỏi bàn làm việc, tay cầm com-pa hình học. Chiếc áo nhung đen tuyền và vòng cổ đăng ten trắng bắt trọn ánh sáng tự nhiên một cách quý phái.",
+      "technique": "Kỹ thuật vờn màu sơn dầu quý tộc của Van Dyck, lớp nhung sẫm tương phản với các cạnh sắc của dụng cụ đo đạc.",
+      "curatorial": "Một trong những bức chân dung xuất sắc nhất của Anthony van Dyck được lưu giữ tại The Met.",
+      "specs": [
+        {
+          "label": "Chất liệu",
+          "value": "Sơn dầu trên toan"
+        },
+        {
+          "label": "Niên đại",
+          "value": "khoảng 1622"
+        },
+        {
+          "label": "Kích thước",
+          "value": "124.5 × 100.6 cm"
+        },
+        {
+          "label": "Số hiệu hiện vật",
+          "value": "The Met Accession No. 14.40.619"
+        }
+      ],
+      "source": {
+        "museum": "The Metropolitan Museum of Art (The Met)",
+        "license": "CC0 (Open Access) — Công cộng",
+        "searchUrl": "https://www.metmuseum.org/art/collection/search/436253"
+      },
+      "image": "/assets/images/vermeer-water-pitcher.jpg",
+      "depth": "/assets/depths/vermeer-water-pitcher.png",
+      "alt": "Chân dung thương nhân Flemish Lucas van Uffel cầm com-pa bên bàn sách"
+    },
+    {
+      "id": "seurat-circus-sideshow",
+      "room": "II",
+      "roomName": "II · Bậc Thầy Sơn Dầu & Impasto",
+      "title": "Phác Thảo Cho Chiều Chủ Nhật Trên Đảo La Grande Jatte",
+      "artist": "Georges Seurat",
+      "origin": "Paris, Pháp, 1884",
+      "category": "TRANH SƠN DẦU",
+      "century": "Thế kỷ XIX",
+      "year": "1884",
+      "narrative": "Bản phác thảo sơn dầu đầu tiên cho kiệt tác điểm màu (Pointillism) lừng danh thế giới. Những chấm màu nguyên chất đặt cạnh nhau trên mặt toan tạo ra độ rung quang học kỳ ảo cho mắt người xem.",
+      "technique": "Điểm màu chấm hạt (Pointillism / Chromoluminarism) trên toan. Mỗi chấm sơn là một hạt lồi vi mô hứng sáng.",
+      "curatorial": "Bản phác thảo hiếm quý của Seurat giúp các nhà phục chế giải mã quá trình sáng tác kiệt tác thế kỷ.",
+      "specs": [
+        {
+          "label": "Chất liệu",
+          "value": "Sơn dầu trên ván gỗ"
+        },
+        {
+          "label": "Niên đại",
+          "value": "1884"
+        },
+        {
+          "label": "Kích thước",
+          "value": "15.6 × 24.1 cm"
+        },
+        {
+          "label": "Số hiệu hiện vật",
+          "value": "The Met Accession No. 51.112.6"
+        }
+      ],
+      "source": {
+        "museum": "The Metropolitan Museum of Art (The Met)",
+        "license": "CC0 (Open Access) — Công cộng",
+        "searchUrl": "https://www.metmuseum.org/art/collection/search/437658"
+      },
+      "image": "/assets/images/seurat-circus-sideshow.jpg",
+      "depth": "/assets/depths/seurat-circus-sideshow.png",
+      "alt": "Bản phác thảo điểm màu cảnh người dân dạo chơi trên bãi cỏ sông Seine của Seurat"
+    },
+    {
+      "id": "hokusai-great-wave",
+      "room": "III",
+      "roomName": "III · Khắc Gỗ Ukiyo-e & Mỹ Nghệ Á Đông",
+      "title": "Làn Sóng Lớn Ngoài Khơi Kanagawa",
+      "artist": "Katsushika Hokusai",
+      "origin": "Edo, Nhật Bản, khoảng 1830–1832",
+      "category": "KHẮC GỖ UKIYO-E",
+      "century": "Thế kỷ XIX",
+      "year": "khoảng 1830–1832",
+      "narrative": "Con sóng thần khổng lồ với những ngón bọt biển vươn ra như móng vuốt, nuốt chửng ba chiếc thuyền chở cá nhỏ bé, trong khi ngọn núi Phú Sĩ tuyết phủ đứng lặng thinh nơi đường chân trời. Bản in đỉnh cao của dòng tranh Phù Thế.",
+      "technique": "In mộc bản nhiều thớ gỗ màu (Nishiki-e) bằng phẩm xanh Phổ (Prussian Blue) trên giấy dâu tằm washi ép thủ công. Các đường gân khắc gỗ in hằn vết nén vào thớ giấy.",
+      "curatorial": "Bản in nguyên tác quý giá thuộc bộ sưu tập H.O. Havemeyer của The Met.",
+      "specs": [
+        {
+          "label": "Chất liệu",
+          "value": "Mực khoáng và màu nước in mộc bản trên giấy washi"
+        },
+        {
+          "label": "Niên đại",
+          "value": "khoảng 1830–1832 (Thời kỳ Edo)"
+        },
+        {
+          "label": "Kích thước",
+          "value": "25.7 × 37.8 cm"
+        },
+        {
+          "label": "Số hiệu hiện vật",
+          "value": "The Met Accession No. JP1847"
+        }
+      ],
+      "source": {
+        "museum": "The Metropolitan Museum of Art (The Met)",
+        "license": "CC0 (Open Access) — Công cộng",
+        "searchUrl": "https://www.metmuseum.org/art/collection/search/45434"
+      },
+      "image": "/assets/images/great-wave.jpg",
+      "depth": "/assets/depths/great-wave.png",
+      "alt": "Bản khắc gỗ Nhật Bản cảnh sóng lớn trùm lên ba chiếc thuyền và núi Phú Sĩ phía xa"
+    },
+    {
+      "id": "hokusai-red-fuji",
+      "room": "III",
+      "roomName": "III · Khắc Gỗ Ukiyo-e & Mỹ Nghệ Á Đông",
+      "title": "Hộp Sơn Mài Inrō Thọ Tinh & Rùa Thần",
+      "artist": "Tachibana Gyokuzan",
+      "origin": "Nhật Bản, thế kỷ XIX",
+      "category": "SƠN MÀI NỔI TAKAMAKIE",
+      "century": "Thế kỷ XIX",
+      "year": "Thế kỷ XIX",
+      "narrative": "Hộp thuốc cá nhân đeo hông (Inrō) của võ sĩ samurai, chế tác bằng kỹ thuật rắc bột vàng và đắp nổi phù điêu sơn mài (Takamakie). Từng vảy mai rùa và chòm râu của Thọ tinh được đắp nổi ba chiều phản chiếu ánh sáng lộng lẫy.",
+      "technique": "Sơn mài đen bóng phủ bột vàng, bột bạc và đắp nổi phù điêu (Takamakie relief). Bề mặt nhẵn bóng nhưng các chi tiết nổi cao phản xạ ánh sáng điểm cực sắc.",
+      "curatorial": "Hiện vật tinh xảo thuộc Bộ sưu tập Nghệ thuật Châu Á của The Met.",
+      "specs": [
+        {
+          "label": "Chất liệu",
+          "value": "Gỗ phủ sơn mài, bột vàng và phù điêu đắp nổi (Takamakie)"
+        },
+        {
+          "label": "Niên đại",
+          "value": "Thế kỷ XIX (Thời kỳ Edo / Meiji)"
+        },
+        {
+          "label": "Kích thước",
+          "value": "8.4 × 5.3 × 1.9 cm"
+        },
+        {
+          "label": "Số hiệu hiện vật",
+          "value": "The Met Accession No. 13.67.25"
+        }
+      ],
+      "source": {
+        "museum": "The Metropolitan Museum of Art (The Met)",
+        "license": "CC0 (Open Access) — Công cộng",
+        "searchUrl": "https://www.metmuseum.org/art/collection/search/45435"
+      },
+      "image": "/assets/images/hokusai-red-fuji.jpg",
+      "depth": "/assets/depths/hokusai-red-fuji.png",
+      "alt": "Hộp sơn mài đen rắc bột vàng đắp nổi phù điêu Thọ tinh của nghệ nhân Nhật Bản"
+    },
+    {
+      "id": "unicorn-in-captivity",
+      "room": "IV",
+      "roomName": "IV · Sợi Dệt & Thảm Tapestry",
+      "title": "Kỳ Lân Bị Giam Giữ (The Unicorn in Captivity)",
+      "artist": "Thợ dệt Nam Hà Lan khuyết danh",
+      "origin": "Nam Hà Lan (Brussels / Liège), khoảng 1495–1505",
+      "category": "THẢM DỆT TAPESTRY",
+      "century": "Thế kỷ XV",
+      "year": "khoảng 1495–1505",
+      "narrative": "Con kỳ lân trắng muốt bị xích vào cây lựu trĩu quả trong một hàng rào gỗ giữa đồng hoa millefleurs nghìn sắc. Bức thảm dệt chứa hàng chục triệu mũi dệt tay từ sợi len thô, tơ tằm, sợi chỉ bạc và sợi bọc vàng ròng.",
+      "technique": "Kỹ thuật dệt thảm thủ công go sợi dọc (tapestry weave). Trong triển lãm, bức thảm được chia thành 26 dải sợi ruy-băng ngang độc lập (Unwoven Loom) để tôn vinh bản chất dệt sợi nguyên bản.",
+      "curatorial": "Bảo vật vô giá thuộc Bộ sưu tập The Cloisters của The Met, biểu tượng đỉnh cao của nghệ thuật dệt thời Trung Cổ sang Phục hưng.",
+      "specs": [
+        {
+          "label": "Chất liệu",
+          "value": "Sợi len, tơ tằm, chỉ bọc bạc và chỉ bọc vàng ròng"
+        },
+        {
+          "label": "Niên đại",
+          "value": "khoảng 1495–1505"
+        },
+        {
+          "label": "Kích thước",
+          "value": "368 × 251.5 cm (Cao 3.68m, Rộng 2.51m)"
+        },
+        {
+          "label": "Số hiệu hiện vật",
+          "value": "The Met Accession No. 37.80.6"
+        }
+      ],
+      "source": {
+        "museum": "The Metropolitan Museum of Art (The Cloisters)",
+        "license": "CC0 (Open Access) — Công cộng",
+        "searchUrl": "https://www.metmuseum.org/art/collection/search/467642"
+      },
+      "image": "/assets/images/unicorn-tapestry.jpg",
+      "depth": "/assets/depths/unicorn-tapestry.png",
+      "alt": "Tấm thảm dệt kỳ lân trắng bị xích vào cây lựu giữa vườn hoa millefleurs thời Phục hưng"
+    },
+    {
+      "id": "unicorn-hunters",
+      "room": "IV",
+      "roomName": "IV · Sợi Dệt & Thảm Tapestry",
+      "title": "Phù Điêu Khắc Ngọc Sardonyx Hercules",
+      "artist": "Nghệ nhân đá quý thời Trung Cổ khuyết danh",
+      "origin": "Nam Ý hoặc Sicily, khoảng 1220–1240",
+      "category": "ĐIÊU KHẮC NGỌC CAMEO",
+      "century": "Thế kỷ XIII",
+      "year": "khoảng 1220–1240",
+      "narrative": "Một tác phẩm chạm khắc ngọc nhiều lớp (cameo) hiếm có mô tả dũng sĩ Hercules diệt sư tử Nemean. Nghệ nhân tận dụng các lớp màu tự nhiên của đá mã não sardonyx để tạo chiều sâu nổi khối cho hình tượng anh hùng.",
+      "technique": "Chạm khắc ngọc vi mô (glyptic cameo carving) trên đá mã não sardonyx nhiều tầng lớp màu.",
+      "curatorial": "Hiện vật trang sức và điêu khắc đá quý tinh hoa từ thời hoàng đế Frederick II thuộc bộ sưu tập Nghệ thuật Trung Cổ The Met.",
+      "specs": [
+        {
+          "label": "Chất liệu",
+          "value": "Đá mã não Sardonyx chạm nổi gắn khung vàng"
+        },
+        {
+          "label": "Niên đại",
+          "value": "khoảng 1220–1240"
+        },
+        {
+          "label": "Kích thước",
+          "value": "4.2 × 3.6 × 0.8 cm"
+        },
+        {
+          "label": "Số hiệu hiện vật",
+          "value": "The Met Accession No. 38.150.23"
+        }
+      ],
+      "source": {
+        "museum": "The Metropolitan Museum of Art (The Met)",
+        "license": "CC0 (Open Access) — Công cộng",
+        "searchUrl": "https://www.metmuseum.org/art/collection/search/467644"
+      },
+      "image": "/assets/images/unicorn-hunters.jpg",
+      "depth": "/assets/depths/unicorn-hunters.png",
+      "alt": "Mặt dây chuyền ngọc mã não khắc nổi dũng sĩ Hercules diệt sư tử Nemean"
+    }
+  ],
+  "timelineMilestones": [
+    {
+      "year": "883 TCN",
+      "era": "Lưỡng Hà Cổ Đại",
+      "title": "Phù Điêu Thần Hộ Mệnh Assyria",
+      "artworkId": "assyrian-winged-genie",
+      "room": "I"
+    },
+    {
+      "year": "590 TCN",
+      "era": "Hy Lạp Cổ Sơ",
+      "title": "Tượng Cẩm Thạch Kouros Attica",
+      "artworkId": "greek-wounded-amazon",
+      "room": "I"
+    },
+    {
+      "year": "50 TCN",
+      "era": "La Mã Thời Cộng Hòa",
+      "title": "Bích Họa Boscoreale Vesuvius",
+      "artworkId": "roman-dancing-maenad",
+      "room": "I"
+    },
+    {
+      "year": "1220",
+      "era": "Trung Cổ Nam Ý",
+      "title": "Khắc Ngọc Mã Não Sardonyx Hercules",
+      "artworkId": "unicorn-hunters",
+      "room": "IV"
+    },
+    {
+      "year": "1495",
+      "era": "Phục Hưng Nam Hà Lan",
+      "title": "Thảm Dệt Kỳ Lân Bị Giam Giữ",
+      "artworkId": "unicorn-in-captivity",
+      "room": "IV"
+    },
+    {
+      "year": "1622",
+      "era": "Hoàng Kim Flemish",
+      "title": "Chân Dung Lucas van Uffel của Van Dyck",
+      "artworkId": "vermeer-water-pitcher",
+      "room": "II"
+    },
+    {
+      "year": "1653",
+      "era": "Hoàng Kim Hà Lan",
+      "title": "Aristotle Bên Tượng Homer của Rembrandt",
+      "artworkId": "rembrandt-aristotle",
+      "room": "II"
+    },
+    {
+      "year": "1830",
+      "era": "Nhật Bản Thời Edo",
+      "title": "Làn Sóng Lớn Ngoài Khơi Kanagawa của Hokusai",
+      "artworkId": "hokusai-great-wave",
+      "room": "III"
+    },
+    {
+      "year": "1874",
+      "era": "Ấn Tượng Paris",
+      "title": "Chèo Thuyền Trên Sông Seine của Édouard Manet",
+      "artworkId": "monet-water-lilies",
+      "room": "II"
+    },
+    {
+      "year": "1889",
+      "era": "Hậu Ấn Tượng Saint-Rémy",
+      "title": "Cánh Đồng Lúa & Cây Bách của Van Gogh",
+      "artworkId": "wheat-field-cypresses",
+      "room": "II"
+    }
+  ],
+  "homeExperiences": {
+    "plasterWall": {
+      "chapter": "CHƯƠNG II",
+      "badge": "TẬP THÀNH PHÙ ĐIÊU & KHẮC CHÌM KÝ ỨC",
+      "title": "Chạm Vào Vết Hằn Thời Gian",
+      "subtitle": "Lấy cảm hứng từ những bức tường phù điêu thạch cao và ánh sáng xiên chiaroscuro. Hãy di chuyển ngọn đèn của bạn để đánh thức độ sâu của 2.800 năm lịch sử.",
+      "panels": [
+        {
+          "id": "panel-nimrud",
+          "artworkId": "assyrian-winged-genie",
+          "title": "Thạch Điêu Nimrud · Lưỡng Hà",
+          "era": "khoảng 883–859 TCN",
+          "material": "Đá Thạch Cao Thạch Điêu (Gypsum Alabaster)",
+          "quote": "« Đá không chết, đá chỉ chờ một tia sáng xiên quét qua để cất tiếng nói. »",
+          "story": "Từng được chạm khắc trong cung điện Tây Bắc của hoàng đế Ashurnasirpal II bên bờ sông Tigris. Người thợ khắc đã dùng lưỡi đục đồng tôi cứng để khắc từng sợi gân nổi trên cánh đại bàng và tua áo lễ phục. Khi tia nắng ban mai lọt qua giếng trời cung điện dưới góc 18 độ, bóng đổ sắc lẹm khiến vị thần hộ mệnh như đang bước ra khỏi vách đá.",
+          "reliefDepth": "18mm",
+          "lightAngle": "18° Raking",
+          "age": "2.885 năm",
+          "image": "/assets/images/assyrian-relief.jpg",
+          "actionLabel": "Soi Vết Đục Thạch Cao (3D)"
+        },
+        {
+          "id": "panel-vangogh",
+          "artworkId": "wheat-field-cypresses",
+          "title": "Địa Hình Sơn Dầu · Saint-Rémy",
+          "era": "Tháng 6, 1889",
+          "material": "Sơn Dầu Đắp Dày (Heavy Impasto) Trên Toan Lanh",
+          "quote": "« Tôi muốn vẽ bằng chính sự cuồng nhiệt của thể xác, nơi mỗi nhát dao là một nhịp đập của quả tim. »",
+          "story": "Van Gogh không vẽ bằng cách miết phẳng cọ; ông đắp sơn trực tiếp bằng dao bảng thành từng dãy núi nhỏ cao tới 4.2mm. Dầu hạt lanh tinh chế co rút qua hơn một thế kỷ tạo nên những thung lũng vi mô. Khi nguồn sáng quét ngang, mặt tranh biến thành một tiểu vũ trụ chập chùng bóng đổ, tái hiện cơn cuồng nộ và niềm khao khát sống mãnh liệt.",
+          "reliefDepth": "4.2mm",
+          "lightAngle": "15° Grazing",
+          "age": "137 năm",
+          "image": "/assets/images/wheat-field.jpg",
+          "actionLabel": "Soi Gờ Sơn Impasto (3D)"
+        },
+        {
+          "id": "panel-hokusai",
+          "artworkId": "hokusai-great-wave",
+          "title": "Thớ Gỗ Dâu Tằm & Mực Phổ Lam · Edo",
+          "era": "khoảng 1830–1832",
+          "material": "Mộc Bản Gỗ Anh Đào & Giấy Dâu Tằm Washi",
+          "quote": "« Đến năm 110 tuổi, mỗi chấm mực, mỗi nét vạch của tôi sẽ sống một sinh mệnh tự do. »",
+          "story": "Được khắc trên những thớ gỗ anh đào (Yamazakura) đanh mịn được hong khô suốt 3 mùa đông. Người nghệ nhân in dùng con lăn áp lực miết mạnh sắc tố lam Berlin (Prussian Blue) lún sâu vào thớ sợi dâu tằm xoắn bện. Dưới ánh sáng xiên góc thấp, độ gồ ghề của giấy thủ công Washi tạo ra ảo ảnh về bọt sóng Thái Bình Dương đang tung bay trên đầu ngón tay.",
+          "reliefDepth": "1.2mm",
+          "lightAngle": "24° Raking",
+          "age": "194 năm",
+          "image": "/assets/images/great-wave.jpg",
+          "actionLabel": "Soi Thớ Giấy Washi (3D)"
+        },
+        {
+          "id": "panel-unicorn",
+          "artworkId": "unicorn-in-captivity",
+          "title": "Mật Mã Sợi Dệt Millefleurs · Flanders",
+          "era": "khoảng 1495–1505",
+          "material": "Sợi Len Cừu, Tơ Tằm Óng & Chỉ Bọc Bạc Mạ Vàng",
+          "quote": "« Sợi chỉ xuyên qua đêm tối thời Trung Cổ, lưu giữ hương thơm của 101 loài cỏ hoa. »",
+          "story": "Được dệt thủ công bởi các nghệ nhân vùng Brussels trên khung dệt đứng. Hơn 8 triệu nút thắt đan cài giữa sợi len cừu dẻo dai và sợi tơ tằm óng ánh bắt sáng. Bức thảm không chỉ miêu tả thần thú Kỳ Lân mà còn ghi lại cấu trúc vi mô của 101 loài thực vật thời Trung cổ. Dưới ngọn nến lay động, sợi tơ tằm ánh lên như sương mai đọng trên cánh hoa.",
+          "reliefDepth": "3.5mm",
+          "lightAngle": "30° Ambient",
+          "age": "531 năm",
+          "image": "/assets/images/unicorn-tapestry.jpg",
+          "actionLabel": "Khám Phá Sợi Dệt (3D)"
+        }
+      ]
+    },
+    "materialAlchemy": {
+      "chapter": "CHƯƠNG III",
+      "badge": "BẢN TUYÊN NGÔN VẬT LIỆU & Ý NIỆM BÊN LỀ",
+      "title": "Bốn Nguyên Lý Của Xúc Giác",
+      "subtitle": "Bốn bài tiểu luận giám tuyển đi sâu vào bí mật hóa học sắc tố, giải phẫu vi mô và triết học thị giác thường bị lãng quên dưới ánh đèn bảo tàng thông thường.",
+      "essays": [
+        {
+          "id": "alchemy-polychromy",
+          "numeral": "I",
+          "title": "Vết Tích Sắc Màu Thất Lạc",
+          "subtitle": "Sự Tước Đoạt Của Thời Gian & Sự Thức Tỉnh Của Khối Đá",
+          "category": "KHẢO CỔ HỌC & BẢO TỒN",
+          "historicalSecret": "Khảo cổ học hiện đại với kỹ thuật huỳnh quang tia X (XRF) đã lật tẩy một ngộ nhận kéo dài hàng thế kỷ: tượng thần Hy Lạp và phù điêu Assyria không hề mang màu trắng thanh khiết. 2.800 năm trước, bức phù điêu Nimrud rực sáng với chu sa đỏ (cinnabar), bột lưu ly xanh (lapis lazuli) và lá vàng ròng.",
+          "peripheralIdea": "Thế kỷ XVIII, nhà sử học Johann Winckelmann đã vô tình đồng nhất 'vẻ đẹp lý tưởng cổ điển' với màu đá trắng trần trụi, khiến nhiều viện bảo tàng châu Âu từng dùng bàn chải sắt kỳ cọ sạch những mảng màu cổ sót lại. Nhưng sự biến mất của sắc tố lại là một món quà bất ngờ: khi chiếc áo màu sắc phù phiếm bị rửa trôi, con mắt người xem bị tước bỏ sự lóa mắt để bắt buộc phải chạm vào hình khối thuần khiết — từng đường búa đục dứt khoát, độ ráp của thạch cao và độ bóng tự nhiên của tinh thể đá.",
+          "quote": "« Thời gian đã rửa sạch lớp trang điểm của màu sắc để trả tác phẩm về với linh hồn vĩnh cửu của xúc giác. »",
+          "metrics": [
+            { "label": "Niên Đại Phong Hóa", "value": "2.885 Năm" },
+            { "label": "Phương Pháp Soi", "value": "Huỳnh Quang Tia X (XRF)" },
+            { "label": "Sắc Tố Cổ Đại", "value": "Cinnabar & Malachite" },
+            { "label": "Trạng Thái Xúc Giác", "value": "Đá Thạch Cao Thạch Điêu" }
+          ]
+        },
+        {
+          "id": "alchemy-impasto",
+          "numeral": "II",
+          "title": "Địa Hình 1cm² Sơn Dầu",
+          "subtitle": "Vật Lý Quang Học & Vi Mô Học Impasto",
+          "category": "HÓA LÝ VẬT LIỆU",
+          "historicalSecret": "Trong bức 'Cánh Đồng Lúa & Cây Bách', Vincent van Gogh không pha loãng màu với dầu hỏa mà bóp trực tiếp sơn dầu từ tuýp sắt lên toan lanh. Lớp sơn dầu dày tới 4.2mm khi khô không bốc hơi như nước mà trải qua phản ứng trùng hợp oxy hóa (oxidative polymerization) kéo dài hàng thập kỷ.",
+          "peripheralIdea": "Bề mặt ngoài tiếp xúc với không khí khô trước, co lại thành một lớp màng nhăn nheo đặc trưng, trong khi phần lõi bên trong vẫn ở trạng thái bán lỏng suốt nửa thế kỷ. Khi đặt nguồn sáng xiên 15 độ, mỗi gờ sơn đổ bóng dài gấp 3 lần chiều cao thực tế. Bằng việc di chuyển ngọn đèn ảo, ta không chỉ ngắm một bức tranh hai chiều; ta đang bay trên một rặng núi Alps vi mô nơi mỗi nhát dao phết sơn ghi lại chính nhịp thở gấp gáp và cơn rung cơ bắp của người họa sĩ.",
+          "quote": "« Một centimet vuông sơn dầu không phải là bề mặt phẳng; nó là một vùng địa lý chứa đầy sự giày vò và khát vọng sống. »",
+          "metrics": [
+            { "label": "Độ Cao Gờ Sơn", "value": "4.2mm (Đỉnh Đắp Dao)" },
+            { "label": "Hiện Tượng Hóa Học", "value": "Trùng Hợp Oxy Hóa Dầu Lanh" },
+            { "label": "Góc Đổ Bóng Tối Ưu", "value": "15° Raking Chiaroscuro" },
+            { "label": "Tỷ Lệ Bóng Đổ", "value": "3 : 1 Chiều Cao Gờ" }
+          ]
+        },
+        {
+          "id": "alchemy-matrix",
+          "numeral": "III",
+          "title": "Thuật Toán Ma Trận Sợi Dệt",
+          "subtitle": "Từ Khung Dệt Trung Cổ Đến Ma Trận WebGL",
+          "category": "TRIẾT HỌC KỸ THUẬT",
+          "historicalSecret": "Người ta thường nghĩ công nghệ nhị phân là phát kiến của thời đại máy tính. Nhưng nguồn gốc sâu xa của mã nhị phân 0-1 bắt đầu từ những khung dệt thảm thủ công của thế kỷ XV, tiền thân trực tiếp của máy dệt thẻ đục lỗ Jacquard và cỗ máy tính toán cơ học của Ada Lovelace.",
+          "peripheralIdea": "Bức thảm 'Kỳ Lân Bị Giam Giữ' chứa hơn 8 triệu nút giao giữa sợi dọc (warp) và sợi ngang (weft). Mỗi nút dệt là một quyết định nhị phân dứt khoát: sợi len nổi lên (1) hay chìm xuống (0). Mỗi sợi tơ tằm óng nhuộm rễ cây xuyến chi chính là một sub-pixel hữu cơ có khả năng tán xạ ánh sáng theo góc xiên. Trong ÉTHÉRÉ, thuật toán Unwoven Loom chia thảm thành 26 dải ruy-băng sóng liên tục để nhắc nhở rằng: nghệ thuật dệt sợi cổ xưa và đồ họa máy tính đương đại cùng chung một ngôn ngữ ma trận toán học.",
+          "metrics": [
+            { "label": "Điểm Nút Nhị Phân", "value": "8.200.000 Nút Dệt" },
+            { "label": "Mật Độ Sợi Dọc", "value": "120 Sợi / Inch" },
+            { "label": "Thảo Mộc Nhuộm", "value": "101 Loài Cây Tự Nhiên" },
+            { "label": "Dải Sợi Unwoven", "value": "26 Ribbon Buffers" }
+          ]
+        },
+        {
+          "id": "alchemy-shadows",
+          "numeral": "IV",
+          "title": "Khoảng Lặng Của Bóng Tối",
+          "subtitle": "Triết Lý Ánh Sáng Bảo Tàng & Nghệ Thuật Chiaroscuro",
+          "category": "TRIẾT HỌC THỊ GIÁC",
+          "historicalSecret": "Bảo tàng hiện đại đang mắc phải một căn bệnh thị giác: nỗi sợ bóng tối. Họ chiếu đèn trần 500 lux lạnh lẽo lên mọi bức họa, vô tình giết chết không gian mờ ảo Chiaroscuro mà các bậc thầy cổ điển đã dày công tạo tác.",
+          "peripheralIdea": "Rembrandt van Rijn chưa từng biết đến bóng đèn điện. Ông vẽ 'Aristotle Bên Tượng Homer' trong căn phòng tối tăm chỉ le lói một ngọn nến hoặc tia nắng yếu ớt lọt qua khe cửa sổ áp mái lúc xế chiều. Ánh sáng của Rembrandt không phải thứ ánh sáng đều đặn của máy móc; đó là thứ ánh sáng kịch tính phải vật lộn quyết liệt để thoát khỏi bóng tối đặc quánh. ÉTHÉRÉ tắt đi ánh sáng cố định của bảo tàng để trao ngọn đèn pin ảo vào tay bạn: chỉ khi bạn làm chủ bóng tối, bạn mới thực sự trân quý từng tia sáng.",
+          "quote": "« Bóng tối không phải là sự vắng mặt của ánh sáng; bóng tối là cái nôi nuôi dưỡng chiều sâu và bí mật của linh hồn tác phẩm. »",
+          "metrics": [
+            { "label": "Độ Sáng Bảo Tàng", "value": "500 Lux (Làm Phẳng Khối)" },
+            { "label": "Ánh Sáng Ngọn Nến", "value": "1.5 – 5 Lux (Nguyên Bản)" },
+            { "label": "Kỹ Thuật Dò Tia", "value": "12-Step Self-Shadowing" },
+            { "label": "Trạng Thái Thưởng Lãm", "value": "Chiaroscuro Tương Tác" }
+          ]
+        }
+      ]
+    },
+    "wingPortals": {
+      "chapter": "CHƯƠNG IV",
+      "badge": "LỐI DẪN VÀO 4 CÁNH BẢO TÀNG",
+      "title": "Không Gian Triển Lãm Độc Lập",
+      "subtitle": "Bốn hành lang kiến trúc phân định theo chất liệu và niên đại. Nhấp vào bất kỳ cánh nào để chuyển bước trực tiếp vào không gian chuyên biệt.",
+      "wings": [
+        {
+          "id": "wing-I",
+          "room": "I",
+          "numeral": "CÁNH I",
+          "name": "Cổ Vật & Phù Điêu Đá",
+          "era": "883 TCN – Thế Kỷ II SCN",
+          "artworkCount": "4 Hiện Vật",
+          "highlightArtworkId": "roman-dancing-maenad",
+          "desc": "Bích họa La Mã cổ đại biệt thự Boscoreale lưu giữ sắc đỏ son Pompeiian rực rỡ và tượng cẩm thạch Hy Lạp Cổ sơ.",
+          "image": "/assets/images/roman-dancing-maenad.jpg"
+        },
+        {
+          "id": "wing-II",
+          "room": "II",
+          "numeral": "CÁNH II",
+          "name": "Bậc Thầy Sơn Dầu & Impasto",
+          "era": "Thế Kỷ XVII – XIX",
+          "artworkCount": "5 Kiệt Tác",
+          "highlightArtworkId": "rembrandt-aristotle",
+          "desc": "Kiệt tác Chiaroscuro của Rembrandt với sợi dây chuyền vàng nặng trĩu và tay áo lụa trắng bắt sáng huyền ảo trong bóng tối.",
+          "image": "/assets/images/aristotle.jpg"
+        },
+        {
+          "id": "wing-III",
+          "room": "III",
+          "numeral": "CÁNH III",
+          "name": "Khắc Gỗ Ukiyo-e & Mỹ Nghệ Á Đông",
+          "era": "Thế Kỷ XV – XIX",
+          "artworkCount": "4 Kiệt Tác",
+          "highlightArtworkId": "hokusai-red-fuji",
+          "desc": "Núi Phú Sĩ Đỏ bừng sáng dưới gió thu và hộp sơn mài maki-e rắc bột vàng đắp nổi phù điêu thời kỳ Edo thịnh vượng.",
+          "image": "/assets/images/hokusai-red-fuji.jpg"
+        },
+        {
+          "id": "wing-IV",
+          "room": "IV",
+          "numeral": "CÁNH IV",
+          "name": "Nghệ Thuật Sợi Dệt & Thảm Len",
+          "era": "Thế Kỷ XIII – XVI",
+          "artworkCount": "4 Kiệt Tác",
+          "highlightArtworkId": "unicorn-hunters",
+          "desc": "Đoàn thợ săn quây quanh đài phun nước giữa rừng cấm, dệt bằng sợi len cừu và tơ tằm nguyên chất thời Trung Cổ Nam Ý.",
+          "image": "/assets/images/unicorn-hunters.jpg"
+        }
+      ]
+    }
+  },
+  "credits": {
+    "note": "Toàn bộ hình ảnh kiệt tác mỹ thuật đều thuộc chương trình Open Access (CC0) của The Metropolitan Museum of Art và Art Institute of Chicago.",
+    "colophon": "Triển lãm số ÉTHÉRÉ — Ánh Sáng Đi Qua Thời Gian. Được thiết kế và đóng gói theo chuẩn mực thương mại cao cấp."
+  }
+}

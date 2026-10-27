@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  
+  <!-- SEO & Open Graph Meta -->
+  <title>ÉTHÉRÉ Atelier — Musée &amp; Đại Triển Lãm 3D Relighting &amp; Unwoven Loom</title>
+  <meta name="description" content="Khám phá đại triển lãm nghệ thuật xúc giác 'Ánh Sáng Đi Qua Thời Gian' của ÉTHÉRÉ Atelier: 2.800 năm nghệ thuật từ phù điêu Assyria, kiệt tác sơn dầu Van Gogh, Rembrandt đến mộc bản Nhật Hokusai bằng Three.js WebGPU." />
+  <meta name="keywords" content="phòng tranh nghệ thuật, portfolio fine art, three.js webgpu, relighting, unwoven, the met open access, louvre, museum template, awwwards" />
+  <meta name="author" content="ÉTHÉRÉ Atelier &amp; Antigravity Studio" />
+  <meta name="theme-color" content="#F4F0E8" />
+  
+  <meta property="og:title" content="ÉTHÉRÉ Atelier — Ánh Sáng Đi Qua Thời Gian" />
+  <meta property="og:description" content="Dòng chảy các kiệt tác nghệ thuật xúc giác với hiệu ứng chiếu sáng 3D và dệt sợi Unwoven độc bản." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/assets/images/assyrian-relief.jpg" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>" />
+
+  <!-- Preconnect & Flawless Native Vietnamese Web Fonts (Lora + Playfair Display + Plus Jakarta Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" />
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="./css/layout.css" />
+  <link rel="stylesheet" href="./css/styles.css" />
+
+  <!-- Native ES Module Import Map (Allows running directly without Node.js or bundlers) -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./js/vendor/three.module.js",
+      "gsap": "./js/vendor/gsap/index.js"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- Accessibility Skip Link -->
+  <a href="#main-content" class="skip-link">Nhảy đến nội dung chính (Skip to content)</a>
+
+  <!-- Preloader Screen -->
+  <div id="preloader" aria-live="polite" role="status">
+    <div class="preloader-brand">ÉTHÉRÉ</div>
+    <div class="preloader-bar-wrap">
+      <div id="preloader-bar" class="preloader-bar"></div>
+    </div>
+    <div id="preloader-count" class="preloader-counter">0%</div>
+  </div>
+
+  <!-- Persistent Page Transition Curtain -->
+  <div id="transition-curtain" aria-hidden="true"></div>
+
+  <!-- Black & White Pixel Art Sharp Thorn Background & Grain Overlay -->
+  <div id="pixel-thorn-background" class="pixel-thorn-background" aria-hidden="true"></div>
+  <div id="grain-overlay" aria-hidden="true"></div>
+  <div id="torch-spotlight" aria-hidden="true"></div>
+
+  <!-- =======================================================================
+       SITE HEADER: LOUVRE-GRADE MULTI-TIER EDITORIAL NAVIGATION
+       ======================================================================= -->
+  <header class="site-header" role="banner">
+    <!-- Tier 1: Utility Rail (Search, Hours, Languages, Shaders, Tickets, Theme) -->
+    <div class="header-utility-bar">
+      <div class="utility-left">
+        <button type="button" id="btn-utility-search" class="btn-utility-search" title="Tìm kiếm tác phẩm [Phím /]">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span data-i18n="search-btn">Tìm Kiếm (Rechercher)</span>
+        </button>
+
+        <span class="utility-schedule">
+          <span class="utility-dot-live"></span>
+          <span data-i18n="schedule-text">09:00 – 18:00 Hàng Ngày · Mở Cửa Toàn Phần</span>
+        </span>
+      </div>
+
+      <div class="utility-right">
+        <!-- Shader & Code Modal Button -->
+        <button type="button" id="btn-open-shaders" class="btn-header-shader" title="Xem mã nguồn Shaders và Kiến trúc [Phím ?]">
+          <span>✦</span> <span data-i18n="shaders-btn">Shaders &amp; Code</span>
+        </button>
+
+        <!-- Haute-Couture Louvre Billetterie / Ticket & Purchase Pill CTA -->
+        <a href="#visit" class="btn-billetterie louvre-nav-item" data-nav="visit" title="Đặt lịch thưởng lãm hoặc mua bản quyền template">
+          <span class="btn-billetterie-sparkle">✦</span>
+          <span class="btn-billetterie-text" data-i18n="billetterie-btn">ĐẶT VÉ · BẢN QUYỀN</span>
+        </a>
+
+        <!-- Theme Switcher Button (Phím T) -->
+        <button 
+          type="button" 
+          id="theme-toggle-btn" 
+          class="theme-toggle-btn" 
+          aria-label="Chuyển đổi giao diện Sáng / Tối (Phím tắt: T)" 
+          title="Chuyển đổi giao diện (Phím T)">
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tier 2: Main Museum Categorized Navigation Bar -->
+    <div class="header-main-nav-bar">
+      <a href="#home" class="brand-emblem-wrap louvre-nav-item" data-nav="home" aria-label="ÉTHÉRÉ Atelier Trang Chủ">
+        <span class="brand-logo-text">ÉTHÉRÉ</span>
+        <span class="brand-tagline">Musée &amp; Galerie d'Art</span>
+      </a>
+
+      <nav class="louvre-nav" aria-label="Menu phân mục bảo tàng">
+        <a href="#home" class="louvre-nav-item active" data-nav="home" data-i18n="nav-home">Trang Chủ</a>
+        <a href="#exhibition" class="louvre-nav-item" data-nav="exhibition" data-i18n="nav-exhibition">Triển Lãm 3D</a>
+        <a href="#collection" class="louvre-nav-item" data-nav="collection" data-i18n="nav-collection">Kho Lưu Trữ</a>
+        <a href="#timeline" class="louvre-nav-item" data-nav="timeline" data-i18n="nav-timeline">Niên Đại</a>
+        <a href="#diptych" class="louvre-nav-item" data-nav="diptych" data-i18n="nav-diptych">✦ Đối Thoại 2 Thời Đại</a>
+        <a href="#curatorial" class="louvre-nav-item" data-nav="curatorial" data-i18n="nav-curatorial">Giám Tuyển</a>
+        <a href="#visit" class="louvre-nav-item" data-nav="visit" data-i18n="nav-visit">Đặt Vé / Mua Mẫu</a>
+      </nav>
+    </div>
+
+    <!-- Tier 3: Museum Breadcrumbs Bar -->
+    <nav class="museum-breadcrumbs" aria-label="Đường dẫn phân cấp bảo tàng">
+      <div class="breadcrumbs-inner">
+        <a href="#home" class="crumb-link louvre-nav-item" data-nav="home" id="crumb-root">🏛 Trang Chủ</a>
+        <span class="crumb-sep">/</span>
+        <span id="crumb-dept" class="crumb-text">Trưng Bày &amp; Sự Kiện</span>
+        <span class="crumb-sep">/</span>
+        <span id="crumb-title" class="crumb-current">Ánh Sáng Đi Qua Thời Gian</span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- =======================================================================
+       MAIN CONTENT CONTAINER: MULTI-VIEW PAGES ARCHITECTURE
+       ======================================================================= -->
+  <main id="main-content">
+    
+    <!-- =====================================================================
+         VIEW 1: HOME FOYER (Tiền sảnh tráng lệ & Băng chuyền Cinema Loom)
+         ===================================================================== -->
+    <div id="view-home" class="view-page is-active" role="region" aria-label="Tiền sảnh triển lãm">
+      <section id="home" class="section-home">
+        <!-- Centered Curatorial Masthead (Zero Clutter, No Broken Boxes) -->
+        <div class="foyer-masthead">
+          <div class="foyer-season-badge">
+            <span class="badge-dot"></span>
+            <span data-i18n="foyer-badge">LA PROGRAMMATION DU MUSÉE · MÙA THU 2026</span>
+          </div>
+          <h1 class="foyer-title" data-i18n="foyer-title">Ánh Sáng Đi Qua Thời Gian</h1>
+          <div class="foyer-subtitle-romantic" data-i18n="foyer-subtitle">
+            <span class="num-lining">2.800</span>&nbsp;Năm Nghệ Thuật Điêu Khắc · Sơn Dầu Impasto · Sợi Dệt
+          </div>
+          <p class="foyer-desc" data-i18n="foyer-desc">
+            Dòng chảy kiệt tác xúc giác nguyên bản từ <strong>The Met</strong> và <strong>Art Institute of Chicago</strong>. Tái hiện trải nghiệm bảo tàng thực thụ khi ánh sáng quét qua từng vết đục của phù điêu đá <strong>Nimrud</strong>, gờ sơn dày của <strong>Van Gogh</strong>, thớ giấy <strong>Hokusai</strong> và tấm thảm thêu Phục hưng.
+          </p>
+          <div class="foyer-actions">
+            <button type="button" id="btn-hero-enter-3d" class="btn-hero-primary">
+              <span class="btn-icon">▶</span> <span data-i18n="btn-enter-3d">Bước Vào Triển Lãm 3D</span>
+            </button>
+            <button type="button" id="btn-toggle-audio" class="btn-hero-secondary" title="Bật/Tắt không gian âm thanh viện bảo tàng">
+              <span id="audio-icon">♫</span> <span data-i18n="btn-audio-guide">Âm Thanh Bảo Tàng</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Cinema-Scale Continuous Ribbon Loom Stage (Unwoven 26-Ribbon Loom) -->
+        <div class="foyer-loom-wrap" id="foyer-loom-wrap" role="region" aria-label="Băng chuyền sợi dệt Unwoven liên tiếp quy mô điện ảnh">
+          <div id="foyer-carousel-stage"></div>
+        </div>
+
+        <div class="foyer-hint-bar">
+          <div class="foyer-hint-pill">
+            <span>✦</span> Kéo vuốt để trượt liên tiếp · Nhấp vào tranh để mở phòng 3D
+          </div>
+          <div style="font-family:monospace; font-size:0.72rem; color:var(--color-muted);">
+            [Phím 1–4: Chuyển phòng · T: Sáng/Tối · ?: Shaders · ← / →: Lật tranh]
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           CHAPTER II: BỨC TƯỜNG PHÙ ĐIÊU & KHẮC CHÌM KÝ ỨC (Half the Sky Inspiration)
+           Tactile sculpted plaster stone wall with raking chiaroscuro grazing light
+           =================================================================== -->
+      <section id="home-plaster-wall" class="section-plaster-wall" role="region" aria-label="Bức tường phù điêu thạch cao và ánh sáng xiên">
+        <div class="plaster-wall-backdrop"></div>
+        <div class="plaster-wall-container">
+          
+          <!-- Section Masthead -->
+          <div class="plaster-wall-header">
+            <div class="section-chapter-tag">
+              <span class="chapter-dot"></span>
+              <span id="plaster-chapter-badge" data-i18n="plaster-chapter">CHƯƠNG II · TẬP THÀNH PHÙ ĐIÊU &amp; KHẮC CHÌM KÝ ỨC</span>
+            </div>
+            <h2 class="plaster-wall-title" id="plaster-title" data-i18n="plaster-title">Chạm Vào Vết Hằn Thời Gian</h2>
+            <p class="plaster-wall-lead" id="plaster-subtitle" data-i18n="plaster-lead">
+              Lấy cảm hứng từ những bức tường phù điêu thạch cao và ánh sáng xiên chiaroscuro. Hãy di chuyển ngọn đèn của bạn để đánh thức độ sâu của 2.800 năm lịch sử.
+            </p>
+            
+            <!-- Interactive Grazing Light Direction Controls -->
+            <div class="plaster-light-control-bar">
+              <span class="control-label" data-i18n="light-control-label">Góc Chiếu Xiên (Raking Grazing Light):</span>
+              <div class="light-angle-presets" id="plaster-angle-presets">
+                <button type="button" class="angle-btn active" data-angle="18">18° Bình Minh Cổ Đại</button>
+                <button type="button" class="angle-btn" data-angle="45">45° Chiếu Nghiêng Bảo Tàng</button>
+                <button type="button" class="angle-btn" data-angle="75">75° Đỉnh Đầu Trực Xạ</button>
+                <button type="button" class="angle-btn" data-angle="12">12° Hoàng Hôn Xiên Sâu</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic 4 Bas-Relief Panels Grid -->
+          <div id="plaster-panels-grid" class="plaster-panels-grid">
+            <!-- Rendered dynamically from content.json -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           CHAPTER III: BỐN NGUYÊN LÝ CỦA XÚC GIÁC & Ý NIỆM GIÁM TUYỂN (AUGE Inspiration)
+           High-concept editorial split-screen with material alchemy & peripheral essays
+           =================================================================== -->
+      <section id="home-curatorial-alchemy" class="section-curatorial-alchemy" role="region" aria-label="Bản tuyên ngôn vật liệu và ý niệm bên lề">
+        <div class="alchemy-container">
+          
+          <div class="alchemy-section-header">
+            <div class="section-chapter-tag">
+              <span class="chapter-dot"></span>
+              <span id="alchemy-chapter-badge" data-i18n="alchemy-chapter">CHƯƠNG III · BẢN TUYÊN NGÔN VẬT LIỆU &amp; Ý NIỆM BÊN LỀ</span>
+            </div>
+            <h2 class="alchemy-section-title" id="alchemy-title" data-i18n="alchemy-title">Bốn Nguyên Lý Của Xúc Giác</h2>
+            <p class="alchemy-section-lead" id="alchemy-subtitle" data-i18n="alchemy-lead">
+              Bốn bài tiểu luận giám tuyển đi sâu vào bí mật hóa học sắc tố, giải phẫu vi mô và triết học thị giác thường bị lãng quên dưới ánh đèn bảo tàng thông thường.
+            </p>
+          </div>
+
+          <!-- Dynamic 4 Editorial Essays (Split-Screen Layouts) -->
+          <div id="alchemy-essays-list" class="alchemy-essays-list">
+            <!-- Rendered dynamically from content.json -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           CHAPTER IV: LỐI DẪN VÀO 4 CÁNH TRIỂN LÃM (Curatorial Chamber Portals)
+           Cinematic architectural gateways into Rooms I, II, III, IV
+           =================================================================== -->
+      <section id="home-chamber-portals" class="section-chamber-portals" role="region" aria-label="Lối dẫn vào 4 cánh triển lãm độc lập">
+        <div class="portals-container">
+          
+          <div class="portals-section-header">
+            <div class="section-chapter-tag">
+              <span class="chapter-dot"></span>
+              <span id="portals-chapter-badge" data-i18n="portals-chapter">CHƯƠNG IV · LỐI DẪN VÀO 4 CÁNH BẢO TÀNG</span>
+            </div>
+            <h2 class="portals-section-title" id="portals-title" data-i18n="portals-title">Không Gian Triển Lãm Độc Lập</h2>
+            <p class="portals-section-lead" id="portals-subtitle" data-i18n="portals-lead">
+              Bốn hành lang kiến trúc phân định theo chất liệu và niên đại. Nhấp vào bất kỳ cánh nào để chuyển bước trực tiếp vào không gian chuyên biệt.
+            </p>
+          </div>
+
+          <!-- Dynamic 4 Portal Gateway Cards -->
+          <div id="chamber-portals-grid" class="chamber-portals-grid">
+            <!-- Rendered dynamically from content.json -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           CHAPTER V: ARCHITECTURAL COLOPHON & MUSEUM CREDENTIALS
+           =================================================================== -->
+      <footer class="home-architectural-footer">
+        <div class="footer-inner">
+          <div class="footer-mast">
+            <div class="footer-logo">ÉTHÉRÉ</div>
+            <div class="footer-subtitle">Musée &amp; Galerie d'Art · Ánh Sáng Đi Qua Thời Gian</div>
+            <p class="footer-statement">
+              Một dự án số hóa di sản nghệ thuật xúc giác kết hợp giữa khảo cổ học bảo tàng, hóa lý vật liệu và thuật toán WebGPU/WebGL thời gian thực.
+            </p>
+            <div class="footer-openaccess-badge">
+              <span>🏛</span> CC0 1.0 Universal Public Domain Dedication · The Met &amp; Art Institute of Chicago
+            </div>
+          </div>
+
+          <div class="footer-links-col">
+            <span class="footer-col-title">CÁNH TRƯNG BÀY</span>
+            <a href="#collection" class="footer-link louvre-nav-item" data-nav="collection">Cánh I · Cổ Vật Nimrud &amp; Pompeii</a>
+            <a href="#collection" class="footer-link louvre-nav-item" data-nav="collection">Cánh II · Van Gogh &amp; Bậc Thầy Sơn Dầu</a>
+            <a href="#collection" class="footer-link louvre-nav-item" data-nav="collection">Cánh III · Mộc Bản Hokusai &amp; Washi</a>
+            <a href="#collection" class="footer-link louvre-nav-item" data-nav="collection">Cánh IV · Thảm Dệt Millefleurs Kỳ Lân</a>
+          </div>
+
+          <div class="footer-links-col">
+            <span class="footer-col-title">THÔNG TIN BẢO TÀNG</span>
+            <a href="#timeline" class="footer-link louvre-nav-item" data-nav="timeline">Trục Niên Đại 2.800 Năm</a>
+            <a href="#curatorial" class="footer-link louvre-nav-item" data-nav="curatorial">Lời Tựa Giám Tuyển</a>
+            <a href="#visit" class="footer-link louvre-nav-item" data-nav="visit">Đặt Vé Thưởng Lãm Trực Tiếp</a>
+            <a href="#visit" class="footer-link louvre-nav-item" data-nav="visit">Giấy Phép Bản Quyền Thương Mại</a>
+          </div>
+
+          <div class="footer-links-col">
+            <span class="footer-col-title">CÔNG NGHỆ &amp; MÃ NGUỒN</span>
+            <span class="footer-meta-item">Three.js r184 &amp; WebGPU Shader</span>
+            <span class="footer-meta-item">26-Ribbon Unwoven Loom Engine</span>
+            <span class="footer-meta-item">12-Step Raymarched Self-Shadowing</span>
+            <span class="footer-meta-item">Single-Source content.json Architecture</span>
+          </div>
+        </div>
+
+        <div class="footer-bottom-bar">
+          <div>© 2026 ÉTHÉRÉ Atelier. Toàn bộ hình ảnh nghệ thuật thuộc phạm vi công cộng (CC0 Open Access).</div>
+          <div>Thiết kế theo chuẩn mực bảo tàng quốc tế · Paris &amp; Hà Nội</div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- =====================================================================
+         VIEW 2: THE COLLECTION (Trang riêng biệt cho Kho lưu trữ & Bộ lọc)
+         ===================================================================== -->
+    <div id="view-collection" class="view-page" role="region" aria-label="Kho lưu trữ kiệt tác bảo tàng">
+      <section id="collection" class="page-section section-collection">
+        <div class="section-header-block">
+          <span class="section-pretitle" data-i18n="col-pretitle">KHO TÀNG BẢO TÀNG</span>
+          <h2 class="section-title" data-i18n="col-title">Kho Lưu Trữ 4 Cánh Triển Lãm</h2>
+          <p class="section-lead" data-i18n="col-lead">
+            Khám phá trọn bộ các kiệt tác nghệ thuật xúc giác thuộc phạm vi công cộng (CC0 Open Access). Nhấp vào bất kỳ tác phẩm nào để bước thẳng vào không gian thưởng lãm 3D tương tác.
+          </p>
+        </div>
+
+        <!-- Real-Time Filter & Search Controls -->
+        <div class="collection-filter-bar">
+          <div class="category-chips">
+            <button type="button" class="cat-chip active" data-filter="all" data-i18n="filter-all">Tất Cả Hiện Vật</button>
+            <button type="button" class="cat-chip" data-filter="I" data-i18n="filter-I">Cánh I · Cổ Vật &amp; Phù Điêu Đá</button>
+            <button type="button" class="cat-chip" data-filter="II" data-i18n="filter-II">Cánh II · Bậc Thầy Sơn Dầu</button>
+            <button type="button" class="cat-chip" data-filter="III" data-i18n="filter-III">Cánh III · Khắc Gỗ Ukiyo-e</button>
+            <button type="button" class="cat-chip" data-filter="IV" data-i18n="filter-IV">Cánh IV · Thảm Dệt Tapestry</button>
+          </div>
+
+          <div class="collection-search-wrap">
+            <svg class="search-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input 
+              type="search" 
+              id="collection-search-input" 
+              class="collection-search-input" 
+              placeholder="Tìm theo tên tranh, họa sĩ, chất liệu..." 
+              data-i18n="search-placeholder"
+              aria-label="Tìm kiếm tác phẩm trong kho lưu trữ" />
+          </div>
+        </div>
+
+        <!-- Editorial Cards Grid -->
+        <div id="editorial-grid" class="editorial-grid"></div>
+      </section>
+    </div>
+
+    <!-- =====================================================================
+         VIEW 3: HISTORICAL TIMELINE (Trang riêng biệt cho Trục niên đại)
+         ===================================================================== -->
+    <div id="view-timeline" class="view-page" role="region" aria-label="Trục niên đại lịch sử">
+      <section id="timeline" class="page-section section-timeline">
+        <div class="section-header-block">
+          <span class="section-pretitle" data-i18n="time-pretitle">DÒNG THỜI GIAN LỊCH SỬ</span>
+          <h2 class="section-title" data-i18n="time-title">2.800 Năm Tiến Trình Xúc Giác</h2>
+          <p class="section-lead" data-i18n="time-lead">
+            Từ những lưỡi đục kim loại đầu tiên thời kỳ Lưỡng Hà đến những nhát dao phết sơn impasto thời Hậu Ấn Tượng. Nhấp vào cột mốc thời gian để thưởng lãm kiệt tác tiêu biểu.
+          </p>
+        </div>
+
+        <div class="timeline-track-wrap">
+          <div id="timeline-track" class="timeline-track"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- =====================================================================
+         VIEW: CURATORIAL DIPTYCH (Bàn So Sánh Song Song 2 Thời Đại)
+         ===================================================================== -->
+    <div id="view-diptych" class="view-page" role="region" aria-label="Bàn so sánh song song 2 thời đại">
+      <section id="diptych" class="page-section section-diptych">
+        <div class="diptych-header-block">
+          <span class="section-pretitle">NGHIÊN CỨU GIÁM TUYỂN ĐỐI SÁNH · DIPTYCH LABORATORY</span>
+          <h2 class="section-title">Đối Thoại Giám Tuyển 2 Thời Đại</h2>
+          <p class="section-lead">
+            Một ngọn đèn rọi xiên Chiaroscuro quét đồng bộ qua hai kiệt tác cách nhau hàng thế kỷ. Khám phá sự chuyển mình kỳ vĩ của xúc giác nhân loại: từ vết đục đá Lưỡng Hà 2.800 năm trước đến nhát dao phết sơn Hậu Ấn Tượng.
+          </p>
+        </div>
+
+        <!-- Curated Preset Pair Selector -->
+        <div class="diptych-presets-bar">
+          <span class="diptych-presets-label">Cặp Đối Thoại Giám Tuyển:</span>
+          <div class="diptych-preset-buttons">
+            <button type="button" class="diptych-preset-btn active" data-pair="pair-1">
+              <span class="preset-pair-tag">CẶP I · 2.772 NĂM</span>
+              <span class="preset-pair-name">Đá Vôi Assyria (883 TCN) ⟷ Sơn Dầu Van Gogh (1889)</span>
+            </button>
+            <button type="button" class="diptych-preset-btn" data-pair="pair-2">
+              <span class="preset-pair-tag">CẶP II · 336 NĂM</span>
+              <span class="preset-pair-name">Thảm Dệt Kỳ Lân (1495) ⟷ Mộc Bản Sóng Lừng (1831)</span>
+            </button>
+            <button type="button" class="diptych-preset-btn" data-pair="pair-3">
+              <span class="preset-pair-tag">CẶP III · 1.703 NĂM</span>
+              <span class="preset-pair-name">Bích Họa La Mã (50 TCN) ⟷ Chiaroscuro Rembrandt (1653)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Synchronized Dual Light Stage -->
+        <div class="diptych-stage-container" id="diptych-stage-container">
+          <div class="diptych-light-hint">
+            <span class="hint-pulse">✦</span> Rê chuột qua khung tranh để quét ngọn đèn xiên đồng bộ qua cả hai kiệt tác
+          </div>
+
+          <div class="diptych-dual-grid">
+            <!-- Left Artwork Card (A) -->
+            <div class="diptych-card" id="diptych-card-left">
+              <div class="diptych-media-frame">
+                <div id="diptych-canvas-left" class="diptych-canvas-slot"></div>
+                <div class="diptych-card-overlay">
+                  <span class="diptych-card-era" id="diptych-left-era">883 TCN · LƯỠNG HÀ</span>
+                  <h3 class="diptych-card-title" id="diptych-left-title">Phù Điêu Thần Hộ Mệnh Có Cánh</h3>
+                </div>
+              </div>
+              <div class="diptych-card-meta" id="diptych-left-meta">
+                <div class="meta-row"><span class="meta-lbl">Chất liệu:</span> <span class="meta-val">Đá thạch cao Gypsum Alabaster</span></div>
+                <div class="meta-row"><span class="meta-lbl">Độ sâu địa hình:</span> <span class="meta-val highlight-val">~12.5 mm (Đục sâu âm bản)</span></div>
+                <div class="meta-row"><span class="meta-lbl">Bảo tàng lưu giữ:</span> <span class="meta-val">The Metropolitan Museum of Art</span></div>
+              </div>
+            </div>
+
+            <!-- Central Chronology Beam -->
+            <div class="diptych-divider-beam">
+              <div class="beam-line"></div>
+              <div class="beam-badge" id="diptych-gap-badge">
+                <span class="gap-number">2.772</span>
+                <span class="gap-unit">NĂM KHOẢNG CÁCH</span>
+              </div>
+              <div class="beam-line"></div>
+            </div>
+
+            <!-- Right Artwork Card (B) -->
+            <div class="diptych-card" id="diptych-card-right">
+              <div class="diptych-media-frame">
+                <div id="diptych-canvas-right" class="diptych-canvas-slot"></div>
+                <div class="diptych-card-overlay">
+                  <span class="diptych-card-era" id="diptych-right-era">1889 · HẬU ẤN TƯỢNG</span>
+                  <h3 class="diptych-card-title" id="diptych-right-title">Đồng Lúa Mì Và Cây Bách</h3>
+                </div>
+              </div>
+              <div class="diptych-card-meta" id="diptych-right-meta">
+                <div class="meta-row"><span class="meta-lbl">Chất liệu:</span> <span class="meta-val">Sơn dầu trên toan lanh (Heavy Impasto)</span></div>
+                <div class="meta-row"><span class="meta-lbl">Độ sâu địa hình:</span> <span class="meta-val highlight-val">~3.2 mm (Gờ sơn đắp nổi)</span></div>
+                <div class="meta-row"><span class="meta-lbl">Bảo tàng lưu giữ:</span> <span class="meta-val">The Metropolitan Museum of Art</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Curatorial Comparative Synthesis Dossier -->
+        <div class="diptych-synthesis-box">
+          <div class="synthesis-badge">KẾT LUẬN GIÁM TUYỂN · COMPARATIVE SYNTHESIS</div>
+          <h4 class="synthesis-title" id="diptych-synthesis-title">Cuộc Đối Thoại Giữa Lưỡi Đục Kim Loại Và Nhát Dao Phết Sơn</h4>
+          <p class="synthesis-text" id="diptych-synthesis-text">
+            Cách nhau gần 28 thế kỷ, nhưng cả hai người nghệ sĩ đều có chung một nỗi ám ảnh: từ chối sự phẳng lặng của mặt phẳng hai chiều. Nếu người thợ điêu khắc Nimrud dùng lưỡi đục đồng khoét sâu vào thạch cao để bắt lấy ánh mặt trời sa mạc Lưỡng Hà, thì Van Gogh lại bóp trực tiếp từng tuýp sơn nguyên chất, dùng dao bay miết mạnh để tạo nên những con sóng sơn nổi cộm. Dưới cùng một ngọn đèn xiên, chúng ta nhìn thấy sự tiếp nối bất diệt của bàn tay con người trong khát khao khắc tạc cảm xúc lên vật chất.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- =====================================================================
+         VIEW 4: CURATORIAL JOURNAL (Trang riêng biệt cho Bài luận giám tuyển)
+         ===================================================================== -->
+    <div id="view-curatorial" class="view-page" role="region" aria-label="Bài luận giám tuyển">
+      <section id="curatorial" class="page-section section-curatorial">
+        <div class="curatorial-block">
+          <span class="section-pretitle" data-i18n="cur-pretitle">LỜI TỰA GIÁM TUYỂN</span>
+          <h2 class="section-title" id="curatorial-essay-title" data-i18n="cur-title">Ánh Sáng Đi Qua Thời Gian</h2>
+          <div class="curatorial-essay-lead" id="curatorial-essay-lead" data-i18n="cur-lead">
+            "Ánh sáng không chỉ chiếu lên tranh, nó đọc được tranh. Một gờ sơn, một vết đục, một thớ giấy, một sợi lụa đều lưu lại thời gian."
+          </div>
+
+          <div id="curatorial-essay-paragraphs" class="curatorial-paragraphs"></div>
+
+          <div class="curatorial-signoff">
+            Hội Đồng Giám Tuyển ÉTHÉRÉ Atelier — Paris &amp; Hà Nội (Mùa Thu 2026)
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- =====================================================================
+         VIEW 5: ATELIER VISIT & BOOKING (Trang riêng biệt cho Đặt vé & Bản quyền)
+         ===================================================================== -->
+    <div id="view-visit" class="view-page" role="region" aria-label="Tham quan và đặt vé">
+      <section id="visit" class="page-section section-visit">
+        <div class="booking-grid">
+          <div class="booking-info-box">
+            <span class="section-pretitle" data-i18n="visit-pretitle">ĐẶT VÉ &amp; BẢN QUYỀN THƯƠNG MẠI</span>
+            <h2 class="section-title" data-i18n="visit-title">Lịch Thưởng Lãm &amp; Giấy Phép Bản Quyền</h2>
+            <p class="section-lead" data-i18n="visit-lead">
+              Bạn có thể đăng ký tham quan trực tiếp tại phòng trưng bày ÉTHÉRÉ, hoặc mua quyền sử dụng mã nguồn thương mại trọn đời để xây dựng website bảo tàng, phòng tranh nghệ thuật hoặc portfolio cá nhân cao cấp.
+            </p>
+
+            <div class="specs-table-wrap" style="margin-top: 16px;">
+              <table class="specs-table" style="width: 100%; font-size: 0.85rem; border-collapse: collapse;">
+                <tr style="border-bottom: 1px solid var(--color-border);">
+                  <td style="padding: 10px 0; color: var(--color-muted);">Giấy Phép Mã Nguồn</td>
+                  <td style="padding: 10px 0; font-weight: 600;">MIT License (Thương mại hóa toàn quyền)</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--color-border);">
+                  <td style="padding: 10px 0; color: var(--color-muted);">Bản Quyền Hình Ảnh</td>
+                  <td style="padding: 10px 0; font-weight: 600;">CC0 Open Access (The Met &amp; Chicago)</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--color-border);">
+                  <td style="padding: 10px 0; color: var(--color-muted);">Tùy Biến Không Cần Code</td>
+                  <td style="padding: 10px 0; font-weight: 600;">assets/data/content.json (Single Source)</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 0; color: var(--color-muted);">Nền Tảng Hỗ Trợ</td>
+                  <td style="padding: 10px 0; font-weight: 600;">ThemeForest · Gumroad · Creative Market</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="booking-form-box">
+            <form id="visit-booking-form">
+              <div class="form-group">
+                <label class="form-label" for="booking-name">Họ và Tên</label>
+                <input type="text" id="booking-name" class="form-input" placeholder="Ví dụ: Hoàng Minh Đức" required />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="booking-email">Địa chỉ Email</label>
+                <input type="email" id="booking-email" class="form-input" placeholder="name@example.com" required />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="booking-purpose">Mục Đích Đăng Ký</label>
+                <select id="booking-purpose" class="form-select">
+                  <option value="template">Mua Bản Quyền Mẫu Template (Thương Mại)</option>
+                  <option value="private-visit">Đăng Ký Tham Quan Phòng Tranh Độc Quyền</option>
+                  <option value="academic">Nghiên Cứu Học Thuật &amp; Bảo Tàng Số</option>
+                  <option value="custom">Yêu Cầu Tùy Biến Giao Diện Riêng</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="booking-notes">Ghi chú hoặc câu hỏi</label>
+                <textarea id="booking-notes" class="form-textarea" rows="3" placeholder="Chia sẻ thêm về dự án hoặc yêu cầu của bạn..."></textarea>
+              </div>
+
+              <button type="submit" class="btn-submit-booking">
+                Gửi Thông Tin Yêu Cầu ✦
+              </button>
+
+              <div id="booking-status-msg" style="display:none; margin-top:14px; font-size:0.82rem; color:#10B981; text-align:center;">
+                ✓ Yêu cầu của bạn đã được ghi nhận thành công! ÉTHÉRÉ Atelier sẽ phản hồi trong vòng 24 giờ.
+              </div>
+            </form>
+
+            <!-- Digital Louvre VIP Pass Card (Xuất vé tương tác tức thì) -->
+            <div id="booking-ticket-pass" class="booking-ticket-pass" style="display: none;">
+              <div class="ticket-pass-inner">
+                <div class="ticket-header">
+                  <span class="ticket-emblem">ÉTHÉRÉ · PARIS</span>
+                  <span class="ticket-status-badge">✦ ĐÃ XÁC NHẬN</span>
+                </div>
+                <div class="ticket-body">
+                  <div class="ticket-field">
+                    <span class="ticket-label">CHỦ THẺ / KHÁCH QUÝ</span>
+                    <span class="ticket-val" id="ticket-guest-name">Hoàng Minh Đức</span>
+                  </div>
+                  <div class="ticket-grid-row">
+                    <div class="ticket-field">
+                      <span class="ticket-label">MÃ THẺ LƯU NIỆM</span>
+                      <span class="ticket-val ticket-code" id="ticket-serial">#ETH-2026-8839</span>
+                    </div>
+                    <div class="ticket-field">
+                      <span class="ticket-label">HẠNG VÉ</span>
+                      <span class="ticket-val" id="ticket-pass-type">Thương Mại &amp; Triển Lãm</span>
+                    </div>
+                  </div>
+                  <div class="ticket-field">
+                    <span class="ticket-label">ĐẶC QUYỀN TRUY CẬP</span>
+                    <span class="ticket-val highlight-gold">Toàn Quyền Thưởng Lãm 3D · 11 Kiệt Tác &amp; Mã Nguồn Shaders</span>
+                  </div>
+                </div>
+                <div class="ticket-footer">
+                  <div class="ticket-qr-mock">
+                    <span class="qr-mock-code">✦ ✦ ✦<br>LOUVRE<br>PASS</span>
+                  </div>
+                  <div class="ticket-signoff">
+                    <span>BẢO CHỨNG HỘI ĐỒNG GIÁM TUYỂN ÉTHÉRÉ</span>
+                    <small>Có giá trị sử dụng trọn đời · Không thể chuyển nhượng</small>
+                  </div>
+                </div>
+              </div>
+              <button type="button" id="btn-reset-booking" class="btn-reset-booking">
+                ✦ Đặt Thêm Vé Hoặc Gửi Yêu Cầu Khác
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- =======================================================================
+       FULL-SCREEN 3D RELIGHTING ZEN MODE STAGE
+       ======================================================================= -->
+  <div id="exhibition" role="region" aria-label="Phòng thưởng lãm 3D chuyên sâu">
+    <!-- 3D Canvas Stage -->
+    <div id="focus-relighting-stage"></div>
+
+    <!-- Top Zen Bar: Minimal & Uncluttered -->
+    <div class="zen-top-bar">
+      <span class="zen-room-badge" id="zen-room-badge">Phòng I · Cổ Vật &amp; Phù Điêu Đá</span>
+
+      <div class="zen-top-controls">
+        <!-- Exit Zen Mode Button -->
+        <button type="button" id="btn-exit-zen" class="zen-exit-btn" aria-label="Đóng phòng thưởng lãm 3D">
+          ✕ Quay Lại Dòng Chảy
+        </button>
+      </div>
+    </div>
+
+    <!-- Sequential Navigation Arrows (Next / Prev Continuous Flow) -->
+    <button type="button" id="btn-prev-art" class="zen-nav-arrow zen-arrow-prev" aria-label="Tác phẩm trước (Phím mũi tên trái hoặc A)">
+      ←
+    </button>
+    <button type="button" id="btn-next-art" class="zen-nav-arrow zen-arrow-next" aria-label="Tác phẩm tiếp theo (Phím mũi tên phải hoặc D)">
+      →
+    </button>
+
+    <!-- Collapsible Minimal Bottom Dock (Bấm nút thu gọn/mở rộng để không chiếm diện tích) -->
+    <div id="zen-bottom-dock" class="zen-bottom-dock" role="region" aria-label="Bảng điều khiển tác phẩm">
+      <!-- Minimal Museum Placard -->
+      <div class="zen-dock-placard">
+        <div class="placard-dept" id="zen-dock-dept">PHÒNG I · CỔ VẬT ASSYRIA</div>
+        <h2 class="placard-title" id="zen-dock-title">Phù Điêu Thần Hộ Mệnh Có Cánh</h2>
+        <div class="placard-meta" id="zen-dock-meta">Nghệ nhân Assyria khuyết danh · Đá thạch cao (Gypsum Alabaster) · khoảng 883–859 TCN</div>
+      </div>
+
+      <!-- Center Action: Open Detailed Curatorial Dossier -->
+      <div class="zen-dock-actions">
+        <button type="button" id="btn-open-dossier" class="btn-dock-dossier" aria-label="Xem hồ sơ chi tiết tác phẩm">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <span>Hồ Sơ &amp; Giám Tuyển</span>
+        </button>
+      </div>
+
+      <!-- Right: Light Presets & Circadian 24H Solar Control -->
+      <div class="zen-dock-lights">
+        <div class="circadian-dock-control">
+          <div class="circadian-dock-top">
+            <span class="circadian-dock-tag">NHỊP SINH HỌC 24H:</span>
+            <span class="circadian-readout" id="circadian-time-display">☀️ 17:30 Hoàng Hôn Hổ Phách</span>
+            <button type="button" id="btn-circadian-autoplay" class="btn-circadian-autoplay" title="Bật/Tắt chu kỳ tự động xoay 24 giờ của mặt trời">
+              <span id="circadian-play-icon">▶</span> Tự Động 24H
+            </button>
+          </div>
+          <div class="circadian-slider-row">
+            <input type="range" id="circadian-slider" class="circadian-range" min="0" max="24" step="0.25" value="17.5" aria-label="Điều khiển thời gian trong ngày 24 giờ">
+            <div class="circadian-milestones">
+              <button type="button" class="circadian-chip" data-hour="6">06:00 Sương Mai</button>
+              <button type="button" class="circadian-chip" data-hour="12">12:00 Giếng Trời</button>
+              <button type="button" class="circadian-chip active" data-hour="17.5">17:30 Hoàng Hôn</button>
+              <button type="button" class="circadian-chip" data-hour="21">21:00 Đèn Đêm</button>
+              <button type="button" class="circadian-chip" data-hour="2">02:00 Ánh Trăng</button>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" id="btn-dock-collapse" class="btn-dock-collapse" title="Thu gọn bảng điều khiển để ngắm trọn vẹn tác phẩm">
+          ▼ Thu Gọn
+        </button>
+      </div>
+    </div>
+
+    <!-- Floating Trigger Pill (hiện ra khi dock được thu gọn để tối đa diện tích ngắm tranh) -->
+    <button type="button" id="btn-show-dock" class="btn-zen-show-dock" aria-label="Mở bảng điều khiển tác phẩm">
+      <span>✦</span> Thông Tin &amp; Ánh Sáng ▲
+    </button>
+  </div>
+
+  <!-- =======================================================================
+       SLIDE-OVER CURATORIAL DOSSIER DRAWER (Hồ sơ tác phẩm chuyên sâu)
+       ======================================================================= -->
+  <div id="dossier-drawer-backdrop" class="dossier-drawer-backdrop" aria-hidden="true"></div>
+  <aside id="artwork-dossier-drawer" class="dossier-drawer" role="dialog" aria-modal="true" aria-label="Hồ sơ chi tiết hiện vật bảo tàng">
+    <div class="dossier-drawer-header">
+      <span class="dossier-header-badge" id="dossier-badge">HỒ SƠ BẢO TÀNG CHUYÊN SÂU</span>
+      <button type="button" id="btn-close-dossier" class="btn-close-dossier" aria-label="Đóng hồ sơ">✕</button>
+    </div>
+
+    <div class="dossier-drawer-body">
+      <div>
+        <h3 class="dossier-title" id="dossier-title">Phù Điêu Thần Hộ Mệnh Có Cánh</h3>
+        <div class="dossier-artist-date" id="dossier-artist-date">Nghệ nhân Assyria khuyết danh · khoảng 883–859 TCN</div>
+      </div>
+
+      <div class="dossier-narrative-section">
+        <span class="dossier-section-heading">Bối Cảnh Lịch Sử &amp; Ý Niệm Nghệ Thuật</span>
+        <p class="dossier-narrative-text" id="dossier-narrative">
+          Tấm phù điêu thạch cao hoành tráng từng ốp quanh đại sảnh ngai vàng vua Ashurnasirpal II. Vị thần có cánh mang sừng thiêng, tay cầm bông lúa và quả thông thanh tẩy, bảo vệ cung điện khỏi quỷ dữ. Dưới góc chiếu thấp, từng lớp lông vũ điêu khắc và tua áo nổi khối rõ rệt.
+        </p>
+      </div>
+
+      <div class="dossier-narrative-section">
+        <span class="dossier-section-heading">Phân Tích Xúc Giác &amp; Kỹ Thuật Tạo Tác</span>
+        <div class="dossier-technique-text" id="dossier-technique">
+          Đục chạm phù điêu nông (bas-relief) trên đá thạch cao thạch điêu (gypsum alabaster). Nét đục dứt khoát, các gờ nổi sắc cạnh tạo độ tương phản bóng đổ tuyệt đối dưới ngọn đèn quét.
+        </div>
+      </div>
+
+      <div class="dossier-narrative-section">
+        <span class="dossier-section-heading">Thông Số Hiện Vật Chuẩn Quốc Tế</span>
+        <table class="dossier-specs-table">
+          <tbody id="dossier-specs-body">
+            <!-- Dynamic specs populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="dossier-drawer-footer">
+      <span style="font-size:0.72rem; color:var(--color-muted);">Giấy phép: CC0 Open Access</span>
+      <a id="dossier-museum-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-dossier-museum-link">
+        Xem Bản Gốc Tại Bảo Tàng ↗
+      </a>
+    </div>
+  </aside>
+
+  <!-- =======================================================================
+       SEARCH MODAL (Triggered by Top Utility Search Button or '/')
+       ======================================================================= -->
+  <div id="search-modal-backdrop" class="search-modal-backdrop" aria-hidden="true">
+    <div class="search-modal-box" role="dialog" aria-modal="true" aria-label="Tìm kiếm tác phẩm trong bảo tàng">
+      <div class="search-modal-input-wrap">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input 
+          type="search" 
+          id="modal-search-input" 
+          class="search-modal-input" 
+          placeholder="Tìm kiếm tác phẩm, họa sĩ, chất liệu..." 
+          autocomplete="off" />
+        <button type="button" id="btn-close-search-modal" style="background:none; border:none; font-size:1.2rem; cursor:pointer; color:var(--color-muted);">✕</button>
+      </div>
+
+      <div id="modal-search-results" class="search-modal-results">
+        <!-- Results dynamically inserted here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       CODE & SHADERS DRAWER (Easter Egg)
+       ======================================================================= -->
+  <div id="shaders-drawer-backdrop" class="shaders-drawer-backdrop" aria-hidden="true"></div>
+  <aside id="shaders-drawer" class="shaders-drawer" role="dialog" aria-modal="true" aria-label="Bảng mã nguồn Shaders và Kiến Trúc">
+    <div class="drawer-header">
+      <h3 class="drawer-title">✦ Shaders &amp; Kiến Trúc Mã Nguồn</h3>
+      <button type="button" id="btn-close-shaders-drawer" class="btn-close-dossier" aria-label="Đóng bảng mã nguồn">✕</button>
+    </div>
+
+    <div class="drawer-body">
+      <p style="font-size: 0.85rem; color: var(--color-muted); line-height: 1.6;">
+        Khám phá các thuật toán đồ họa Three.js WebGPU / WebGL cốt lõi tạo nên trải nghiệm triển lãm xúc giác độc bản.
+      </p>
+
+      <div class="code-tabs">
+        <button type="button" class="code-tab-btn active" data-tab="relighting">3D Relighting GLSL</button>
+        <button type="button" class="code-tab-btn" data-tab="unwoven">Unwoven Ribbon Loom</button>
+        <button type="button" class="code-tab-btn" data-tab="config">Zero-Code JSON</button>
+      </div>
+
+      <div id="tab-relighting" class="code-tab-content">
+        <pre class="code-snippet-box"><code>// 3D Relighting: Dynamic Surface Normal &amp; Self-Shadowing Raymarch
+vec3 normal = computeSurfaceNormal(vUv, uDepthMap, uNormalStrength);
+vec3 lightDir = normalize(vec3(uPointer.xy - vUv, uElevation));
+float diffuse = max(dot(normal, lightDir), 0.0);
+
+// 12-Step Self-Shadowing
+float shadow = 1.0;
+vec2 rayStep = (uPointer.xy - vUv) / 12.0;
+for(int i = 1; i &lt;= 12; i++) {
+    float h = texture2D(uDepthMap, vUv + rayStep * float(i)).r;
+    if(h &gt; currentH + 0.04) { shadow *= 0.82; }
+}</code></pre>
+      </div>
+
+      <div id="tab-unwoven" class="code-tab-content" style="display: none;">
+        <pre class="code-snippet-box"><code>// Unwoven: 26 Horizontal Ribbon BufferGeometries
+for (let i = 0; i &lt; 26; i++) {
+  const ribbonGeom = new THREE.PlaneGeometry(cardWidth, ribbonHeight, 32, 1);
+  const ribbonMesh = new THREE.Mesh(ribbonGeom, ribbonMaterial);
+  // Flutter wave physics at boundary tear zone
+  ribbonMesh.position.x += Math.sin(time * 3.0 + i * 0.4) * tearFactor;
+}</code></pre>
+      </div>
+
+      <div id="tab-config" class="code-tab-content" style="display: none;">
+        <pre class="code-snippet-box"><code>// assets/data/content.json (Single Source of Truth)
+{
+  "theme": {
+    "light": {
+      "background": "#F4F0E8",
+      "unwovenFadeRgb": [0.957, 0.941, 0.910]
+    }
+  }
+}</code></pre>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Core Script Module Entrypoint -->
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
