@@ -14,6 +14,9 @@
 }
 
 html {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
   /* Scroll behavior is handled smoothly by Lenis when active */
 }
 
@@ -127,6 +130,8 @@ html[data-theme="dark"] #torch-spotlight {
   position: relative;
   z-index: 2;
   width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* ==========================================================================
@@ -464,6 +469,8 @@ html[data-theme="dark"] .btn-billetterie:hover {
 .view-page {
   display: none;
   width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   min-height: calc(100vh - var(--header-total-height));
   animation: fadeInView 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -676,6 +683,15 @@ html[data-theme="dark"] .foyer-subtitle-romantic {
 #foyer-carousel-stage {
   width: 100%;
   height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+#foyer-carousel-stage canvas,
+.foyer-loom-wrap canvas,
+.museum-dust-canvas {
+  max-width: 100% !important;
+  display: block;
 }
 
 .foyer-hint-bar {
@@ -699,7 +715,8 @@ html[data-theme="dark"] .foyer-subtitle-romantic {
 #exhibition {
   position: fixed;
   inset: 0;
-  width: 100vw;
+  width: 100%;
+  max-width: 100%;
   height: 100vh;
   z-index: 800;
   background: var(--color-bg);
@@ -710,7 +727,12 @@ html[data-theme="dark"] .foyer-subtitle-romantic {
   overflow: hidden;
 }
 
+#exhibition:not(.is-active) {
+  display: none !important;
+}
+
 #exhibition.is-active {
+  display: block !important;
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
@@ -1967,14 +1989,20 @@ html[data-theme="dark"] .timeline-item.active {
     left: 12px !important;
     right: 12px !important;
     transform: none !important;
-    max-width: calc(100vw - 24px) !important;
+    width: auto !important;
+    max-width: calc(100% - 24px) !important;
     bottom: max(12px, env(safe-area-inset-bottom)) !important;
     padding: 14px 16px !important;
+    overflow: hidden !important;
   }
   .zen-dock-actions {
     justify-content: center;
   }
   .zen-dock-lights {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
     justify-content: center;
   }
   .zen-top-bar {
@@ -2008,12 +2036,16 @@ html[data-theme="dark"] .timeline-item.active {
     right: 8px !important;
   }
   .circadian-dock-control {
-    min-width: unset !important;
+    min-width: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
+    overflow: hidden !important;
   }
   .circadian-slider-row {
+    min-width: 0 !important;
     width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
   }
   .circadian-range {
     width: 100% !important;
@@ -2116,7 +2148,7 @@ html[data-theme="dark"] .timeline-item.active {
 html, body {
   overflow-x: hidden;
   width: 100%;
-  max-width: 100vw;
+  max-width: 100%;
   box-sizing: border-box;
 }
 

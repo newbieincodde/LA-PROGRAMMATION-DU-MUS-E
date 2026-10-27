@@ -246,6 +246,7 @@ export class I18nManager {
   constructor() {
     this.currentLang = 'vi';
     this.listeners = [];
+    this.beforeListeners = [];
   }
 
   init() {
@@ -281,6 +282,9 @@ export class I18nManager {
   }
 
   applyLanguage(lang, animate = true) {
+    // Notify before-listeners (e.g. cleanly revert SplitText before DOM text is rewritten)
+    this.beforeListeners.forEach((fn) => fn(lang));
+
     document.documentElement.lang = lang;
 
     // Update active button state
@@ -312,6 +316,10 @@ export class I18nManager {
 
     // Notify listeners
     this.listeners.forEach((fn) => fn(lang));
+  }
+
+  onBeforeLanguageChange(fn) {
+    this.beforeListeners.push(fn);
   }
 
   onLanguageChange(fn) {

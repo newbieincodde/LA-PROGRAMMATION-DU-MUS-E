@@ -28,6 +28,7 @@ import {
   runHeroReveal,
   initScrollReveals,
   initMagneticAndHover,
+  revertSplitText,
   refreshSplitTextOnLanguageChange,
   animateCardExpansion,
   initAmbientDustParticles,
@@ -1322,7 +1323,10 @@ async function initApp() {
   // Initialize Lenis Smooth Scrolling Engine synchronized with GSAP ScrollTrigger
   initSmoothScrolling();
 
-  // Revert and refresh SplitText on language change
+  // Cleanly revert SplitText before DOM text rewrite, then re-split translated text
+  i18n.onBeforeLanguageChange(() => {
+    revertSplitText();
+  });
   i18n.onLanguageChange(() => {
     refreshSplitTextOnLanguageChange();
   });

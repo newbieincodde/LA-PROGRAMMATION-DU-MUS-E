@@ -523,14 +523,17 @@ export function animateCardExpansion(cardMediaEl, targetContainer, onComplete) {
 /* ==========================================================================
    6. RE-SPLIT TEXT ON LANGUAGE CHANGE
    ========================================================================== */
-export async function refreshSplitTextOnLanguageChange() {
-  // Revert previous SplitText instances to clean DOM
+export function revertSplitText() {
   activeSplitInstances.forEach((instance) => {
     try {
       if (instance && instance.revert) instance.revert();
     } catch (_) {}
   });
   activeSplitInstances = [];
+}
+
+export async function refreshSplitTextOnLanguageChange() {
+  revertSplitText();
 
   // Wait for font rendering to settle
   if (document.fonts && document.fonts.ready) {
@@ -636,12 +639,12 @@ export function initAmbientDustParticles(mountEl) {
     scene.add(points);
 
     let animId = null;
-    let clock = new THREE.Clock();
+    const startTime = performance.now() * 0.001;
     let isPaused = false;
 
     const animateDust = () => {
       if (!isPaused) {
-        const elapsedTime = clock.getElapsedTime();
+        const elapsedTime = performance.now() * 0.001 - startTime;
         const posAttr = geometry.attributes.position;
         const posArray = posAttr.array;
 
