@@ -22,6 +22,16 @@ import { themeManager } from './logic.js';
 import { RelightingStage, calculateCircadianLight } from './relighting.js';
 import { UnwovenCarousel } from './unwoven.js';
 import { i18n } from './i18n.js';
+import {
+  initSmoothScrolling,
+  scrollToTarget,
+  runHeroReveal,
+  initScrollReveals,
+  initMagneticAndHover,
+  refreshSplitTextOnLanguageChange,
+  animateCardExpansion,
+  initAmbientDustParticles,
+} from './animations.js';
 
 // Global Application State
 let allArtworksList = [];
@@ -500,8 +510,9 @@ export function switchView(viewName) {
     initDiptychStudio();
   }
 
-  // Smooth scroll to top
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Smooth scroll to top via Lenis
+  scrollToTarget(0, { immediate: false, duration: 0.8 });
+  initScrollReveals();
 }
 
 function setupNavigationRouting() {
@@ -664,7 +675,12 @@ function renderCollectionCards(artworks) {
 
   grid.querySelectorAll('.artwork-card').forEach((card) => {
     const artId = card.getAttribute('data-art-id');
-    const handler = () => openFocusArtwork(artId);
+    const handler = () => {
+      const media = card.querySelector('.card-media') || card;
+      animateCardExpansion(media, document.getElementById('exhibition'), () => {
+        openFocusArtwork(artId);
+      });
+    };
     card.addEventListener('click', handler);
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -673,6 +689,9 @@ function renderCollectionCards(artworks) {
       }
     });
   });
+
+  // Re-bind 3D tilt & magnetic interactions on rendered collection cards
+  initMagneticAndHover();
 }
 
 function setupCollectionControls() {
@@ -1300,6 +1319,14 @@ async function initApp() {
   allArtworksList = await getAllArtworks();
   window.openFocusArtwork = openFocusArtwork;
 
+  // Initialize Lenis Smooth Scrolling Engine synchronized with GSAP ScrollTrigger
+  initSmoothScrolling();
+
+  // Revert and refresh SplitText on language change
+  i18n.onLanguageChange(() => {
+    refreshSplitTextOnLanguageChange();
+  });
+
   if (preloaderBar) preloaderBar.style.width = '60%';
   if (preloaderCount) preloaderCount.textContent = '60%';
 
@@ -1411,9 +1438,19 @@ async function initApp() {
   if (preloaderBar) preloaderBar.style.width = '100%';
   if (preloaderCount) preloaderCount.textContent = '100%';
 
-  // Dismiss preloader
-  setTimeout(() => {
+  // Dismiss preloader and launch cinematic opening sequence
+  setTimeout(async () => {
     if (preloader) preloader.classList.add('is-hidden');
+
+    // Launch Hero Opening Sequence, ScrollTriggers, Magnetic Hover & Museum Atmosphere
+    await runHeroReveal();
+    initScrollReveals();
+    initMagneticAndHover();
+
+    const foyerLoomContainer = document.getElementById('foyer-loom-wrap') || document.getElementById('foyer-carousel-stage');
+    if (foyerLoomContainer) {
+      initAmbientDustParticles(foyerLoomContainer);
+    }
   }, 350);
 }
 

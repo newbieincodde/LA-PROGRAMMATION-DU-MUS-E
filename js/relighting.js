@@ -312,8 +312,8 @@ export class RelightingStage {
         uResolution: { value: new THREE.Vector2(width, height) },
         uLightPos: { value: new THREE.Vector3(this.currentLightX, this.currentLightY, this.options.elevation) },
         uLightColor: { value: new THREE.Vector3(colorHex.r, colorHex.g, colorHex.b) },
-        uLightIntensity: { value: this.options.intensity || 0.45 },
-        uAmbientIntensity: { value: 0.72 },
+        uLightIntensity: { value: this.options.intensity || 0.42 },
+        uAmbientIntensity: { value: 0.74 },
         uDisplacementScale: { value: 0.035 },
         uNormalScale: { value: 0.85 },
         uDetailScale: { value: 0.55 },
@@ -340,11 +340,11 @@ export class RelightingStage {
       { value: this.options.intensity, duration: 1.2, ease: 'power2.out' }
     );
 
-    // Animation Loop with smooth light tracking
+    // Animation Loop with smooth, gentle museum-grade light tracking
     const renderLoop = () => {
-      // Lerp light position towards pointer
-      this.currentLightX += (this.targetLightX - this.currentLightX) * 0.1;
-      this.currentLightY += (this.targetLightY - this.currentLightY) * 0.1;
+      // Lerp light position towards pointer with gentle, silky damping (0.065)
+      this.currentLightX += (this.targetLightX - this.currentLightX) * 0.065;
+      this.currentLightY += (this.targetLightY - this.currentLightY) * 0.065;
       this.material.uniforms.uLightPos.value.x = this.currentLightX;
       this.material.uniforms.uLightPos.value.y = this.currentLightY;
 

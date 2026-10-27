@@ -14,7 +14,28 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* Scroll behavior is handled smoothly by Lenis when active */
+}
+
+/* Official Lenis Smooth Scroll CSS Integration */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 
 body {
@@ -645,7 +666,8 @@ html[data-theme="dark"] .foyer-subtitle-romantic {
 /* Grand Majestic Cinema-Scale Ribbon Loom Stage */
 .foyer-loom-wrap {
   position: relative;
-  width: 100vw;
+  width: 100%;
+  max-width: 100%;
   height: clamp(520px, 72vh, 820px);
   overflow: hidden;
   margin: 10px 0;
@@ -1997,7 +2019,17 @@ html[data-theme="dark"] .timeline-item.active {
     width: 100% !important;
   }
   .circadian-milestones {
-    width: 100% !important;
+    display: flex !important;
+    overflow-x: auto !important;
+    max-width: 100% !important;
+    white-space: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 4px !important;
+    scrollbar-width: none !important;
+    gap: 4px !important;
+  }
+  .circadian-milestones::-webkit-scrollbar {
+    display: none !important;
   }
   .circadian-dock-top {
     flex-wrap: wrap !important;

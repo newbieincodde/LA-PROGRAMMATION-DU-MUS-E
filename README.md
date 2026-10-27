@@ -17,7 +17,17 @@ Mẫu web tái hiện trải nghiệm triển lãm bảo tàng danh giá với c
    - Băng chuyền chuyển ảnh liên tiếp `unwoven.js` nâng cấp kích thước màn ảnh rộng (`cardAspect: 0.72`, chiều cao chiếm 76vh), mang lại ấn tượng thị giác choáng ngợp và sang trọng bậc nhất.
    - 26 dải ruy-băng chuyển động hữu cơ với hiệu ứng rách viền (tear zone flutter) và tự dệt lại mượt mà khi cuộn hoặc kéo chuột.
 
-3. **Công Cụ Bảo Tồn & Giám Định Kỹ Thuật Số 3D (Digital Conservation Tools):**
+3. **Động Cơ Hoạt Họa Điện Ảnh & Tương Tác Xúc Giác (Kinetic Motion Suite):**
+   - **Lenis Momentum Scrolling:** Cuộn trang quán tính nhung mượt đồng bộ trực tiếp với `gsap.ticker` và `ScrollTrigger.update`, triệt tiêu hoàn toàn giật khung hình.
+   - **Cinematic Hero Gallery Reveal:** Khởi đầu triển lãm với mặt nạ `clip-path` và thu phóng vi mô (`scale 1.08 -> 1.0`) trên băng chuyền dệt sợi, kết hợp hiệu ứng tách chữ `SplitText` 3D xoay lật mềm mại.
+   - **Scroll-Driven Parallax & Section Reveals:** Tự động phát hiện khi các tiêu đề, thẻ tác phẩm, thẻ bài tiểu luận và mốc thời gian bước vào tầm nhìn (`ScrollTrigger`).
+   - **Magnetic Cursor & 3D Artwork Perspective Tilt:** Nút điều khiển lực hút nam châm mượt mà kết hợp góc nghiêng 3D con trỏ chuột (`transformPerspective`) và phóng to nhẹ hình ảnh khi rê chuột trên desktop.
+   - **Seamless Flip Card Expansion:** Mở rộng thẻ tranh sang phòng triển lãm 3D mượt mà qua giải thuật `GSAP Flip`.
+   - **Bầu Không Khí Bảo Tàng Hữu Cơ (Ambient Dust Motes):** Bụi bay lơ lửng nhẹ nhàng trong tiền sảnh dệt sợi với Three.js `Points`, tạo cảm giác không gian triển lãm sống động và lắng đọng.
+   - **Đa Ngôn Ngữ i18n VI / FR / EN:** Thanh chuyển đổi ngôn ngữ tráng lệ; tự động tái phân tách typography (`SplitText`) sau mỗi lần đổi ngôn ngữ mà không gây lỗi layout.
+   - **Mobile-First Responsive Hoàn Hảo:** Đã hiệu chỉnh mọi thành phần 3D Dock, Circadian Slider, thanh công cụ bảo tàng, đảm bảo không tràn viền màn hình (`0px horizontal overflow`) từ 320px đến 430px.
+
+4. **Công Cụ Bảo Tồn & Giám Định Kỹ Thuật Số 3D (Digital Conservation Tools):**
    - **Interactive Torchlight Relighting:** Nguồn sáng ảo tương tác theo chuột với dò tia bóng tự thân 12 bước (12-step self-shadowing raymarch).
    - **Surface Normal Map Mode:** Chuyển đổi hiển thị vector pháp tuyến bề mặt dưới dạng bản đồ phổ màu RGB iridescent.
    - **Macro-Inspection Zoom (1.0x – 2.5x):** Phóng đại siêu vi tế để kiểm tra từng vết nứt vữa fresco và từng gờ sơn dầu impasto.
@@ -50,11 +60,14 @@ Mẫu web tái hiện trải nghiệm triển lãm bảo tàng danh giá với c
 │   │-- layout.css            # Lưới bố cục 1-Page, Cinema Loom, Zen Stage, Timeline, Archive
 │   └── styles.css            # Hệ thống màu sắc ngà/đen, kiểu chữ Cormorant Garamond, Theme Engine
 │-- /js
+│   │-- animations.js         # Động cơ hoạt họa điện ảnh (Lenis, ScrollTrigger, SplitText, Flip, Tilt, Particles)
 │   │-- data.js               # Logic truy xuất JSON (map, filter, reduce, search, timeline)
+│   │-- i18n.js               # Hệ thống đa ngôn ngữ quốc tế VI / FR / EN
 │   │-- logic.js              # Theme engine Sáng/Tối, phát hiện WebGPU/WebGL, Audio guide
 │   │-- relighting.js         # Shader 3D Relighting, Surface Normal RGB, Macro Zoom
 │   │-- unwoven.js            # Băng chuyền Cinema-Scale 26 dải sợi ruy-băng Unwoven Loom
-│   └── main.js               # Bộ điều phối trung tâm kết nối toàn bộ module
+│   │-- main.js               # Bộ điều phối trung tâm kết nối toàn bộ module
+│   └── /vendor               # Thư viện vendored (Three.js, GSAP Core + Plugins, Lenis ESM) cho chế độ Zero-Node
 │-- index.html                # Giao diện chính 1-Page Fullscreen hoàn chỉnh
 │-- CREDITS.md                # Danh mục bản quyền 18 tác phẩm CC0 The Met/AIC & giấy phép MIT
 │-- README.md                 # Tài liệu hướng dẫn sử dụng chi tiết cho người mua template

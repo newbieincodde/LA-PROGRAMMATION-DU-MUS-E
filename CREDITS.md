@@ -56,14 +56,25 @@ Toàn bộ 18 tác phẩm nghệ thuật trưng bày trong triển lãm đều �
 
 ---
 
-## 3. Thư Viện Lõi Bên Thứ Ba (Dependencies)
+## 3. Thư Viện Lõi Bên Thứ Ba & Giấy Phép Hoạt Họa (Dependencies & Licensing)
 
-| Thư viện | Phiên bản | Tác giả / Tổ chức | Giấy phép | Mục đích sử dụng |
-| :--- | :--- | :--- | :--- | :--- |
-| **Three.js** | `^0.184.0` | Ricardo Cabello (Mr.doob) | **MIT License** | Đồ họa WebGPU, WebGL fallback, ShaderMaterial |
-| **GSAP** | `^3.12.5` | GreenSock | **Standard 'No-Charge'** | Hoạt họa chuyển phòng, làm dịu con trỏ chuột, điều khiển ánh sáng |
-| **Lenis** | `^1.3.23` | Studio Freight / Darkroom | **MIT License** | Cuộn trang quán tính mượt mà |
-| **Vite** | `^8.2.1` | Evan You & Vite Contributors | **MIT License** | Máy chủ phát triển và đóng gói gói template |
+Dự án cung cấp kiến trúc **Dual-Compatibility** (chạy trực tiếp không cần Node.js qua `js/vendor/` + `<script type="importmap">`, hoặc qua bundler Vite):
+
+| Thư viện | Phiên bản | Tác giả / Tổ chức | Giấy phép | Vị trí Vendored | Mục đích sử dụng |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Three.js** | `^0.180.0` | Ricardo Cabello (Mr.doob) | **MIT License** | `js/vendor/three.module.js` | Đồ họa WebGL, ShaderMaterial, Relighting, Ambient Points |
+| **Lenis** | `^1.3.27` | Studio Freight / Darkroom | **MIT License** | `js/vendor/lenis/lenis.mjs` | Cuộn quán tính mềm mại (Smooth Momentum Scroll) đồng bộ GSAP |
+| **GSAP Core** | `^3.12.5` | GreenSock (Jack Doyle) | **Standard 'No-Charge'** | `js/vendor/gsap/index.js` | Động cơ timeline, ticker điều phối, nội suy lerp ánh sáng |
+| **GSAP ScrollTrigger** | `3.15.0` | GreenSock | **Standard 'No-Charge'** | `js/vendor/gsap/ScrollTrigger.js` | Hiệu ứng xuất hiện cuộn trang (scroll reveal) & thị sai (parallax) |
+| **GSAP Flip** | `3.15.0` | GreenSock | **Standard 'No-Charge'** | `js/vendor/gsap/Flip.js` | Chuyển cảnh mở rộng thẻ tranh mượt mà sang phòng triển lãm 3D |
+| **GSAP Observer** | `3.15.0` | GreenSock | **Standard 'No-Charge'** | `js/vendor/gsap/Observer.js` | Chuẩn hóa sự kiện cuộn/kéo vuốt cảm ứng đa nền tảng |
+| **GSAP SplitText** | `3.15.0` | GreenSock | **Club GSAP / Commercial** | `js/vendor/gsap/SplitText.js` | Tách ký tự & từ ngữ cho nghệ thuật typography chuyển động (Hero Reveal) |
+| **Vite** | `^8.3.5` | Evan You & Vite Contributors | **MIT License** | `node_modules/vite` | Môi trường đóng gói sản xuất (`npm run build`) |
+
+> [!IMPORTANT]
+> **Lưu ý Bản Quyền Hoạt Họa GSAP (GreenSock Licensing Notice):**
+> - **GSAP Core, ScrollTrigger, Flip và Observer** được phát hành theo giấy phép chuẩn *GreenSock Standard 'No-Charge' License* — hoàn toàn miễn phí cho các website thông thường, portfolio cá nhân, và các dự án không thu phí định kỳ từ người dùng cuối.
+> - **SplitText** là plugin cao cấp thuộc *Club GSAP*. Khi sử dụng dự án cho các sản phẩm thương mại tính phí trực tiếp tới nhiều khách hàng (như bán template trên ThemeForest có tính phí giấy phép mở rộng Extended License), người triển khai cần sở hữu giấy phép thương mại chính thức từ GreenSock (xem chi tiết tại [gsap.com/pricing](https://gsap.com/pricing)). Dự án đã được thiết kế sẵn cơ chế fallback tự động an toàn (graceful degradation) nếu SplitText không được nạp.
 
 ---
 

@@ -33,7 +33,14 @@
   {
     "imports": {
       "three": "./js/vendor/three.module.js",
-      "gsap": "./js/vendor/gsap/index.js"
+      "gsap": "./js/vendor/gsap/index.js",
+      "gsap/ScrollTrigger": "./js/vendor/gsap/ScrollTrigger.js",
+      "gsap/ScrollTrigger.js": "./js/vendor/gsap/ScrollTrigger.js",
+      "gsap/SplitText": "./js/vendor/gsap/SplitText.js",
+      "gsap/SplitText.js": "./js/vendor/gsap/SplitText.js",
+      "gsap/Flip": "./js/vendor/gsap/Flip.js",
+      "gsap/Flip.js": "./js/vendor/gsap/Flip.js",
+      "lenis": "./js/vendor/lenis/lenis.mjs"
     }
   }
   </script>
@@ -81,6 +88,15 @@
       </div>
 
       <div class="utility-right">
+        <!-- Internationalization Language Selector (VI / FR / EN) -->
+        <div class="utility-lang" role="group" aria-label="Lựa chọn ngôn ngữ / Language selection">
+          <button type="button" class="lang-item active" data-lang="vi">VI</button>
+          <span>/</span>
+          <button type="button" class="lang-item" data-lang="fr">FR</button>
+          <span>/</span>
+          <button type="button" class="lang-item" data-lang="en">EN</button>
+        </div>
+
         <!-- Shader & Code Modal Button -->
         <button type="button" id="btn-open-shaders" class="btn-header-shader" title="Xem mã nguồn Shaders và Kiến trúc [Phím ?]">
           <span>✦</span> <span data-i18n="shaders-btn">Shaders &amp; Code</span>
@@ -377,7 +393,7 @@
 
         <!-- Real-Time Filter & Search Controls -->
         <div class="collection-filter-bar">
-          <div class="category-chips">
+          <div class="category-chips" data-lenis-prevent>
             <button type="button" class="cat-chip active" data-filter="all" data-i18n="filter-all">Tất Cả Hiện Vật</button>
             <button type="button" class="cat-chip" data-filter="I" data-i18n="filter-I">Cánh I · Cổ Vật &amp; Phù Điêu Đá</button>
             <button type="button" class="cat-chip" data-filter="II" data-i18n="filter-II">Cánh II · Bậc Thầy Sơn Dầu</button>
@@ -418,7 +434,7 @@
           </p>
         </div>
 
-        <div class="timeline-track-wrap">
+        <div class="timeline-track-wrap" data-lenis-prevent>
           <div id="timeline-track" class="timeline-track"></div>
         </div>
       </section>
@@ -440,7 +456,7 @@
         <!-- Curated Preset Pair Selector -->
         <div class="diptych-presets-bar">
           <span class="diptych-presets-label">Cặp Đối Thoại Giám Tuyển:</span>
-          <div class="diptych-preset-buttons">
+          <div class="diptych-preset-buttons" data-lenis-prevent>
             <button type="button" class="diptych-preset-btn active" data-pair="pair-1">
               <span class="preset-pair-tag">CẶP I · 2.772 NĂM</span>
               <span class="preset-pair-name">Đá Vôi Assyria (883 TCN) ⟷ Sơn Dầu Van Gogh (1889)</span>
@@ -717,7 +733,7 @@
           </div>
           <div class="circadian-slider-row">
             <input type="range" id="circadian-slider" class="circadian-range" min="0" max="24" step="0.25" value="17.5" aria-label="Điều khiển thời gian trong ngày 24 giờ">
-            <div class="circadian-milestones">
+            <div class="circadian-milestones" data-lenis-prevent>
               <button type="button" class="circadian-chip" data-hour="6">06:00 Sương Mai</button>
               <button type="button" class="circadian-chip" data-hour="12">12:00 Giếng Trời</button>
               <button type="button" class="circadian-chip active" data-hour="17.5">17:30 Hoàng Hôn</button>
@@ -749,7 +765,7 @@
       <button type="button" id="btn-close-dossier" class="btn-close-dossier" aria-label="Đóng hồ sơ">✕</button>
     </div>
 
-    <div class="dossier-drawer-body">
+    <div class="dossier-drawer-body" data-lenis-prevent>
       <div>
         <h3 class="dossier-title" id="dossier-title">Phù Điêu Thần Hộ Mệnh Có Cánh</h3>
         <div class="dossier-artist-date" id="dossier-artist-date">Nghệ nhân Assyria khuyết danh · khoảng 883–859 TCN</div>
@@ -806,7 +822,7 @@
         <button type="button" id="btn-close-search-modal" style="background:none; border:none; font-size:1.2rem; cursor:pointer; color:var(--color-muted);">✕</button>
       </div>
 
-      <div id="modal-search-results" class="search-modal-results">
+      <div id="modal-search-results" class="search-modal-results" data-lenis-prevent>
         <!-- Results dynamically inserted here -->
       </div>
     </div>
@@ -885,7 +901,7 @@ for (let i = 0; i &lt; 26; i++) {
       <button type="button" id="btn-close-mobile-menu" class="btn-close-mobile-menu" aria-label="Đóng Menu">✕</button>
     </div>
 
-    <div class="mobile-drawer-body">
+    <div class="mobile-drawer-body" data-lenis-prevent>
       <nav class="mobile-nav-links">
         <a href="#home" class="mobile-nav-link active" data-nav="home">
           <span class="mob-nav-icon">🏛</span>
@@ -945,6 +961,13 @@ for (let i = 0; i &lt; 26; i++) {
       </nav>
 
       <div class="mobile-drawer-footer">
+        <div class="utility-lang" role="group" aria-label="Lựa chọn ngôn ngữ / Language selection" style="margin-bottom: 12px; width: 100%; justify-content: center;">
+          <button type="button" class="lang-item active" data-lang="vi">VI</button>
+          <span>/</span>
+          <button type="button" class="lang-item" data-lang="fr">FR</button>
+          <span>/</span>
+          <button type="button" class="lang-item" data-lang="en">EN</button>
+        </div>
         <button type="button" id="btn-mobile-shaders" class="btn-mobile-action">
           <span>✦</span> Shaders &amp; Code
         </button>
