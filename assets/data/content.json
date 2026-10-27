@@ -225,8 +225,8 @@
         "license": "CC0 (Open Access) — Công cộng",
         "searchUrl": "https://www.metmuseum.org/art/collection/search/322617"
       },
-      "image": "/assets/images/assyrian-relief.jpg",
-      "depth": "/assets/depths/assyrian-relief.png",
+      "image": "./assets/images/assyrian-relief.jpg",
+      "depth": "./assets/depths/assyrian-relief.png",
       "alt": "Phù điêu đá Assyria khắc hình thần hộ mệnh có cánh với áo tua và vòng đeo tay"
     },
     {
@@ -269,8 +269,8 @@
         "license": "CC0 (Open Access) — Công cộng",
         "searchUrl": "https://www.metmuseum.org/art/collection/search/247009"
       },
-      "image": "/assets/images/roman-dancing-maenad.jpg",
-      "depth": "/assets/depths/roman-dancing-maenad.png",
+      "image": "./assets/images/roman-dancing-maenad.jpg",
+      "depth": "./assets/depths/roman-dancing-maenad.png",
       "alt": "Bích họa La Mã cổ đại vẽ người phụ nữ múa trên nền vữa đỏ son Pompeiian"
     },
     {
@@ -309,8 +309,8 @@
         "license": "CC0 (Open Access) — Công cộng",
         "searchUrl": "https://www.metmuseum.org/art/collection/search/253370"
       },
-      "image": "/assets/images/greek-wounded-amazon.jpg",
-      "depth": "/assets/depths/greek-wounded-amazon.png",
+      "image": "./assets/images/greek-wounded-amazon.jpg",
+      "depth": "./assets/depths/greek-wounded-amazon.png",
       "alt": "Tượng cẩm thạch Hy Lạp cổ đại tạc hình thanh niên Kouros đứng thẳng"
     },
     {
@@ -349,8 +349,8 @@
         "license": "CC0 (Open Access) — Công cộng",
         "searchUrl": "https://www.metmuseum.org/art/collection/search/436535"
       },
-      "image": "/assets/images/wheat-field.jpg",
-      "depth": "/assets/depths/wheat-field.png",
+      "image": "./assets/images/wheat-field.jpg",
+      "depth": "./assets/depths/wheat-field.png",
       "alt": "Tranh sơn dầu cánh đồng lúa vàng với cây bách cao vút và bầu trời cuộn mây của Van Gogh"
     },
     {
@@ -389,8 +389,8 @@
         "license": "CC0 (Open Access) — Công cộng",
         "searchUrl": "https://www.metmuseum.org/art/collection/search/436532"
       },
-      "image": "/assets/images/van-gogh-straw-hat.jpg",
-      "depth": "/assets/depths/van-gogh-straw-hat.png",
+      "image": "./assets/images/van-gogh-straw-hat.jpg",
+      "depth": "./assets/depths/van-gogh-straw-hat.png",
       "alt": "Chân dung tự họa của Vincent van Gogh đội mũ rơm với ánh mắt nghiêm nghị"
     },
     {
@@ -429,8 +429,8 @@
         "license": "CC0 (Open Access) — Công cộng",
         "searchUrl": "https://www.metmuseum.org/art/collection/search/437980"
       },
-      "image": "/assets/images/van-gogh-cypresses.jpg",
-      "depth": "/assets/depths/van-gogh-cypresses.png",
+      "image": "./assets/images/van-gogh-cypresses.jpg",
+      "depth": "./assets/depths/van-gogh-cypresses.png",
       "alt": "Tranh sơn dầu hai cây bách cao vút vặn xoắn trên nền trời trăng khuyết của Van Gogh"
     },
     {
@@ -469,8 +469,8 @@
         "license": "CC0 (Open Access) — Công cộng",
         "searchUrl": "https://www.artic.edu/artworks/28560/the-bedroom"
       },
-      "image": "/assets/images/bedroom.jpg",
-      "depth": "/assets/depths/bedroom.png",
+      "image": "./assets/images/bedroom.jpg",
+      "depth": "./assets/depths/bedroom.png",
       "alt": "Tranh sơn dầu căn phòng ngủ màu vàng ấm với giường gỗ và hai chiếc ghế ở Arles"
     },
     {
@@ -509,8 +509,8 @@
         "license": "CC0 (Open Access) — Công cộng",
         "searchUrl": "https://www.metmuseum.org/art/collection/search/437394"
       },
-      "image": "/assets/images/aristotle.jpg",
-      "depth": "/assets/depths/aristotle.png",
+      "image": "./assets/images/aristotle.jpg",
+      "depth": "./assets/depths/aristotle.png",
       "alt": "Chân dung triết gia Aristotle trầm tư bên tượng bán thân nhà thơ Homer"
     },
     {
@@ -549,8 +549,8 @@
         "license": "CC0 (Open Access) — Công cộng",
         "searchUrl": "https://www.metmuseum.org/art/collection/search/437397"
       },
-      "image": "/assets/images/rembrandt-floras.jpg",
-      "depth": "/assets/depths/rembrandt-floras.png",
+      "image": "./assets/images/rembrandt-floras.jpg",
+      "depth": "./assets/depths/rembrandt-floras.png",
       "alt": "Chân dung tự họa tuổi 54 của danh họa Rembrandt van Rijn"
     },
     {
@@ -589,8 +589,8 @@
         "license": "CC0 (Open Access) — Công cộng",
         "searchUrl": "https://www.metmuseum.org/art/collection/search/436947"
       },
-      "image": "/assets/images/monet-water-lilies.jpg",
-      "depth": "/assets/depths/monet-water-lilies.png",
+      "image": "./assets/images/monet-water-lilies.jpg",
+      "depth": "./assets/depths/monet-water-lilies.png",
       "alt": "Cặp đôi chèo thuyền buồm trên dòng sông Seine xanh ngắt của Édouard Manet"
     },
     {
@@ -629,8 +629,8 @@
         "license": "CC0 (Open Access) — Công cộng",
         "searchUrl": "https://www.metmuseum.org/art/collection/search/436838"
       },
-      "image": "/assets/images/cezanne-apples.jpg",
-      "depth": "/assets/depths/cezanne-apples.png",
+      "image": "./assets/images/cezanne-apples.jpg",
+      "depth": "./assets/depths/cezanne-apples.png",
       "alt": "Bức tranh kịch tính cảnh chàng quý tộc trẻ bị móc túi dưới sự mê hoặc của bà bói"
     },
     {
@@ -669,8 +669,8 @@
         "license": "CC0 (Open Access) — Công cộng",
         "searchUrl": "https://www.metmuseum.org/art/collection/search/436253"
       },
-      "image": "/assets/images/vermeer-water-pitcher.jpg",
-      "depth": "/assets/depths/vermeer-water-pitcher.png",
+      "image": "./assets/images/vermeer-water-pitcher.jpg",
+      "depth": "./assets/depths/vermeer-water-pitcher.png",
       "alt": "Chân dung thương nhân Flemish Lucas van Uffel cầm com-pa bên bàn sách"
     },
     {
@@ -709,8 +709,8 @@
         "license": "CC0 (Open Access) — Công cộng",
         "searchUrl": "https://www.metmuseum.org/art/collection/search/437658"
       },
-      "image": "/assets/images/seurat-circus-sideshow.jpg",
-      "depth": "/assets/depths/seurat-circus-sideshow.png",
+      "image": "./assets/images/seurat-circus-sideshow.jpg",
+      "depth": "./assets/depths/seurat-circus-sideshow.png",
       "alt": "Bản phác thảo điểm màu cảnh người dân dạo chơi trên bãi cỏ sông Seine của Seurat"
     },
     {
@@ -749,8 +749,8 @@
         "license": "CC0 (Open Access) — Công cộng",
         "searchUrl": "https://www.metmuseum.org/art/collection/search/45434"
       },
-      "image": "/assets/images/great-wave.jpg",
-      "depth": "/assets/depths/great-wave.png",
+      "image": "./assets/images/great-wave.jpg",
+      "depth": "./assets/depths/great-wave.png",
       "alt": "Bản khắc gỗ Nhật Bản cảnh sóng lớn trùm lên ba chiếc thuyền và núi Phú Sĩ phía xa"
     },
     {
@@ -789,8 +789,8 @@
         "license": "CC0 (Open Access) — Công cộng",
         "searchUrl": "https://www.metmuseum.org/art/collection/search/45435"
       },
-      "image": "/assets/images/hokusai-red-fuji.jpg",
-      "depth": "/assets/depths/hokusai-red-fuji.png",
+      "image": "./assets/images/hokusai-red-fuji.jpg",
+      "depth": "./assets/depths/hokusai-red-fuji.png",
       "alt": "Hộp sơn mài đen rắc bột vàng đắp nổi phù điêu Thọ tinh của nghệ nhân Nhật Bản"
     },
     {
@@ -829,8 +829,8 @@
         "license": "CC0 (Open Access) — Công cộng",
         "searchUrl": "https://www.metmuseum.org/art/collection/search/467642"
       },
-      "image": "/assets/images/unicorn-tapestry.jpg",
-      "depth": "/assets/depths/unicorn-tapestry.png",
+      "image": "./assets/images/unicorn-tapestry.jpg",
+      "depth": "./assets/depths/unicorn-tapestry.png",
       "alt": "Tấm thảm dệt kỳ lân trắng bị xích vào cây lựu giữa vườn hoa millefleurs thời Phục hưng"
     },
     {
@@ -869,8 +869,8 @@
         "license": "CC0 (Open Access) — Công cộng",
         "searchUrl": "https://www.metmuseum.org/art/collection/search/467644"
       },
-      "image": "/assets/images/unicorn-hunters.jpg",
-      "depth": "/assets/depths/unicorn-hunters.png",
+      "image": "./assets/images/unicorn-hunters.jpg",
+      "depth": "./assets/depths/unicorn-hunters.png",
       "alt": "Mặt dây chuyền ngọc mã não khắc nổi dũng sĩ Hercules diệt sư tử Nemean"
     }
   ],
@@ -964,7 +964,7 @@
           "reliefDepth": "18mm",
           "lightAngle": "18° Raking",
           "age": "2.885 năm",
-          "image": "/assets/images/assyrian-relief.jpg",
+          "image": "./assets/images/assyrian-relief.jpg",
           "actionLabel": "Soi Vết Đục Thạch Cao (3D)"
         },
         {
@@ -978,7 +978,7 @@
           "reliefDepth": "4.2mm",
           "lightAngle": "15° Grazing",
           "age": "137 năm",
-          "image": "/assets/images/wheat-field.jpg",
+          "image": "./assets/images/wheat-field.jpg",
           "actionLabel": "Soi Gờ Sơn Impasto (3D)"
         },
         {
@@ -992,7 +992,7 @@
           "reliefDepth": "1.2mm",
           "lightAngle": "24° Raking",
           "age": "194 năm",
-          "image": "/assets/images/great-wave.jpg",
+          "image": "./assets/images/great-wave.jpg",
           "actionLabel": "Soi Thớ Giấy Washi (3D)"
         },
         {
@@ -1006,7 +1006,7 @@
           "reliefDepth": "3.5mm",
           "lightAngle": "30° Ambient",
           "age": "531 năm",
-          "image": "/assets/images/unicorn-tapestry.jpg",
+          "image": "./assets/images/unicorn-tapestry.jpg",
           "actionLabel": "Khám Phá Sợi Dệt (3D)"
         }
       ]
@@ -1097,7 +1097,7 @@
           "artworkCount": "4 Hiện Vật",
           "highlightArtworkId": "roman-dancing-maenad",
           "desc": "Bích họa La Mã cổ đại biệt thự Boscoreale lưu giữ sắc đỏ son Pompeiian rực rỡ và tượng cẩm thạch Hy Lạp Cổ sơ.",
-          "image": "/assets/images/roman-dancing-maenad.jpg"
+          "image": "./assets/images/roman-dancing-maenad.jpg"
         },
         {
           "id": "wing-II",
@@ -1108,7 +1108,7 @@
           "artworkCount": "5 Kiệt Tác",
           "highlightArtworkId": "rembrandt-aristotle",
           "desc": "Kiệt tác Chiaroscuro của Rembrandt với sợi dây chuyền vàng nặng trĩu và tay áo lụa trắng bắt sáng huyền ảo trong bóng tối.",
-          "image": "/assets/images/aristotle.jpg"
+          "image": "./assets/images/aristotle.jpg"
         },
         {
           "id": "wing-III",
@@ -1119,7 +1119,7 @@
           "artworkCount": "4 Kiệt Tác",
           "highlightArtworkId": "hokusai-red-fuji",
           "desc": "Núi Phú Sĩ Đỏ bừng sáng dưới gió thu và hộp sơn mài maki-e rắc bột vàng đắp nổi phù điêu thời kỳ Edo thịnh vượng.",
-          "image": "/assets/images/hokusai-red-fuji.jpg"
+          "image": "./assets/images/hokusai-red-fuji.jpg"
         },
         {
           "id": "wing-IV",
@@ -1130,7 +1130,7 @@
           "artworkCount": "4 Kiệt Tác",
           "highlightArtworkId": "unicorn-hunters",
           "desc": "Đoàn thợ săn quây quanh đài phun nước giữa rừng cấm, dệt bằng sợi len cừu và tơ tằm nguyên chất thời Trung Cổ Nam Ý.",
-          "image": "/assets/images/unicorn-hunters.jpg"
+          "image": "./assets/images/unicorn-hunters.jpg"
         }
       ]
     }

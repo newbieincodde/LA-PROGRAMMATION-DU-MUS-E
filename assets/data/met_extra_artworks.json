@@ -1,4 +1,4 @@
-﻿[
+[
     {
         "id":  "van-gogh-straw-hat",
         "metId":  437980,
@@ -9,7 +9,7 @@
         "dimensions":  "36 3/4 x 29 1/8 in. (93.4 x 74 cm)",
         "accession":  "49.30",
         "department":  "European Paintings",
-        "image":  "/assets/images/van-gogh-straw-hat.jpg",
+        "image":  "./assets/images/van-gogh-straw-hat.jpg",
         "searchUrl":  "https://www.metmuseum.org/art/collection/search/437980"
     },
     {
@@ -22,7 +22,7 @@
         "dimensions":  "16 x 12 1/2 in. (40.6 x 31.8 cm)",
         "accession":  "67.187.70a",
         "department":  "European Paintings",
-        "image":  "/assets/images/van-gogh-cypresses.jpg",
+        "image":  "./assets/images/van-gogh-cypresses.jpg",
         "searchUrl":  "https://www.metmuseum.org/art/collection/search/436532"
     },
     {
@@ -35,7 +35,7 @@
         "dimensions":  "38 1/4 x 51 1/4 in. (97.2 x 130.2 cm)",
         "accession":  "29.100.115",
         "department":  "European Paintings",
-        "image":  "/assets/images/monet-water-lilies.jpg",
+        "image":  "./assets/images/monet-water-lilies.jpg",
         "searchUrl":  "https://www.metmuseum.org/art/collection/search/436947"
     },
     {
@@ -48,7 +48,7 @@
         "dimensions":  "40 1/8 x 48 5/8 in. (101.9 x 123.5 cm)",
         "accession":  "60.30",
         "department":  "European Paintings",
-        "image":  "/assets/images/cezanne-apples.jpg",
+        "image":  "./assets/images/cezanne-apples.jpg",
         "searchUrl":  "https://www.metmuseum.org/art/collection/search/436838"
     },
     {
@@ -61,7 +61,7 @@
         "dimensions":  "49 x 39 5/8 in. (124.5 x 100.6 cm)",
         "accession":  "14.40.619",
         "department":  "European Paintings",
-        "image":  "/assets/images/vermeer-water-pitcher.jpg",
+        "image":  "./assets/images/vermeer-water-pitcher.jpg",
         "searchUrl":  "https://www.metmuseum.org/art/collection/search/436253"
     },
     {
@@ -74,7 +74,7 @@
         "dimensions":  "3 5/16 x 2 1/16 x 3/4 in. (8.4 x 5.3 x 1.9 cm)",
         "accession":  "13.67.25",
         "department":  "Asian Art",
-        "image":  "/assets/images/hokusai-red-fuji.jpg",
+        "image":  "./assets/images/hokusai-red-fuji.jpg",
         "searchUrl":  "https://www.metmuseum.org/art/collection/search/45435"
     },
     {
@@ -87,7 +87,7 @@
         "dimensions":  "Overall: 1 5/8 x 1 7/16 x 5/16in. (4.2 x 3.6 x 0.8cm)",
         "accession":  "38.150.23",
         "department":  "Medieval Art",
-        "image":  "/assets/images/unicorn-hunters.jpg",
+        "image":  "./assets/images/unicorn-hunters.jpg",
         "searchUrl":  "https://www.metmuseum.org/art/collection/search/467644"
     },
     {
@@ -100,7 +100,7 @@
         "dimensions":  "Overall: 73 1/2 x 73 1/2in. (186.7 x 186.7cm)",
         "accession":  "03.14.5",
         "department":  "Greek and Roman Art",
-        "image":  "/assets/images/roman-dancing-maenad.jpg",
+        "image":  "./assets/images/roman-dancing-maenad.jpg",
         "searchUrl":  "https://www.metmuseum.org/art/collection/search/247009"
     },
     {
@@ -113,7 +113,7 @@
         "dimensions":  "76 5/8 Ã 20 5/16 Ã 24 7/8 in. (194.6 Ã 51.6 Ã 63.2 cm)\r\nOther (height w/o plinth): 76 5/8 in. (194.6 cm)\r\nOther (Height of Head): 12 in. (30.5 cm)\r\nOther (Length of face): 8 7/8 in. (22.6 cm)\r\nOther (shoulder width): 20 5/16 in. (51.6 cm)",
         "accession":  "32.11.1",
         "department":  "Greek and Roman Art",
-        "image":  "/assets/images/greek-wounded-amazon.jpg",
+        "image":  "./assets/images/greek-wounded-amazon.jpg",
         "searchUrl":  "https://www.metmuseum.org/art/collection/search/253370"
     },
     {
@@ -126,7 +126,7 @@
         "dimensions":  "31 5/8 x 26 1/2 in. (80.3 x 67.3 cm)",
         "accession":  "14.40.618",
         "department":  "European Paintings",
-        "image":  "/assets/images/rembrandt-floras.jpg",
+        "image":  "./assets/images/rembrandt-floras.jpg",
         "searchUrl":  "https://www.metmuseum.org/art/collection/search/437397"
     },
     {
@@ -139,7 +139,7 @@
         "dimensions":  "27 3/4 x 41 in. (70.5 x 104.1 cm)",
         "accession":  "51.112.6",
         "department":  "European Paintings",
-        "image":  "/assets/images/seurat-circus-sideshow.jpg",
+        "image":  "./assets/images/seurat-circus-sideshow.jpg",
         "searchUrl":  "https://www.metmuseum.org/art/collection/search/437658"
     }
 ]

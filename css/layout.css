@@ -57,7 +57,7 @@ body {
   height: 100vh;
   pointer-events: none;
   z-index: 1;
-  background-image: url('/assets/images/sharp-thorns-pattern.png');
+  background-image: url('../assets/images/sharp-thorns-pattern.png');
   background-repeat: repeat;
   background-size: 360px auto;
   opacity: 0.17;
