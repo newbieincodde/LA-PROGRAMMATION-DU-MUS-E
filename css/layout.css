@@ -1955,6 +1955,50 @@ html[data-theme="dark"] .timeline-item.active {
   .zen-dock-lights {
     justify-content: center;
   }
+  .zen-top-bar {
+    top: 14px !important;
+    left: 12px !important;
+    right: 12px !important;
+    gap: 8px !important;
+  }
+  .zen-room-badge {
+    font-size: 0.8rem !important;
+    padding: 6px 12px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 52vw !important;
+  }
+  .zen-exit-btn {
+    font-size: 0.7rem !important;
+    padding: 6px 12px !important;
+    white-space: nowrap !important;
+  }
+  .zen-nav-arrow {
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 1rem !important;
+  }
+  .zen-arrow-prev {
+    left: 8px !important;
+  }
+  .zen-arrow-next {
+    right: 8px !important;
+  }
+  .circadian-dock-control {
+    min-width: unset !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .circadian-slider-row {
+    width: 100% !important;
+  }
+  .circadian-range {
+    width: 100% !important;
+  }
+  .circadian-milestones {
+    width: 100% !important;
+  }
   .circadian-dock-top {
     flex-wrap: wrap !important;
     gap: 6px !important;
