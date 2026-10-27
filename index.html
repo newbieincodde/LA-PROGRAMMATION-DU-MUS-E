@@ -133,6 +133,37 @@
         <a href="#curatorial" class="louvre-nav-item" data-nav="curatorial" data-i18n="nav-curatorial">Giám Tuyển</a>
         <a href="#visit" class="louvre-nav-item" data-nav="visit" data-i18n="nav-visit">Đặt Vé / Mua Mẫu</a>
       </nav>
+
+      <!-- Mobile Quick Actions & Luxury Hamburger Menu Trigger -->
+      <div class="header-mobile-actions">
+        <button 
+          type="button" 
+          id="theme-toggle-btn-mob" 
+          class="theme-toggle-btn theme-toggle-btn-mob" 
+          aria-label="Chuyển đổi giao diện Sáng / Tối" 
+          title="Chuyển đổi giao diện">
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+
+        <button type="button" id="btn-mobile-menu" class="btn-mobile-menu" aria-label="Mở Menu Điều Hướng Bảo Tàng" aria-expanded="false">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
     </div>
 
     <!-- Tier 3: Museum Breadcrumbs Bar -->
@@ -837,6 +868,89 @@ for (let i = 0; i &lt; 26; i++) {
     }
   }
 }</code></pre>
+      </div>
+    </div>
+  </aside>
+
+  <!-- =======================================================================
+       MOBILE CURATORIAL NAVIGATION DRAWER (Full-Bleed Luxury Frosted Glass)
+       ======================================================================= -->
+  <div id="mobile-nav-backdrop" class="mobile-nav-backdrop" aria-hidden="true"></div>
+  <aside id="mobile-nav-drawer" class="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Menu điều hướng di động">
+    <div class="mobile-drawer-header">
+      <div class="brand-emblem-wrap">
+        <span class="brand-logo-text">ÉTHÉRÉ</span>
+        <span class="brand-tagline">Musée d'Art</span>
+      </div>
+      <button type="button" id="btn-close-mobile-menu" class="btn-close-mobile-menu" aria-label="Đóng Menu">✕</button>
+    </div>
+
+    <div class="mobile-drawer-body">
+      <nav class="mobile-nav-links">
+        <a href="#home" class="mobile-nav-link active" data-nav="home">
+          <span class="mob-nav-icon">🏛</span>
+          <div class="mob-nav-info">
+            <span class="mob-nav-title">Trang Chủ Triển Lãm</span>
+            <span class="mob-nav-sub">Đại sảnh Foyer &amp; Băng chuyền dệt sợi</span>
+          </div>
+        </a>
+
+        <a href="#diptych" class="mobile-nav-link highlight-link" data-nav="diptych">
+          <span class="mob-nav-icon">✦</span>
+          <div class="mob-nav-info">
+            <span class="mob-nav-title">✦ Đối Thoại 2 Thời Đại</span>
+            <span class="mob-nav-sub">Bàn so sánh song song &amp; Ánh sáng cào</span>
+          </div>
+        </a>
+
+        <a href="#exhibition" class="mobile-nav-link" data-nav="exhibition">
+          <span class="mob-nav-icon">👁</span>
+          <div class="mob-nav-info">
+            <span class="mob-nav-title">Triển Lãm 3D Xúc Giác</span>
+            <span class="mob-nav-sub">Soi bóng bề mặt &amp; Nhịp sinh học 24H</span>
+          </div>
+        </a>
+
+        <a href="#timeline" class="mobile-nav-link" data-nav="timeline">
+          <span class="mob-nav-icon">⏳</span>
+          <div class="mob-nav-info">
+            <span class="mob-nav-title">Hành Trình 2.800 Năm</span>
+            <span class="mob-nav-sub">11 Cột mốc lịch sử nghệ thuật</span>
+          </div>
+        </a>
+
+        <a href="#collection" class="mobile-nav-link" data-nav="collection">
+          <span class="mob-nav-icon">🖼</span>
+          <div class="mob-nav-info">
+            <span class="mob-nav-title">Kho Lưu Trữ 18 Kiệt Tác</span>
+            <span class="mob-nav-sub">The Met &amp; Art Institute of Chicago</span>
+          </div>
+        </a>
+
+        <a href="#curatorial" class="mobile-nav-link" data-nav="curatorial">
+          <span class="mob-nav-icon">📜</span>
+          <div class="mob-nav-info">
+            <span class="mob-nav-title">Tuyên Ngôn Giám Tuyển</span>
+            <span class="mob-nav-sub">Triết lý Ánh Sáng Đi Qua Thời Gian</span>
+          </div>
+        </a>
+
+        <a href="#visit" class="mobile-nav-link gold-link" data-nav="visit">
+          <span class="mob-nav-icon">✦</span>
+          <div class="mob-nav-info">
+            <span class="mob-nav-title">Đặt Vé · Bản Quyền VIP Pass</span>
+            <span class="mob-nav-sub">Thẻ kỹ thuật số mạ vàng có QR</span>
+          </div>
+        </a>
+      </nav>
+
+      <div class="mobile-drawer-footer">
+        <button type="button" id="btn-mobile-shaders" class="btn-mobile-action">
+          <span>✦</span> Shaders &amp; Code
+        </button>
+        <button type="button" id="btn-mobile-search" class="btn-mobile-action">
+          <span>🔍</span> Tìm Kiếm
+        </button>
       </div>
     </div>
   </aside>

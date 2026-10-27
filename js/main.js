@@ -520,6 +520,9 @@ function setupNavigationRouting() {
     });
   });
 
+  // Mobile Navigation Drawer Controller
+  setupMobileNavigation();
+
   // Hero enter button
   document.getElementById('btn-hero-enter-3d')?.addEventListener('click', () => {
     openFocusArtwork(allArtworksList[0]);
@@ -545,6 +548,80 @@ function setupNavigationRouting() {
   } else {
     switchView('home');
   }
+}
+
+function setupMobileNavigation() {
+  const btnMobileMenu = document.getElementById('btn-mobile-menu');
+  const btnCloseMobileMenu = document.getElementById('btn-close-mobile-menu');
+  const mobileNavDrawer = document.getElementById('mobile-nav-drawer');
+  const mobileNavBackdrop = document.getElementById('mobile-nav-backdrop');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+  const themeToggleMob = document.getElementById('theme-toggle-btn-mob');
+  const btnMobileShaders = document.getElementById('btn-mobile-shaders');
+  const btnMobileSearch = document.getElementById('btn-mobile-search');
+
+  function openMobileNav() {
+    mobileNavDrawer?.classList.add('is-open');
+    mobileNavBackdrop?.classList.add('is-open');
+    btnMobileMenu?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobileNav() {
+    mobileNavDrawer?.classList.remove('is-open');
+    mobileNavBackdrop?.classList.remove('is-open');
+    btnMobileMenu?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  btnMobileMenu?.addEventListener('click', () => {
+    if (mobileNavDrawer?.classList.contains('is-open')) {
+      closeMobileNav();
+    } else {
+      openMobileNav();
+    }
+  });
+
+  btnCloseMobileMenu?.addEventListener('click', closeMobileNav);
+  mobileNavBackdrop?.addEventListener('click', closeMobileNav);
+
+  mobileNavLinks.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = link.getAttribute('data-nav');
+      closeMobileNav();
+
+      mobileNavLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+
+      if (target === 'exhibition') {
+        openFocusArtwork(allArtworksList[0]);
+      } else {
+        switchView(target);
+        window.history.pushState(null, '', `#${target}`);
+      }
+    });
+  });
+
+  // Sync mobile theme button with main theme switcher
+  themeToggleMob?.addEventListener('click', () => {
+    document.getElementById('theme-toggle-btn')?.click();
+  });
+
+  // Mobile secondary shortcuts
+  btnMobileShaders?.addEventListener('click', () => {
+    closeMobileNav();
+    setTimeout(() => {
+      document.getElementById('btn-open-shaders')?.click();
+    }, 200);
+  });
+
+  btnMobileSearch?.addEventListener('click', () => {
+    closeMobileNav();
+    setTimeout(() => {
+      document.getElementById('btn-utility-search')?.click();
+    }, 200);
+  });
 }
 
 /* ==========================================================================
