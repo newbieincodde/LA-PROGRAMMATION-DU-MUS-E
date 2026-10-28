@@ -134,7 +134,19 @@
       "period": "883 TCN – Thế kỷ II SCN",
       "artworkId": "assyrian-winged-genie",
       "tagline": "Đá bazan và cẩm thạch lưu giữ dấu vết của lưỡi đục kim loại đầu tiên.",
-      "lightHint": "Hạ nguồn sáng xuống thấp để bóng đổ lấp đầy từng rãnh đục sâu."
+      "lightHint": "Hạ nguồn sáng xuống thấp để bóng đổ lấp đầy từng rãnh đục sâu.",
+      "palette": {
+        "light": {
+          "bg": "#F2EEE6",
+          "ink": "#1C1B1A",
+          "accent": "#73560F"
+        },
+        "dark": {
+          "bg": "#131315",
+          "ink": "#EFECE6",
+          "accent": "#D4AF37"
+        }
+      }
     },
     {
       "id": "II",
@@ -155,7 +167,19 @@
         "seurat-circus-sideshow"
       ],
       "tagline": "Mỗi vệt phết dao và nhát cọ dày là một ngọn đồi nhỏ hứng lấy ánh sáng.",
-      "lightHint": "Chọn ánh sáng Hoàng Hôn để gờ sơn impasto đổ bóng dài kịch tính."
+      "lightHint": "Chọn ánh sáng Hoàng Hôn để gờ sơn impasto đổ bóng dài kịch tính.",
+      "palette": {
+        "light": {
+          "bg": "#F4EFE2",
+          "ink": "#1A1A17",
+          "accent": "#7D5A0A"
+        },
+        "dark": {
+          "bg": "#141512",
+          "ink": "#F2EDE4",
+          "accent": "#DDB342"
+        }
+      }
     },
     {
       "id": "III",
@@ -168,7 +192,19 @@
         "hokusai-red-fuji"
       ],
       "tagline": "Thớ gỗ dâu tằm in vào giấy washi, vết ép bản khắc sáng lên dưới ánh đèn ngang.",
-      "lightHint": "Dùng ánh sáng Studio trắng tinh để soi thớ giấy thủ công."
+      "lightHint": "Dùng ánh sáng Studio trắng tinh để soi thớ giấy thủ công.",
+      "palette": {
+        "light": {
+          "bg": "#EEF2F4",
+          "ink": "#14181C",
+          "accent": "#2B5E7B"
+        },
+        "dark": {
+          "bg": "#101418",
+          "ink": "#E8EEF3",
+          "accent": "#73A8C6"
+        }
+      }
     },
     {
       "id": "IV",
@@ -181,7 +217,19 @@
         "unicorn-hunters"
       ],
       "tagline": "Hàng triệu nút thắt len và tơ tằm hòa quyện thành bản trường ca xúc giác.",
-      "lightHint": "Hiệu ứng Unwoven tách bức thảm thành 26 dải sợi ruy-băng rồi dệt lại."
+      "lightHint": "Hiệu ứng Unwoven tách bức thảm thành 26 dải sợi ruy-băng rồi dệt lại.",
+      "palette": {
+        "light": {
+          "bg": "#F0EFE9",
+          "ink": "#181A16",
+          "accent": "#823D3A"
+        },
+        "dark": {
+          "bg": "#151213",
+          "ink": "#EEE8E9",
+          "accent": "#D68582"
+        }
+      }
     }
   ],
   "artworks": [

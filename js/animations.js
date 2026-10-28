@@ -762,6 +762,139 @@ function initCustomCursor() {
 }
 
 /* ==========================================================================
+   E7 PER-ROOM COLOR PALETTES (Cinematic Atmosphere Morphing)
+   ========================================================================== */
+export function calculateContrastRatio(hex1, hex2) {
+  function srgbToLin(c) {
+    const v = c / 255.0;
+    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  }
+  function getLuminance(hex) {
+    const clean = hex.replace('#', '');
+    const r = parseInt(clean.substring(0, 2), 16);
+    const g = parseInt(clean.substring(2, 4), 16);
+    const b = parseInt(clean.substring(4, 6), 16);
+    return 0.2126 * srgbToLin(r) + 0.7152 * srgbToLin(g) + 0.0722 * srgbToLin(b);
+  }
+  const l1 = getLuminance(hex1);
+  const l2 = getLuminance(hex2);
+  const lighter = Math.max(l1, l2);
+  const darker = Math.min(l1, l2);
+  return (lighter + 0.05) / (darker + 0.05);
+}
+
+export const ROOM_PALETTES = {
+  I: {
+    light: { bg: '#F2EEE6', ink: '#1C1B1A', accent: '#73560F' },
+    dark: { bg: '#131315', ink: '#EFECE6', accent: '#D4AF37' },
+  },
+  II: {
+    light: { bg: '#F4EFE2', ink: '#1A1A17', accent: '#7D5A0A' },
+    dark: { bg: '#141512', ink: '#F2EDE4', accent: '#DDB342' },
+  },
+  III: {
+    light: { bg: '#EEF2F4', ink: '#14181C', accent: '#2B5E7B' },
+    dark: { bg: '#101418', ink: '#E8EEF3', accent: '#73A8C6' },
+  },
+  IV: {
+    light: { bg: '#F0EFE9', ink: '#181A16', accent: '#823D3A' },
+    dark: { bg: '#151213', ink: '#EEE8E9', accent: '#D68582' },
+  },
+  default: {
+    light: { bg: '#F4F0E8', ink: '#191816', accent: '#B38C2A' },
+    dark: { bg: '#121214', ink: '#F5F0E8', accent: '#D4AF37' },
+  },
+};
+
+let currentPaletteTween = null;
+let currentActiveRoomId = null;
+
+export function applyRoomPalette(roomId, immediate = false) {
+  if (typeof document === 'undefined') return;
+  currentActiveRoomId = roomId;
+
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const themeKey = isDark ? 'dark' : 'light';
+  const palette = ROOM_PALETTES[roomId] ? ROOM_PALETTES[roomId][themeKey] : ROOM_PALETTES.default[themeKey];
+
+  // Dev-time WCAG AA contrast check (>= 4.5:1)
+  const contrastRatio = calculateContrastRatio(palette.bg, palette.ink);
+  if (contrastRatio < 4.5) {
+    console.warn(`[WCAG Contrast Warning] Room ${roomId || 'default'} (${themeKey}) contrast ratio is ${contrastRatio.toFixed(2)}:1 (needs >= 4.5:1)`);
+  }
+
+  const root = document.documentElement;
+
+  if (immediate || isReducedMotion() || !isMotionAllowed('roomPalette')) {
+    if (currentPaletteTween) {
+      currentPaletteTween.kill();
+      currentPaletteTween = null;
+    }
+    root.style.setProperty('--color-bg', palette.bg);
+    root.style.setProperty('--color-text', palette.ink);
+    root.style.setProperty('--color-accent', palette.accent);
+    root.style.setProperty('--color-louvre-gold', palette.accent);
+    root.style.setProperty('--color-unwoven-fade', palette.bg);
+
+    const clean = palette.bg.replace('#', '');
+    const r = parseInt(clean.substring(0, 2), 16) / 255;
+    const g = parseInt(clean.substring(2, 4), 16) / 255;
+    const b = parseInt(clean.substring(4, 6), 16) / 255;
+    window.dispatchEvent(new CustomEvent('themechanged', { detail: { unwovenFadeRgb: [r, g, b] } }));
+    return;
+  }
+
+  if (currentPaletteTween) {
+    currentPaletteTween.kill();
+  }
+
+  const currentBg = getComputedStyle(root).getPropertyValue('--color-bg').trim() || palette.bg;
+  const currentText = getComputedStyle(root).getPropertyValue('--color-text').trim() || palette.ink;
+  const currentAccent = getComputedStyle(root).getPropertyValue('--color-accent').trim() || palette.accent;
+
+  const colorProxy = {
+    bg: currentBg,
+    text: currentText,
+    accent: currentAccent,
+  };
+
+  currentPaletteTween = gsap.to(colorProxy, {
+    bg: palette.bg,
+    text: palette.ink,
+    accent: palette.accent,
+    duration: 0.9,
+    ease: 'power2.out',
+    onUpdate: () => {
+      root.style.setProperty('--color-bg', colorProxy.bg);
+      root.style.setProperty('--color-text', colorProxy.text);
+      root.style.setProperty('--color-accent', colorProxy.accent);
+      root.style.setProperty('--color-louvre-gold', colorProxy.accent);
+      root.style.setProperty('--color-unwoven-fade', colorProxy.bg);
+
+      const clean = colorProxy.bg.replace('#', '');
+      if (clean.length === 6) {
+        const r = parseInt(clean.substring(0, 2), 16) / 255;
+        const g = parseInt(clean.substring(2, 4), 16) / 255;
+        const b = parseInt(clean.substring(4, 6), 16) / 255;
+        window.dispatchEvent(new CustomEvent('themechanged', { detail: { unwovenFadeRgb: [r, g, b] } }));
+      }
+    },
+    onComplete: () => {
+      currentPaletteTween = null;
+    },
+  });
+}
+
+export function getCurrentActiveRoomId() {
+  return currentActiveRoomId;
+}
+
+if (typeof window !== 'undefined') {
+  window.applyRoomPalette = applyRoomPalette;
+  window.calculateContrastRatio = calculateContrastRatio;
+}
+
+/* ==========================================================================
    E8 SKELETON LOADING & GRACEFUL DECODE FADES
    ========================================================================== */
 export function setupSkeletonImageFade(container) {

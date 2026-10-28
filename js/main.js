@@ -34,6 +34,8 @@ import {
   initAmbientDustParticles,
   setupSkeletonImageFade,
   initTimelineRailDrawing,
+  applyRoomPalette,
+  getCurrentActiveRoomId,
 } from './animations.js';
 import { initRouter, navigateTo, getCurrentRoute } from './router.js';
 
@@ -1299,6 +1301,7 @@ async function initApp() {
   // Theme Toggle Button
   document.getElementById('theme-toggle-btn')?.addEventListener('click', async () => {
     await themeManager.toggle();
+    applyRoomPalette(getCurrentActiveRoomId(), true);
   });
 
   // Keyboard Shortcuts

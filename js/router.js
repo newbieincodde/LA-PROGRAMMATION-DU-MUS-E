@@ -20,6 +20,7 @@ import {
   refreshAllScrollTriggers,
   scrollToTop,
   setupSkeletonImageFade,
+  applyRoomPalette,
 } from './animations.js';
 
 let _activeRoute = null;
@@ -363,6 +364,16 @@ export async function navigateTo(hashOrRoute, replace = false) {
 
   // Unified scroll to top hook (Lenis-aware)
   scrollToTop(true);
+
+  // E7: Animate per-room dynamic color palette
+  if (targetViewName === 'room') {
+    applyRoomPalette(route.param || 'I');
+  } else if (targetViewName === 'artwork') {
+    const art = await getArtwork(route.param);
+    applyRoomPalette(art && art.room ? art.room : 'I');
+  } else {
+    applyRoomPalette(null);
+  }
 
   // Notify registered callbacks
   _routeChangeListeners.forEach((fn) => {
