@@ -9,13 +9,13 @@ Mẫu web tái hiện trải nghiệm triển lãm bảo tàng danh giá với c
 
 ## ✦ Điểm Nhấn Công Nghệ & Thương Mại Độc Quyền (Grand Edition)
 
-1. **Quy Mô Bảo Tàng 4 Cánh & 17 Kiệt Tác CC0 (Authentic Museum Taxonomy):**
-   - **17 kiệt tác thật** được số hóa Open Access CC0 từ **The Metropolitan Museum of Art** và **Art Institute of Chicago**.
+1. **Quy Mô Bảo Tàng 4 Cánh & 50 Kiệt Tác CC0 (Authentic Museum Taxonomy):**
+   - **50 kiệt tác thật** được số hóa Open Access CC0 từ **The Metropolitan Museum of Art**, **Art Institute of Chicago**, **Musée de Cluny**, **Rijksmuseum** và **Tokyo National Museum**.
    - 4 cánh trưng bày chuyên biệt:
-     - **Cánh I:** Cổ Vật Đá Assyria & Bích Họa La Mã (883 TCN – Thế kỷ II SCN)
-     - **Cánh II:** Bậc Thầy Sơn Dầu & Chiaroscuro (Van Gogh, Rembrandt, Monet, Cézanne, Vermeer, Seurat)
-     - **Cánh III:** Khắc Gỗ Ukiyo-e Hokusai & Mỹ Nghệ Á Đông
-     - **Cánh IV:** Thảm Dệt Tapestry Phục Hưng & Nghệ Thuật Dệt Sợi
+     - **Cánh I:** Cổ Vật Đá Assyria, Ai Cập & Bích Họa La Mã (11 kiệt tác)
+     - **Cánh II:** Bậc Thầy Sơn Dầu & Chiaroscuro (Van Gogh, Rembrandt, Vermeer, Monet, Cézanne, La Tour) (20 kiệt tác)
+     - **Cánh III:** Khắc Gỗ Ukiyo-e Hokusai, Hiroshige & Mỹ Nghệ Á Đông (10 kiệt tác)
+     - **Cánh IV:** Thảm Dệt Tapestry Phục Hưng & Nghệ Thuật Dệt Sợi (9 kiệt tác)
    - **Cấu Trúc Phân Cấp Thông Tin 3 Cấp Độ (3-Tier Museum Architecture):**
      $$\text{Room (Hub Cánh Trưng Bày)} \longrightarrow \text{Artwork (Hồ Sơ Chi Tiết)} \longrightarrow \text{Story (Bài Luận Giám Tuyển)}$$
    - **Hệ Thống Định Tuyến Hash Router Chuyên Biệt (`js/router.js`):**
@@ -24,7 +24,7 @@ Mẫu web tái hiện trải nghiệm triển lãm bảo tàng danh giá với c
      - `#artwork/<id>`: Hồ sơ kiệt tác chi tiết, thông số kỹ thuật `<dl>`, phân tích giám định, nút kích hoạt 3D Relighting, chuyển tác phẩm cùng cánh (cyclical) và bài luận liên hệ.
      - `#stories`: Chỉ mục 4 bài luận chuyên đề giám tuyển.
      - `#story/<id>`: Toàn văn khảo cứu giám tuyển, bí mật khảo cổ, ý niệm bên lề, bảng thông số vật liệu và tác phẩm minh hoạ.
-     - `#collection`: Kho lưu trữ 17 kiệt tác với bộ lọc thời gian thực và ô tìm kiếm.
+     - `#collection`: Kho lưu trữ 50 kiệt tác với bộ lọc thời gian thực và ô tìm kiếm.
      - `#timeline`: Biên niên sử nghệ thuật 2.800 năm (10 cột mốc lịch sử).
      - `#diptych`: Xưởng đối thoại so sánh song song 2 kiệt tác với ánh sáng cào.
      - `#curatorial`: Lời tựa và tuyên ngôn hội đồng giám tuyển.
@@ -55,7 +55,7 @@ Mẫu web tái hiện trải nghiệm triển lãm bảo tàng danh giá với c
    - Dòng thời gian 2.800 năm từ năm 883 TCN đến thế kỷ XX với 10 cột mốc lịch sử nghệ thuật. Nhấp vào cột mốc để điều hướng và lọc nhanh tác phẩm.
 
 6. **Bộ Lọc Danh Mục & Tìm Kiếm Trực Tiếp (Live Archive Search & Filter):**
-   - Thanh tìm kiếm tức thời kết hợp các thẻ chip lọc theo 4 cánh trưng bày, cập nhật danh mục 17 tác phẩm mà không tải lại trang.
+   - Thanh tìm kiếm tức thời kết hợp các thẻ chip lọc theo 4 cánh trưng bày, cập nhật danh mục 50 tác phẩm mà không tải lại trang.
 
 7. **Hướng Dẫn Âm Thanh Thủ Tục (Procedural Museum Ambient Drone):**
    - Tích hợp bộ tạo âm nền bảo tàng tĩnh lặng tần số điều hòa ấm 108Hz/162Hz sử dụng native **Web Audio API** (không cần file âm thanh ngoài nặng nề, mặc định tắt để tôn trọng người xem).
@@ -72,9 +72,9 @@ Mẫu web tái hiện trải nghiệm triển lãm bảo tàng danh giá với c
 /du-an-nhom-x
 │-- /assets
 │   │-- /data
-│   │   └── content.json      # FILE CẤU HÌNH DUY NHẤT: 17 tác phẩm, timeline, màu sắc, preset
-│   │-- /images               # 17 ảnh khuếch tán (Diffuse maps) chuẩn bảo tàng CC0
-│   └── /depths               # 17 bản đồ độ sâu (Depth maps) vi chi tiết tương ứng
+│   │   └── content.json      # FILE CẤU HÌNH DUY NHẤT: 50 tác phẩm, timeline, màu sắc, preset
+│   │-- /images               # 50 ảnh khuếch tán (Diffuse maps) chuẩn bảo tàng CC0
+│   └── /depths               # 50 bản đồ độ sâu (Depth maps) vi chi tiết tương ứng
 │-- /css
 │   │-- layout.css            # Bố cục đa tầng, Navigation Flyouts, 3D Zen Stage, Timeline, Archive
 │   └── styles.css            # Hệ thống màu sắc ngà/đen, kiểu chữ European Fine Art, Theme Engine
@@ -99,7 +99,7 @@ Mẫu web tái hiện trải nghiệm triển lãm bảo tàng danh giá với c
 │   │-- main.js               # Bộ điều phối trung tâm kết nối toàn bộ module
 │   └── /vendor               # Thư viện vendored (Three.js, GSAP Core + Plugins, Lenis ESM) cho chế độ Zero-Node
 │-- index.html                # Giao diện chính 1-Page Fullscreen hoàn chỉnh
-│-- CREDITS.md                # Danh mục bản quyền 18 tác phẩm CC0 The Met/AIC & giấy phép MIT
+│-- CREDITS.md                # Danh mục bản quyền 50 tác phẩm CC0 The Met/AIC & giấy phép MIT
 │-- README.md                 # Tài liệu hướng dẫn sử dụng chi tiết cho người mua template
 │-- prompt_log.md             # Nhật ký phát triển và tinh chỉnh cùng AI
 │-- package.json              # Khai báo thư viện (Three.js, GSAP, Lenis, Vite)
@@ -148,4 +148,4 @@ Mọi thông tin đều được cấu hình tập trung trong `assets/data/cont
 
 ## 📜 Bản Quyền & Giấy Phép (License)
 - Toàn bộ mã nguồn phát hành dưới giấy phép **MIT License**.
-- Toàn bộ 17 hình ảnh tác phẩm nghệ thuật thuộc phạm vi công cộng **CC0 (Open Access)** từ The Met và Art Institute of Chicago. Xem chi tiết tại `CREDITS.md`.
+- Toàn bộ 50 hình ảnh tác phẩm nghệ thuật thuộc phạm vi công cộng **CC0 (Open Access)** từ The Met, Art Institute of Chicago, Musée de Cluny, Rijksmuseum. Xem chi tiết tại `CREDITS.md`.

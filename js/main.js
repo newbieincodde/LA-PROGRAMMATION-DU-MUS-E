@@ -220,9 +220,9 @@ export async function openFocusArtwork(artworkInput) {
   if (dockDept) dockDept.textContent = `${artwork.roomName || 'PHÒNG TRIỂN LÃM'} · ${artwork.year || ''}`;
   if (dockTitle) dockTitle.textContent = artwork.title || '';
 
-  const specs = artwork.specs || [];
-  const mediumSpec = specs.find((s) => s.label.toLowerCase().includes('chất liệu'))?.value || '';
-  const dimsSpec = specs.find((s) => s.label.toLowerCase().includes('kích thước'))?.value || '';
+  const specs = Array.isArray(artwork.specs) ? artwork.specs : [];
+  const mediumSpec = specs.find((s) => s.label?.toLowerCase().includes('chất liệu'))?.value || artwork.specs?.medium || '';
+  const dimsSpec = specs.find((s) => s.label?.toLowerCase().includes('kích thước'))?.value || artwork.specs?.dimensions || '';
 
   if (dockMeta) {
     dockMeta.textContent = [artwork.artist, mediumSpec, dimsSpec].filter(Boolean).join(' · ');
@@ -323,12 +323,16 @@ function populateDossierDrawer(artwork) {
   if (technique) technique.textContent = artwork.technique || 'Kỹ thuật tạo tác truyền thống được tái hiện bằng công nghệ chiếu sáng 3D.';
 
   if (specsBody && artwork.specs) {
-    specsBody.innerHTML = artwork.specs
+    const specsList = Array.isArray(artwork.specs)
+      ? artwork.specs
+      : Object.entries(artwork.specs).map(([k, v]) => ({ label: k, value: v }));
+
+    specsBody.innerHTML = specsList
       .map(
         (s) => `
         <tr>
-          <td>${s.label}</td>
-          <td>${s.value}</td>
+          <td>${s.label || ''}</td>
+          <td>${s.value || ''}</td>
         </tr>
       `
       )
@@ -542,8 +546,8 @@ function renderCollectionCards(artworks) {
 
   grid.innerHTML = artworks
     .map((art) => {
-      const specs = art.specs || [];
-      const mediumSpec = specs.find((s) => s.label.toLowerCase().includes('chất liệu'))?.value || '';
+      const specs = Array.isArray(art.specs) ? art.specs : [];
+      const mediumSpec = specs.find((s) => s.label?.toLowerCase().includes('chất liệu'))?.value || art.specs?.medium || '';
 
       return `
       <article class="artwork-card" data-art-id="${art.id}" tabindex="0" role="button" aria-label="Xem hồ sơ chi tiết ${art.title}">

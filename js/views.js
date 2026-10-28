@@ -32,6 +32,18 @@ function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
+function getSpecValue(specs, labelKey) {
+  if (!specs) return '';
+  if (Array.isArray(specs)) {
+    const item = specs.find((s) => s && s.label && s.label.toLowerCase().includes(labelKey.toLowerCase()));
+    return item ? item.value : '';
+  }
+  if (typeof specs === 'object') {
+    return specs[labelKey] || '';
+  }
+  return '';
+}
+
 /* ==========================================================================
    1. ROOM HUB VIEW RENDERER (#room/:id)
    ========================================================================== */
@@ -310,11 +322,11 @@ export async function renderArtworkView(container, artworkId) {
             <dl class="specs-definition-list">
               <div class="spec-row">
                 <dt>Kích thước</dt>
-                <dd>${escapeHtml(art.specs?.dimensions || 'Chưa công bố')}</dd>
+                <dd>${escapeHtml(getSpecValue(art.specs, 'kích thước') || art.specs?.dimensions || 'Chưa công bố')}</dd>
               </div>
               <div class="spec-row">
                 <dt>Chất liệu</dt>
-                <dd>${escapeHtml(art.specs?.medium || 'Chưa phân tích')}</dd>
+                <dd>${escapeHtml(getSpecValue(art.specs, 'chất liệu') || art.specs?.medium || 'Chưa phân tích')}</dd>
               </div>
               <div class="spec-row">
                 <dt>Kỹ thuật tạo tác</dt>
