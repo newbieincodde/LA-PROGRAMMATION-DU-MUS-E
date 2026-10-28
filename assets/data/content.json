@@ -2632,6 +2632,49 @@
           "image": "./assets/images/unicorn-tapestry.jpg",
           "actionLabel": "Khám Phá Sợi Dệt (3D)"
         }
+      ],
+      "scrolly": [
+        {
+          "step": 1,
+          "angle": 18,
+          "panelId": "panel-nimrud",
+          "artworkId": "assyrian-winged-genie",
+          "title": "18° Bình Minh Cổ Đại · Thạch Điêu Nimrud",
+          "text": "« Đá không chết, đá chỉ chờ một tia sáng xiên quét qua để cất tiếng nói. » Lưỡi đục đồng tôi cứng khắc từng sợi gân nổi trên cánh đại bàng, bóng đổ sắc lẹm dưới ánh sáng 18 độ."
+        },
+        {
+          "step": 2,
+          "angle": 45,
+          "panelId": "panel-vangogh",
+          "artworkId": "wheat-field-cypresses",
+          "title": "45° Chiếu Nghiêng Bảo Tàng · Địa Hình Impasto",
+          "text": "Van Gogh đắp sơn trực tiếp bằng dao bảng thành từng dãy núi nhỏ cao tới 4.2mm. Dưới ánh sáng nghiêng 45°, mặt tranh biến thành một tiểu vũ trụ chập chùng bóng đổ."
+        },
+        {
+          "step": 3,
+          "angle": 75,
+          "panelId": "panel-hokusai",
+          "artworkId": "hokusai-great-wave",
+          "title": "75° Đỉnh Đầu Trực Xạ · Thớ Gỗ Dâu Tằm Washi",
+          "text": "Sắc tố lam Berlin lún sâu vào thớ sợi dâu tằm xoắn bện. Khi ánh sáng rọi từ đỉnh cao, độ gồ ghề của giấy thủ công Washi hiện rõ như bọt sóng Thái Bình Dương."
+        },
+        {
+          "step": 4,
+          "angle": 12,
+          "panelId": "panel-unicorn",
+          "artworkId": "unicorn-in-captivity",
+          "title": "12° Hoàng Hôn Xiên Sâu · Mật Mã Sợi Dệt Millefleurs",
+          "text": "Hơn 8 triệu nút thắt đan cài giữa len cừu và tơ tằm óng. Dưới góc chiếu xiên sâu 12°, sợi tơ tằm ánh lên rực rỡ như sương mai đọng trên cánh hoa."
+        },
+        {
+          "step": 5,
+          "angle": 18,
+          "panelId": "panel-nimrud",
+          "artworkId": "assyrian-winged-genie",
+          "title": "✦ Thưởng Lãm 3D Chiếu Sáng Đa Hướng",
+          "text": "Hãy tự tay di chuyển ngọn đèn của bạn trong không gian 3D tương tác toàn màn hình.",
+          "action": "open3d"
+        }
       ]
     },
     "materialAlchemy": {

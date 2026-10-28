@@ -437,6 +437,14 @@ export class RelightingStage {
     return false;
   }
 
+  setNormalMap(showNormal) {
+    if (this.material && this.material.uniforms && this.material.uniforms.uShowNormals) {
+      this.material.uniforms.uShowNormals.value = showNormal ? 1.0 : 0.0;
+      return Boolean(showNormal);
+    }
+    return false;
+  }
+
   setZoom(scaleFactor) {
     if (this.mesh) {
       const factor = Math.max(1.0, Math.min(2.5, parseFloat(scaleFactor)));

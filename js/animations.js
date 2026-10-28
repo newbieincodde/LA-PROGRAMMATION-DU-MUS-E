@@ -16,6 +16,7 @@ import SplitText from 'gsap/SplitText';
 import Flip from 'gsap/Flip';
 import Lenis from 'lenis';
 import * as THREE from 'three';
+import { RelightingStage } from './relighting.js';
 import { motionConfig, isMotionAllowed } from './motion-config.js';
 import { isReducedMotion } from './logic.js';
 
@@ -56,6 +57,9 @@ export function registerViewTrigger(viewName, trigger) {
  */
 export function cleanupViewTriggers(viewName) {
   if (!viewName) return;
+  if (viewName === 'story') {
+    destroyStoryRelightingScrolly();
+  }
   if (viewTriggersMap.has(viewName)) {
     const triggers = viewTriggersMap.get(viewName);
     triggers.forEach((t) => {
@@ -468,6 +472,9 @@ export function initScrollReveals() {
   // I. E5 Pinned Horizontal Scroll for Chamber Portals
   initHorizontalPortals();
 
+  // J. E1-A Pinned Scrollytelling on Plaster Wall
+  initPlasterWallScrolly();
+
   refreshAllScrollTriggers();
 }
 
@@ -523,6 +530,154 @@ export function initHorizontalPortals() {
       });
     });
   });
+}
+
+/* ==========================================================================
+   E1 SCROLLYTELLING ENGINE (Plaster Wall Light Angle & Story 3D Relighting)
+   ========================================================================== */
+/**
+ * Shared function to set raking light angle on plaster wall cards and update preset buttons
+ */
+export function setPlasterAngle(deg) {
+  const angleBtns = document.querySelectorAll('#plaster-angle-presets .angle-btn');
+  angleBtns.forEach((b) => {
+    if (b.getAttribute('data-angle') === String(deg)) {
+      b.classList.add('active');
+    } else {
+      b.classList.remove('active');
+    }
+  });
+  const cards = document.querySelectorAll('.plaster-panel-card');
+  cards.forEach((c) => {
+    c.style.setProperty('--panel-light-deg', `${deg}deg`);
+  });
+}
+
+if (typeof window !== 'undefined') {
+  window.setPlasterAngle = setPlasterAngle;
+}
+
+/**
+ * E1-A Pinned Scrollytelling on Plaster Wall (Desktop > 900px)
+ */
+export function initPlasterWallScrolly() {
+  const section = document.getElementById('home-plaster-wall');
+  if (!section) return;
+
+  const isDesktop = typeof window !== 'undefined' && window.innerWidth > 900;
+  if (!isDesktop || !isMotionAllowed('scrollytelling') || isReducedMotion()) {
+    return;
+  }
+
+  const stepsData = [
+    { angle: 18, label: '18° Bình Minh Cổ Đại · Nimrud' },
+    { angle: 45, label: '45° Chiếu Nghiêng Bảo Tàng · Impasto' },
+    { angle: 75, label: '75° Đỉnh Đầu Trực Xạ · Washi' },
+    { angle: 12, label: '12° Hoàng Hôn Xiên Sâu · Sợi Dệt' },
+  ];
+
+  const totalLength = window.innerHeight * 2.2;
+
+  const st = ScrollTrigger.create({
+    trigger: section,
+    start: 'top top',
+    end: () => `+=${totalLength}`,
+    pin: true,
+    anticipatePin: 1,
+    onUpdate: (self) => {
+      const idx = Math.min(stepsData.length - 1, Math.floor(self.progress * stepsData.length));
+      setPlasterAngle(stepsData[idx].angle);
+    },
+  });
+
+  registerViewTrigger('home', st);
+}
+
+let currentStoryStage = null;
+
+/**
+ * E1-B Pinned Relighting Stage for Curatorial Story Pages
+ */
+export function initStoryRelightingScrolly(mountEl, artwork) {
+  if (!mountEl || !artwork || !isMotionAllowed('scrollytelling') || isReducedMotion()) {
+    return;
+  }
+
+  const isDesktop = typeof window !== 'undefined' && window.innerWidth > 900;
+  if (!isDesktop) return;
+
+  destroyStoryRelightingScrolly();
+
+  try {
+    currentStoryStage = new RelightingStage(mountEl, artwork, {
+      zoom: 1.0,
+      lightElevation: 1.2,
+      lightIntensity: 1.0,
+    });
+
+    const storyLayout = mountEl.closest('.story-content-layout');
+    if (!storyLayout) return;
+
+    const sections = storyLayout.querySelectorAll('.story-essay-section');
+    if (!sections || sections.length === 0) return;
+
+    // Step 1: Historical Secret
+    if (sections[0]) {
+      const st1 = ScrollTrigger.create({
+        trigger: sections[0],
+        start: 'top 60%',
+        onEnter: () => {
+          if (currentStoryStage) {
+            currentStoryStage.setLightPosition(0.25, 0.3);
+            currentStoryStage.setLightIntensity(1.0);
+            currentStoryStage.setNormalMap(false);
+            currentStoryStage.setZoom(1.0);
+          }
+        },
+        onEnterBack: () => {
+          if (currentStoryStage) {
+            currentStoryStage.setLightPosition(0.25, 0.3);
+            currentStoryStage.setNormalMap(false);
+          }
+        },
+      });
+      registerViewTrigger('story', st1);
+    }
+
+    // Step 2: Peripheral Idea & Micro-topography
+    if (sections[1]) {
+      const st2 = ScrollTrigger.create({
+        trigger: sections[1],
+        start: 'top 60%',
+        onEnter: () => {
+          if (currentStoryStage) {
+            currentStoryStage.setLightPosition(0.8, 0.2);
+            currentStoryStage.setLightIntensity(1.35);
+            currentStoryStage.setNormalMap(true);
+            currentStoryStage.setZoom(1.25);
+          }
+        },
+        onEnterBack: () => {
+          if (currentStoryStage) {
+            currentStoryStage.setLightPosition(0.8, 0.2);
+            currentStoryStage.setNormalMap(true);
+          }
+        },
+      });
+      registerViewTrigger('story', st2);
+    }
+  } catch (err) {
+    console.warn('[Scrollytelling E1-B] Story stage init fallback:', err);
+  }
+}
+
+export function destroyStoryRelightingScrolly() {
+  if (currentStoryStage) {
+    try {
+      currentStoryStage.destroy();
+    } catch (_) {}
+    currentStoryStage = null;
+  }
 }
 
 /**

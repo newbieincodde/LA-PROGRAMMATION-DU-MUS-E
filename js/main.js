@@ -37,6 +37,7 @@ import {
   applyRoomPalette,
   getCurrentActiveRoomId,
   setPendingFlipSource,
+  setPlasterAngle,
 } from './animations.js';
 import { initRouter, navigateTo, getCurrentRoute } from './router.js';
 
@@ -1063,13 +1064,8 @@ async function renderHomeExperiences() {
     const angleBtns = document.querySelectorAll('#plaster-angle-presets .angle-btn');
     angleBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
-        angleBtns.forEach((b) => b.classList.remove('active'));
-        btn.classList.add('active');
         const deg = btn.getAttribute('data-angle') || '18';
-        const cards = document.querySelectorAll('.plaster-panel-card');
-        cards.forEach((c) => {
-          c.style.setProperty('--panel-light-deg', `${deg}deg`);
-        });
+        setPlasterAngle(deg);
       });
     });
   }

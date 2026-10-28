@@ -18,6 +18,7 @@ import {
   getRelatedArtworks,
   getRoomAdjacentArtworks,
 } from './data.js';
+import { initStoryRelightingScrolly } from './animations.js';
 
 /**
  * Escape HTML utility to prevent XSS in dynamic templates
@@ -602,6 +603,11 @@ export async function renderStoryView(container, storyId) {
 
         <!-- Right: Metrics & Material Specifications Column -->
         <aside class="story-specs-column">
+          <div class="story-sticky-pane" data-lenis-prevent>
+            <div id="story-scrolly-stage" class="story-relighting-mount" aria-label="Khảo sát quang học 3D tương tác theo tiến trình bài luận"></div>
+            <div class="story-scrolly-hint">✦ Khảo sát quang học 3D đồng bộ với nhịp cuộn bài luận</div>
+          </div>
+
           <div class="story-metrics-card">
             <h3 class="metrics-card-heading">Thông Số Quang Học &amp; Vật Liệu</h3>
             <div class="metrics-grid">
@@ -658,4 +664,11 @@ export async function renderStoryView(container, storyId) {
       }
     </article>
   `;
+
+  // Mount E1-B Pinned 3D Relighting Stage for Desktop
+  const stageMount = container.querySelector('#story-scrolly-stage');
+  const primaryArt = referencedArtworks[0] || (allArtworks && allArtworks[0] ? allArtworks[0] : null);
+  if (stageMount && primaryArt) {
+    initStoryRelightingScrolly(stageMount, primaryArt);
+  }
 }
