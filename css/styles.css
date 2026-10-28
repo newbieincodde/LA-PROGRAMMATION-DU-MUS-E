@@ -342,6 +342,50 @@ html[data-theme="dark"] .specs-table tr:hover {
 }
 
 /* ==========================================================================
+   E6 SELF-DRAWING SVG LINES & TIMELINE RAIL
+   ========================================================================== */
+.section-divider-line {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 2px;
+  overflow: hidden;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.self-drawing-svg {
+  width: 100%;
+  height: 2px;
+  display: block;
+}
+
+.self-drawing-path {
+  transition: stroke 0.3s ease;
+}
+
+.timeline-svg-rail {
+  position: absolute;
+  top: 42px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 4px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.timeline-item .timeline-node {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.timeline-item.is-passed .timeline-node {
+  transform: scale(1.25);
+  background: var(--color-louvre-gold, #d4af37) !important;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
+}
+
+/* ==========================================================================
    E8 SKELETON LOADING & GRACEFUL DECODE FADES
    ========================================================================== */
 @keyframes skeletonPulse {

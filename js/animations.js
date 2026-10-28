@@ -440,7 +440,7 @@ export function initScrollReveals() {
     registerViewTrigger('home', st);
   }
 
-  // E. Subtle Layered Parallax for Decorative Backdrops
+  // G. Parallax Backdrops
   const parallaxBackdrops = document.querySelectorAll('.plaster-wall-backdrop, .alchemy-backdrop');
   parallaxBackdrops.forEach((backdrop) => {
     const tween = gsap.fromTo(
@@ -462,7 +462,82 @@ export function initScrollReveals() {
     }
   });
 
+  // H. E6 Self-Drawing SVG Section Dividers
+  initSelfDrawingDividers();
+
   refreshAllScrollTriggers();
+}
+
+/**
+ * E6 Architectural Self-Drawing SVG Section Dividers
+ */
+export function initSelfDrawingDividers() {
+  const paths = document.querySelectorAll('.self-drawing-path');
+  if (!paths || paths.length === 0) return;
+
+  if (!isMotionAllowed('selfDrawing')) {
+    paths.forEach((p) => {
+      p.style.strokeDashoffset = '0';
+    });
+    return;
+  }
+
+  paths.forEach((path) => {
+    const divider = path.closest('.section-divider-line');
+    const tween = gsap.fromTo(
+      path,
+      { strokeDashoffset: 1 },
+      {
+        strokeDashoffset: 0,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: divider,
+          start: 'top 92%',
+          end: 'bottom 60%',
+          scrub: 0.8,
+        },
+      }
+    );
+    if (tween.scrollTrigger) registerViewTrigger('home', tween.scrollTrigger);
+  });
+}
+
+/**
+ * E6 Timeline Rail Self-Drawing with Milestone Highlights
+ */
+export function initTimelineRailDrawing() {
+  const wrap = document.querySelector('.timeline-track-wrap');
+  const track = document.getElementById('timeline-track');
+  if (!wrap || !track) return;
+
+  const railPath = track.querySelector('.timeline-rail-path');
+  const items = track.querySelectorAll('.timeline-item');
+
+  if (!isMotionAllowed('selfDrawing')) {
+    if (railPath) railPath.style.strokeDashoffset = '0';
+    items.forEach((item) => item.classList.add('is-passed'));
+    return;
+  }
+
+  // Horizontal scroll tracking to draw line
+  const onScroll = () => {
+    const maxScroll = wrap.scrollWidth - wrap.clientWidth;
+    const progress = maxScroll > 0 ? Math.min(1, Math.max(0, wrap.scrollLeft / maxScroll)) : 1;
+    if (railPath) {
+      railPath.style.strokeDashoffset = (1 - progress).toFixed(3);
+    }
+    items.forEach((item) => {
+      const itemLeft = item.offsetLeft - wrap.offsetLeft;
+      if (wrap.scrollLeft + wrap.clientWidth * 0.45 >= itemLeft) {
+        item.classList.add('is-passed');
+      } else {
+        item.classList.remove('is-passed');
+      }
+    });
+  };
+
+  wrap.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 }
 
 /**

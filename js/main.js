@@ -33,6 +33,7 @@ import {
   animateCardExpansion,
   initAmbientDustParticles,
   setupSkeletonImageFade,
+  initTimelineRailDrawing,
 } from './animations.js';
 import { initRouter, navigateTo, getCurrentRoute } from './router.js';
 
@@ -639,7 +640,13 @@ async function populateTimeline() {
   const milestones = await getTimelineMilestones();
 
   if (track && milestones.length) {
-    track.innerHTML = milestones
+    const railSvg = `
+      <svg class="timeline-svg-rail" viewBox="0 0 1000 4" preserveAspectRatio="none" aria-hidden="true">
+        <line x1="0" y1="2" x2="1000" y2="2" stroke="var(--color-louvre-gold, #d4af37)" stroke-width="2" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" class="timeline-rail-path" />
+      </svg>
+    `;
+
+    track.innerHTML = railSvg + milestones
       .map(
         (m) => `
         <div class="timeline-item" data-art-id="${m.artworkId}" tabindex="0" role="button" aria-label="Thời kỳ ${m.year}: ${m.title}">
@@ -663,6 +670,8 @@ async function populateTimeline() {
         }
       });
     });
+
+    initTimelineRailDrawing();
   }
 }
 
