@@ -465,7 +465,64 @@ export function initScrollReveals() {
   // H. E6 Self-Drawing SVG Section Dividers
   initSelfDrawingDividers();
 
+  // I. E5 Pinned Horizontal Scroll for Chamber Portals
+  initHorizontalPortals();
+
   refreshAllScrollTriggers();
+}
+
+/**
+ * E5 Pinned Horizontal Travel for Wing Portals (Desktop > 900px)
+ */
+export function initHorizontalPortals() {
+  const section = document.getElementById('home-chamber-portals');
+  const grid = document.getElementById('chamber-portals-grid');
+  if (!section || !grid) return;
+
+  const isDesktop = typeof window !== 'undefined' && window.innerWidth > 900;
+  if (!isDesktop || !isMotionAllowed('horizontalPortals') || isReducedMotion()) {
+    section.classList.remove('is-pinned-horizontal');
+    gsap.set(grid, { clearProps: 'all' });
+    return;
+  }
+
+  section.classList.add('is-pinned-horizontal');
+
+  requestAnimationFrame(() => {
+    const totalTravel = grid.scrollWidth - window.innerWidth * 0.82;
+    if (totalTravel <= 20) return;
+
+    const tween = gsap.to(grid, {
+      x: -totalTravel,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: section,
+        pin: true,
+        scrub: 1.0,
+        start: 'top top',
+        end: () => `+=${totalTravel + window.innerHeight * 0.75}`,
+        invalidateOnRefresh: true,
+        anticipatePin: 1,
+      },
+    });
+
+    if (tween.scrollTrigger) {
+      registerViewTrigger('home', tween.scrollTrigger);
+    }
+
+    // Keyboard navigation focus support
+    const cards = grid.querySelectorAll('.chamber-portal-card');
+    cards.forEach((card, idx) => {
+      card.addEventListener('focusin', () => {
+        if (tween.scrollTrigger) {
+          const cardProgress = idx / Math.max(1, cards.length - 1);
+          const targetScroll =
+            tween.scrollTrigger.start + cardProgress * (tween.scrollTrigger.end - tween.scrollTrigger.start);
+          scrollToTarget(targetScroll, { immediate: false, duration: 0.5 });
+        }
+      });
+    });
+  });
 }
 
 /**

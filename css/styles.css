@@ -342,6 +342,44 @@ html[data-theme="dark"] .specs-table tr:hover {
 }
 
 /* ==========================================================================
+   E5 PINNED HORIZONTAL PORTALS (Desktop > 900px Only)
+   ========================================================================== */
+@media (min-width: 901px) {
+  .section-chamber-portals.is-pinned-horizontal {
+    overflow: hidden !important;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  
+  .section-chamber-portals.is-pinned-horizontal .portals-container {
+    max-width: 100vw !important;
+    padding: 0 4vw !important;
+    overflow: hidden !important;
+  }
+
+  .section-chamber-portals.is-pinned-horizontal .chamber-portals-grid {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 40px !important;
+    width: max-content !important;
+    will-change: transform;
+  }
+
+  .section-chamber-portals.is-pinned-horizontal .chamber-portal-card {
+    width: clamp(520px, 60vw, 780px) !important;
+    flex-shrink: 0 !important;
+    min-height: 520px;
+  }
+}
+
+@media (max-width: 900px) {
+  .section-chamber-portals.is-pinned-horizontal .chamber-portals-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ==========================================================================
    E6 SELF-DRAWING SVG LINES & TIMELINE RAIL
    ========================================================================== */
 .section-divider-line {
