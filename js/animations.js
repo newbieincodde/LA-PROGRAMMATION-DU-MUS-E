@@ -532,7 +532,21 @@ export function initViewTriggers(viewName, containerEl) {
    ========================================================================== */
 export function initMagneticAndHover() {
   const isFinePointer = typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if (!isFinePointer || isReducedMotion()) {
+  if (!isFinePointer || !isMotionAllowed('microInteractions')) {
+    // If not fine pointer or motion disabled, cleanly remove any existing listeners
+    magneticElements.forEach(({ btn, onMouseEnter, onMouseMove, onMouseLeave }) => {
+      btn.removeEventListener('mouseenter', onMouseEnter);
+      btn.removeEventListener('mousemove', onMouseMove);
+      btn.removeEventListener('mouseleave', onMouseLeave);
+    });
+    magneticElements = [];
+
+    tiltElements.forEach(({ card, onEnter, onMove, onLeave }) => {
+      card.removeEventListener('mouseenter', onEnter);
+      card.removeEventListener('mousemove', onMove);
+      card.removeEventListener('mouseleave', onLeave);
+    });
+    tiltElements = [];
     return;
   }
 
@@ -551,100 +565,125 @@ export function initMagneticAndHover() {
   });
   tiltElements = [];
 
-  // 1. Magnetic Attraction for Luxury Controls & Action Buttons
-  if (ANIMATION_CONFIG.enableMagnetic) {
-    const magnetics = document.querySelectorAll(
-      '.btn-billetterie, .btn-hero-primary, .btn-hero-secondary, .theme-toggle-btn, .btn-utility-search, .btn-mobile-menu'
-    );
+  // 1. Magnetic Attraction for Luxury Controls & Action Buttons (subtle 6-8px pull)
+  const magnetics = document.querySelectorAll(
+    '.btn-billetterie, .btn-hero-primary, .btn-hero-secondary, .theme-toggle-btn, .btn-utility-search, .btn-mobile-menu, .btn-curatorial-explore, .story-card-link'
+  );
 
-    magnetics.forEach((btn) => {
-      let boundRect = null;
+  magnetics.forEach((btn) => {
+    let boundRect = null;
 
-      const onMouseEnter = () => {
-        boundRect = btn.getBoundingClientRect();
-      };
+    const onMouseEnter = () => {
+      boundRect = btn.getBoundingClientRect();
+    };
 
-      const onMouseMove = (e) => {
-        if (!boundRect) boundRect = btn.getBoundingClientRect();
-        const centerX = boundRect.left + boundRect.width / 2;
-        const centerY = boundRect.top + boundRect.height / 2;
-        const dx = (e.clientX - centerX) * 0.25;
-        const dy = (e.clientY - centerY) * 0.25;
+    const onMouseMove = (e) => {
+      if (!boundRect) boundRect = btn.getBoundingClientRect();
+      const centerX = boundRect.left + boundRect.width / 2;
+      const centerY = boundRect.top + boundRect.height / 2;
+      const dx = (e.clientX - centerX) * 0.22;
+      const dy = (e.clientY - centerY) * 0.22;
 
-        gsap.to(btn, {
-          x: Math.max(-8, Math.min(8, dx)),
-          y: Math.max(-8, Math.min(8, dy)),
-          duration: 0.3,
-          ease: 'power2.out',
-        });
-      };
+      gsap.to(btn, {
+        x: Math.max(-8, Math.min(8, dx)),
+        y: Math.max(-8, Math.min(8, dy)),
+        duration: 0.28,
+        ease: 'power2.out',
+      });
+    };
 
-      const onMouseLeave = () => {
-        boundRect = null;
-        gsap.to(btn, {
-          x: 0,
-          y: 0,
-          duration: 0.6,
-          ease: 'elastic.out(1, 0.4)',
-        });
-      };
+    const onMouseLeave = () => {
+      boundRect = null;
+      gsap.to(btn, {
+        x: 0,
+        y: 0,
+        duration: 0.55,
+        ease: 'elastic.out(1, 0.45)',
+      });
+    };
 
-      btn.addEventListener('mouseenter', onMouseEnter);
-      btn.addEventListener('mousemove', onMouseMove);
-      btn.addEventListener('mouseleave', onMouseLeave);
-      magneticElements.push({ btn, onMouseEnter, onMouseMove, onMouseLeave });
-    });
+    btn.addEventListener('mouseenter', onMouseEnter);
+    btn.addEventListener('mousemove', onMouseMove);
+    btn.addEventListener('mouseleave', onMouseLeave);
+    magneticElements.push({ btn, onMouseEnter, onMouseMove, onMouseLeave });
+  });
+
+  // 2. Subtle 3D Card Perspective Tilt (5-6deg max) & 1.05x Micro-Zoom
+  const cards = document.querySelectorAll(
+    '.artwork-card, .editorial-card, .plaster-panel-card, .chamber-portal-card, .room-art-card, .story-art-card, .story-card'
+  );
+
+  cards.forEach((card) => {
+    const img = card.querySelector('.card-img, .room-art-img, .story-art-img, img');
+    let cardRect = null;
+
+    const onEnter = () => {
+      cardRect = card.getBoundingClientRect();
+      gsap.to(card, { scale: 1.015, duration: 0.35, ease: 'power2.out' });
+      if (img) gsap.to(img, { scale: 1.05, duration: 0.45, ease: 'power2.out' });
+    };
+
+    const onMove = (e) => {
+      if (!cardRect) cardRect = card.getBoundingClientRect();
+      const nx = (e.clientX - cardRect.left) / cardRect.width - 0.5; // [-0.5, 0.5]
+      const ny = (e.clientY - cardRect.top) / cardRect.height - 0.5;
+
+      gsap.to(card, {
+        rotateY: nx * 5.5,
+        rotateX: -ny * 5.5,
+        transformPerspective: 950,
+        duration: 0.32,
+        ease: 'power1.out',
+      });
+    };
+
+    const onLeave = () => {
+      cardRect = null;
+      gsap.to(card, {
+        rotateY: 0,
+        rotateX: 0,
+        scale: 1.0,
+        duration: 0.5,
+        ease: 'power2.out',
+      });
+      if (img) gsap.to(img, { scale: 1.0, duration: 0.5, ease: 'power2.out' });
+    };
+
+    card.addEventListener('mouseenter', onEnter);
+    card.addEventListener('mousemove', onMove);
+    card.addEventListener('mouseleave', onLeave);
+    tiltElements.push({ card, onEnter, onMove, onLeave });
+  });
+
+  // 3. Optional Museum Custom Cursor (Only when flags.cursor is true)
+  if (isMotionAllowed('cursor')) {
+    initCustomCursor();
   }
+}
 
-  // 2. Subtle 3D Card Perspective Tilt & Micro-Zoom
-  if (ANIMATION_CONFIG.enableTilt) {
-    const cards = document.querySelectorAll(
-      '.artwork-card, .editorial-card, .plaster-panel-card, .chamber-portal-card'
-    );
+let cursorEl = null;
+function initCustomCursor() {
+  if (cursorEl || typeof document === 'undefined') return;
+  cursorEl = document.createElement('div');
+  cursorEl.className = 'museum-custom-cursor';
+  cursorEl.style.cssText =
+    'position:fixed;width:24px;height:24px;border:1px solid var(--color-louvre-gold, #d4af37);border-radius:50%;pointer-events:none;z-index:999999;transform:translate(-50%,-50%);transition:transform 0.12s ease-out, opacity 0.2s;opacity:0;';
+  document.body.appendChild(cursorEl);
 
-    cards.forEach((card) => {
-      const media = card.querySelector('.card-media, .plaster-card-media, .portal-card-media');
-      const img = card.querySelector('.card-img, img');
-      let cardRect = null;
+  window.addEventListener(
+    'mousemove',
+    (e) => {
+      if (!cursorEl) return;
+      cursorEl.style.opacity = '0.75';
+      cursorEl.style.left = `${e.clientX}px`;
+      cursorEl.style.top = `${e.clientY}px`;
+    },
+    { passive: true }
+  );
 
-      const onEnter = () => {
-        cardRect = card.getBoundingClientRect();
-        gsap.to(card, { scale: 1.015, duration: 0.35, ease: 'power2.out' });
-        if (img) gsap.to(img, { scale: 1.05, duration: 0.45, ease: 'power2.out' });
-      };
-
-      const onMove = (e) => {
-        if (!cardRect) cardRect = card.getBoundingClientRect();
-        const nx = (e.clientX - cardRect.left) / cardRect.width - 0.5; // [-0.5, 0.5]
-        const ny = (e.clientY - cardRect.top) / cardRect.height - 0.5;
-
-        gsap.to(card, {
-          rotateY: nx * 6.5,
-          rotateX: -ny * 6.5,
-          transformPerspective: 900,
-          duration: 0.35,
-          ease: 'power1.out',
-        });
-      };
-
-      const onLeave = () => {
-        cardRect = null;
-        gsap.to(card, {
-          rotateY: 0,
-          rotateX: 0,
-          scale: 1.0,
-          duration: 0.55,
-          ease: 'power2.out',
-        });
-        if (img) gsap.to(img, { scale: 1.0, duration: 0.55, ease: 'power2.out' });
-      };
-
-      card.addEventListener('mouseenter', onEnter);
-      card.addEventListener('mousemove', onMove);
-      card.addEventListener('mouseleave', onLeave);
-      tiltElements.push({ card, onEnter, onMove, onLeave });
-    });
-  }
+  window.addEventListener('mouseleave', () => {
+    if (cursorEl) cursorEl.style.opacity = '0';
+  });
 }
 
 /* ==========================================================================

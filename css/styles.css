@@ -317,6 +317,31 @@ html[data-theme="dark"] .specs-table tr:hover {
 }
 
 /* ==========================================================================
+   E4 MICRO-INTERACTIONS (Editorial Underline Reveals & Hover)
+   ========================================================================== */
+.editorial-text-link,
+.story-narrative a,
+.curatorial-statement a,
+.artwork-narrative a {
+  position: relative;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .editorial-text-link:hover,
+  .story-narrative a:hover,
+  .curatorial-statement a:hover,
+  .artwork-narrative a:hover {
+    background-size: 100% 1px;
+  }
+}
+
+/* ==========================================================================
    ACCESSIBILITY & PREFERS-REDUCED-MOTION
    ========================================================================== */
 :focus-visible {
