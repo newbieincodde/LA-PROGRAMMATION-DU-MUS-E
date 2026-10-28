@@ -84,14 +84,14 @@ body {
   background-image: url('../assets/images/sharp-thorns-pattern.png');
   background-repeat: repeat;
   background-size: 360px auto;
-  opacity: 0.17;
+  opacity: 0.05;
   mix-blend-mode: multiply;
   transition: opacity 0.4s ease, filter 0.4s ease;
 }
 
 html[data-theme="dark"] .pixel-thorn-background {
   filter: invert(1);
-  opacity: 0.22;
+  opacity: 0.07;
   mix-blend-mode: screen;
 }
 
@@ -1643,42 +1643,95 @@ html[data-theme="dark"] .timeline-item.active {
 
 /* Curatorial Essay Block */
 .curatorial-block {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: rgba(22, 22, 28, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(197, 160, 89, 0.22);
   border-radius: 20px;
-  padding: clamp(32px, 6vw, 64px);
-  box-shadow: var(--shadow-subtle);
-  max-width: 960px;
+  padding: clamp(36px, 6vw, 72px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  max-width: 980px;
   margin: 0 auto;
+  position: relative;
+}
+
+html[data-theme="light"] .curatorial-block {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(197, 160, 89, 0.35);
+  box-shadow: 0 16px 48px rgba(23, 22, 20, 0.08);
+}
+
+#curatorial-essay-title {
+  font-family: var(--font-curatorial-title);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(2.2rem, 4vw, 3.6rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  margin-bottom: 24px;
 }
 
 .curatorial-essay-lead {
-  font-family: var(--font-romantic);
+  font-family: var(--font-curatorial-title);
   font-style: italic;
-  font-size: clamp(1.2rem, 2vw, 1.55rem);
-  line-height: 1.5;
+  font-weight: 500;
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  line-height: 1.55;
   color: var(--color-louvre-gold);
-  margin-bottom: 28px;
+  margin-bottom: 36px;
+  padding: 20px 28px;
+  background: rgba(197, 160, 89, 0.06);
+  border-left: 3px solid var(--color-louvre-gold);
+  border-radius: 0 12px 12px 0;
+  letter-spacing: 0.01em;
 }
 
 .curatorial-paragraphs {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  font-size: 1.02rem;
-  line-height: 1.8;
+  gap: 26px;
+  font-family: var(--font-curatorial);
+  font-style: italic;
+  font-size: clamp(1.15rem, 1.6vw, 1.3rem);
+  font-weight: 400;
+  line-height: 2.05;
   color: var(--color-text-secondary);
+  letter-spacing: 0.015em;
+  text-align: justify;
+}
+
+.curatorial-paragraphs p:first-of-type::first-letter {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 700;
+  font-size: clamp(3.4rem, 5vw, 4.4rem);
+  float: left;
+  line-height: 0.78;
+  margin-right: 14px;
+  margin-top: 8px;
+  color: var(--color-louvre-gold);
+  text-shadow: 0 2px 8px rgba(197, 160, 89, 0.25);
 }
 
 .curatorial-signoff {
-  margin-top: 36px;
-  padding-top: 24px;
-  border-top: 1px solid var(--color-border);
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(197, 160, 89, 0.25);
   font-family: var(--font-display);
-  font-size: 0.82rem;
-  letter-spacing: 0.12em;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-muted);
+  color: var(--color-louvre-gold);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.curatorial-signoff::before {
+  content: '✦';
+  font-size: 1.1rem;
 }
 
 /* Visit & Template Booking Form */
@@ -4222,21 +4275,30 @@ body:not(.has-breadcrumbs) .museum-breadcrumbs {
 
 .room-featured-card {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: 1.15fr 1fr;
   gap: 40px;
   align-items: center;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
+  background: rgba(22, 22, 28, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(197, 160, 89, 0.22);
+  border-radius: 18px;
   overflow: hidden;
-  padding: 24px;
+  padding: 32px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+}
+
+html[data-theme="light"] .room-featured-card {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(197, 160, 89, 0.3);
+  box-shadow: 0 12px 36px rgba(23, 22, 20, 0.07);
 }
 
 .room-featured-visual {
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  aspect-ratio: 4/3;
+  aspect-ratio: 16/10;
   background: #0d0c0b;
 }
 
@@ -4385,27 +4447,38 @@ body:not(.has-breadcrumbs) .museum-breadcrumbs {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 28px;
+  align-items: stretch;
 }
 
 .room-art-card {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: 12px;
+  background: rgba(20, 20, 26, 0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: all 0.3s ease;
+  height: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.35s ease;
+}
+
+html[data-theme="light"] .room-art-card {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(23, 22, 20, 0.09);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
 }
 
 .room-art-card:hover {
-  border-color: var(--color-border);
-  transform: translateY(-4px);
-  box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.18);
+  border-color: var(--color-louvre-gold);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5), 0 0 20px rgba(197, 160, 89, 0.15);
 }
 
 .room-art-thumb-wrap {
   position: relative;
-  aspect-ratio: 4/3;
+  aspect-ratio: 16/10;
   overflow: hidden;
   background: #0d0c0b;
 }
@@ -4414,11 +4487,12 @@ body:not(.has-breadcrumbs) .museum-breadcrumbs {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  object-position: center 25%;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .room-art-card:hover .room-art-thumb {
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
 .room-card-hover-actions {
@@ -4452,12 +4526,12 @@ body:not(.has-breadcrumbs) .museum-breadcrumbs {
 }
 
 .btn-card-3d {
-  color: var(--color-accent);
-  border-color: var(--color-accent);
+  color: var(--color-louvre-gold);
+  border-color: var(--color-louvre-gold);
 }
 
 .btn-card-inspect:hover, .btn-card-3d:hover {
-  background: var(--color-accent);
+  background: var(--color-louvre-gold);
   color: #121110;
 }
 
@@ -4465,7 +4539,8 @@ body:not(.has-breadcrumbs) .museum-breadcrumbs {
   padding: 18px 20px 20px;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  flex: 1;
+  justify-content: space-between;
 }
 
 .room-art-category-pill {
@@ -4539,12 +4614,28 @@ body:not(.has-breadcrumbs) .museum-breadcrumbs {
 }
 
 .room-story-card {
-  padding: 24px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--color-border);
-  border-radius: 12px;
+  padding: 28px 30px;
+  background: rgba(22, 22, 28, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.35s ease;
+}
+
+html[data-theme="light"] .room-story-card {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(23, 22, 20, 0.09);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.room-story-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--color-louvre-gold);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.45);
 }
 
 .story-category-tag {
@@ -4812,15 +4903,26 @@ body:not(.has-breadcrumbs) .museum-breadcrumbs {
 
 /* Dossier Column */
 .artwork-header-block {
-  margin-bottom: 28px;
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: 24px;
+  margin-bottom: 24px;
+  background: rgba(22, 22, 28, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 32px 36px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+html[data-theme="light"] .artwork-header-block {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(23, 22, 20, 0.09);
+  box-shadow: 0 8px 24px rgba(23, 22, 20, 0.05);
 }
 
 .artwork-category-badge {
   font-size: 0.72rem;
   letter-spacing: 0.14em;
-  color: var(--color-accent);
+  color: var(--color-louvre-gold);
   font-weight: 700;
   text-transform: uppercase;
   display: inline-block;
@@ -4828,12 +4930,14 @@ body:not(.has-breadcrumbs) .museum-breadcrumbs {
 }
 
 .artwork-page-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-curatorial-title);
+  font-style: italic;
   font-size: clamp(2rem, 3.5vw, 3rem);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-text);
   line-height: 1.2;
   margin-bottom: 12px;
+  letter-spacing: -0.01em;
 }
 
 .artwork-artist-line {
@@ -4854,21 +4958,31 @@ body:not(.has-breadcrumbs) .museum-breadcrumbs {
 }
 
 .artwork-specs-card {
-  margin-bottom: 32px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: 12px;
-  padding: 24px;
+  margin-bottom: 24px;
+  background: rgba(22, 22, 28, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(197, 160, 89, 0.22);
+  border-radius: 16px;
+  padding: 28px 32px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+html[data-theme="light"] .artwork-specs-card {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(197, 160, 89, 0.3);
+  box-shadow: 0 8px 24px rgba(23, 22, 20, 0.05);
 }
 
 .specs-heading {
-  font-family: var(--font-serif);
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-family: var(--font-curatorial-title);
+  font-style: italic;
+  font-size: 1.15rem;
+  font-weight: 600;
   color: var(--color-text);
   margin-bottom: 16px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--color-border-subtle);
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.2);
 }
 
 .specs-definition-list {
@@ -4880,8 +4994,14 @@ body:not(.has-breadcrumbs) .museum-breadcrumbs {
 .spec-row {
   display: grid;
   grid-template-columns: 140px 1fr;
-  font-size: 0.84rem;
+  font-size: 0.86rem;
   line-height: 1.5;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+html[data-theme="light"] .spec-row {
+  border-bottom-color: rgba(23, 22, 20, 0.04);
 }
 
 .spec-row dt {
@@ -4896,14 +5016,28 @@ body:not(.has-breadcrumbs) .museum-breadcrumbs {
 
 .artwork-narrative-section {
   margin-bottom: 32px;
+  background: rgba(22, 22, 28, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 32px 36px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+html[data-theme="light"] .artwork-narrative-section {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(23, 22, 20, 0.08);
+  box-shadow: 0 8px 24px rgba(23, 22, 20, 0.05);
 }
 
 .narrative-heading {
-  font-family: var(--font-serif);
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: 14px;
+  font-family: var(--font-curatorial-title);
+  font-style: italic;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--color-louvre-gold);
+  margin-bottom: 16px;
 }
 
 .artwork-narrative-p {
@@ -5160,19 +5294,28 @@ body:not(.has-breadcrumbs) .museum-breadcrumbs {
 }
 
 .story-index-card {
-  padding: 32px;
-  border-radius: 14px;
-  border: 1px solid var(--color-border);
-  background: rgba(255, 255, 255, 0.03);
+  padding: 36px 38px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(22, 22, 28, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
-  transition: all 0.3s ease;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.35s ease;
+}
+
+html[data-theme="light"] .story-index-card {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(23, 22, 20, 0.09);
+  box-shadow: 0 8px 24px rgba(23, 22, 20, 0.06);
 }
 
 .story-index-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--color-accent);
-  box-shadow: 0 20px 40px -16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-6px);
+  border-color: var(--color-louvre-gold);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.5), 0 0 24px rgba(197, 160, 89, 0.15);
 }
 
 .story-index-header {
@@ -5327,34 +5470,50 @@ body:not(.has-breadcrumbs) .museum-breadcrumbs {
 }
 
 .single-story-header {
-  margin-bottom: 40px;
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: 32px;
+  margin-bottom: 36px;
+  padding: 40px 48px;
+  background: rgba(22, 22, 28, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+html[data-theme="light"] .single-story-header {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(23, 22, 20, 0.09);
+  box-shadow: 0 12px 32px rgba(23, 22, 20, 0.06);
 }
 
 .story-numeral-kicker {
   font-size: 0.75rem;
   letter-spacing: 0.16em;
-  color: var(--color-accent);
+  color: var(--color-louvre-gold);
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  display: inline-block;
+  text-transform: uppercase;
 }
 
 .single-story-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-curatorial-title);
+  font-style: italic;
   font-size: clamp(2.2rem, 4.5vw, 3.6rem);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-text);
-  line-height: 1.15;
+  line-height: 1.18;
   margin-bottom: 16px;
+  letter-spacing: -0.01em;
 }
 
 .single-story-subtitle {
-  font-size: clamp(1rem, 2vw, 1.35rem);
-  color: var(--color-text-secondary);
+  font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+  color: var(--color-louvre-gold);
   line-height: 1.6;
-  max-width: 860px;
+  max-width: 900px;
   margin-bottom: 24px;
+  font-weight: 500;
 }
 
 .story-wings-bar {
@@ -5381,156 +5540,235 @@ body:not(.has-breadcrumbs) .museum-breadcrumbs {
 }
 
 .story-pull-quote-wrapper {
-  margin: 40px 0;
-  padding: 28px 36px;
-  background: rgba(255, 255, 255, 0.03);
-  border-left: 4px solid var(--color-accent);
-  border-radius: 0 12px 12px 0;
+  margin: 36px 0;
+  padding: 32px 40px;
+  background: rgba(22, 22, 28, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(197, 160, 89, 0.25);
+  border-left: 4px solid var(--color-louvre-gold);
+  border-radius: 0 14px 14px 0;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+html[data-theme="light"] .story-pull-quote-wrapper {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(197, 160, 89, 0.3);
+  border-left-color: var(--color-louvre-gold);
+  box-shadow: 0 12px 32px rgba(23, 22, 20, 0.06);
 }
 
 .story-pull-quote {
-  font-family: var(--font-serif);
-  font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+  font-family: var(--font-curatorial);
   font-style: italic;
-  line-height: 1.6;
+  font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+  line-height: 1.65;
   color: var(--color-text);
-  margin-bottom: 10px;
+  font-weight: 500;
+  margin-bottom: 12px;
 }
 
 .story-quote-caption {
-  font-size: 0.78rem;
-  color: var(--color-muted);
-  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-louvre-gold);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .story-content-layout {
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 48px;
-  margin-bottom: 64px;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 36px;
+  margin-bottom: 56px;
 }
 
 .story-essay-section {
-  margin-bottom: 40px;
+  background: rgba(22, 22, 28, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 32px 36px;
+  margin-bottom: 28px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+html[data-theme="light"] .story-essay-section {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(23, 22, 20, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 
 .section-title {
-  font-family: var(--font-serif);
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: 14px;
+  font-family: var(--font-curatorial-title);
+  font-style: italic;
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: var(--color-louvre-gold);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .section-prose p {
-  font-size: 1.02rem;
-  line-height: 1.85;
+  font-size: 1.05rem;
+  line-height: 1.9;
   color: var(--color-text-secondary);
+  text-align: justify;
 }
 
 .story-metrics-card {
-  padding: 28px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--color-border);
-  border-radius: 12px;
+  padding: 28px 30px;
+  background: rgba(24, 24, 30, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(197, 160, 89, 0.25);
+  border-radius: 14px;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45);
   position: sticky;
   top: calc(var(--header-total-height) + 24px);
 }
 
+html[data-theme="light"] .story-metrics-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(197, 160, 89, 0.3);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
 .metrics-card-heading {
-  font-family: var(--font-serif);
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-family: var(--font-curatorial-title);
+  font-style: italic;
+  font-size: 1.25rem;
+  font-weight: 600;
   color: var(--color-text);
   margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--color-border-subtle);
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.2);
 }
 
 .metrics-grid {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 }
 
 .metric-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--color-border-subtle);
-  font-size: 0.85rem;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.88rem;
+}
+
+html[data-theme="light"] .metric-item {
+  background: rgba(23, 22, 20, 0.03);
+  border-color: rgba(23, 22, 20, 0.06);
 }
 
 .metric-label {
   color: var(--color-muted);
+  font-weight: 500;
 }
 
 .metric-value {
-  color: var(--color-text);
+  color: var(--color-louvre-gold);
+  font-family: var(--font-serif);
   font-weight: 700;
+  font-size: 0.95rem;
 }
 
 /* Referenced Artworks in Story */
 .story-referenced-artworks {
   margin-top: 48px;
-  border-top: 1px solid var(--color-border);
-  padding-top: 36px;
+  background: rgba(22, 22, 28, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 36px 40px;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.4);
+}
+
+html[data-theme="light"] .story-referenced-artworks {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(23, 22, 20, 0.08);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
 }
 
 .artworks-kicker {
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  color: var(--color-accent);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  color: var(--color-louvre-gold);
   font-weight: 700;
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .artworks-heading {
-  font-family: var(--font-serif);
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-family: var(--font-curatorial-title);
+  font-style: italic;
+  font-size: 1.7rem;
+  font-weight: 600;
   color: var(--color-text);
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .story-artworks-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
+  align-items: stretch;
 }
 
 .story-art-card {
-  border: 1px solid var(--color-border-subtle);
-  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.02);
-  transition: transform 0.3s ease;
+  background: rgba(16, 16, 20, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.35s ease;
+}
+
+html[data-theme="light"] .story-art-card {
+  background: rgba(255, 255, 255, 0.98);
+  border-color: rgba(23, 22, 20, 0.09);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
 }
 
 .story-art-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--color-border);
+  transform: translateY(-6px);
+  border-color: var(--color-louvre-gold);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(197, 160, 89, 0.15);
 }
 
 .story-art-visual {
   position: relative;
-  aspect-ratio: 4/3;
+  width: 100%;
+  aspect-ratio: 16/10;
   overflow: hidden;
-  background: #0d0c0b;
+  background: #0c0b0a;
 }
 
 .story-art-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  object-position: center 25%;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .story-art-card:hover .story-art-img {
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
 .story-art-actions {
@@ -5540,7 +5778,7 @@ body:not(.has-breadcrumbs) .museum-breadcrumbs {
   display: flex;
   gap: 6px;
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.25s ease;
 }
 
 .story-art-card:hover .story-art-actions {
@@ -5552,36 +5790,42 @@ body:not(.has-breadcrumbs) .museum-breadcrumbs {
   backdrop-filter: blur(8px);
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 5px 10px;
+  padding: 6px 12px;
   border-radius: 16px;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
 }
 
 .btn-art-3d {
-  color: var(--color-accent);
-  border-color: var(--color-accent);
+  color: var(--color-louvre-gold);
+  border-color: var(--color-louvre-gold);
 }
 
 .story-art-details {
-  padding: 14px 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px 20px 20px;
 }
 
 .story-art-room {
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  color: var(--color-accent);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--color-louvre-gold);
   font-weight: 700;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .story-art-title {
-  font-family: var(--font-serif);
-  font-size: 0.95rem;
+  font-family: var(--font-curatorial-title);
+  font-style: italic;
+  font-size: 1.08rem;
   font-weight: 600;
-  margin-bottom: 4px;
+  line-height: 1.35;
+  margin-bottom: 6px;
 }
 
 .story-art-title a {
@@ -5590,8 +5834,9 @@ body:not(.has-breadcrumbs) .museum-breadcrumbs {
 }
 
 .story-art-artist {
-  font-size: 0.76rem;
+  font-size: 0.8rem;
   color: var(--color-muted);
+  line-height: 1.4;
 }
 
 /* Mobile Responsive Breakpoints */

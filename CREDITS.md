@@ -51,7 +51,7 @@ Toàn bộ 50 tác phẩm nghệ thuật trưng bày trong triển lãm đều �
 | **Cánh III: Khắc Gỗ Ukiyo-e & Mỹ Nghệ Á Đông** | *Vườn Mận Trắng Kameido* | Utagawa Hiroshige (1857) | Edo (Nhật Bản) | The Metropolitan Museum of Art (CC0) | **CC0 (Open Access)** |
 | **Cánh III: Khắc Gỗ Ukiyo-e & Mỹ Nghệ Á Đông** | *Ba Người Đẹp Đương Thời (Edo)* | Kitagawa Utamaro (khoảng 1793) | Edo (Nhật Bản) | The Metropolitan Museum of Art (CC0) | **CC0 (Open Access)** |
 | **Cánh III: Khắc Gỗ Ukiyo-e & Mỹ Nghệ Á Đông** | *Bình Phong Rừng Thông Mờ Sương* | Hasegawa Tōhaku (khoảng 1595) | Kyoto (Nhật Bản) | Tokyo National Museum (CC0 Public Domain) | **CC0 (Open Access)** |
-| **Cánh III: Khắc Gỗ Ukiyo-e & Mỹ Nghệ Á Đông** | *Rồng Bay Giữa Mây Vàng Khảo Cổ* | Kanō Sanraku (khoảng 1610) | Kyoto (Nhật Bản) | The Met & Kyoto Museum Collection | **CC0 (Open Access)** |
+| **Cánh III: Khắc Gỗ Ukiyo-e & Mỹ Nghệ Á Đông** | *Bình Phong Thần Gió Fūjin & Thần Sấm Raijin* | Tawaraya Sōtatsu (khoảng 1630s) | Kyoto (Nhật Bản) | Bảo tàng Quốc gia Kyoto (Quốc bảo CC0) | **CC0 (Open Access)** |
 | **Cánh III: Khắc Gỗ Ukiyo-e & Mỹ Nghệ Á Đông** | *Gió Cuốn Qua Đầm Lầy Ejiri* | Katsushika Hokusai (khoảng 1830–1832) | Tỉnh Suruga (Nhật Bản) | The Metropolitan Museum of Art (CC0) | **CC0 (Open Access)** |
 | **Cánh IV: Thảm Dệt Tapestry & Dệt Sợi** | *Nàng Quý Tộc & Kỳ Lân: Xúc Giác (Le Toucher)* | Xưởng Dệt Flanders & Paris (khoảng 1500) | Nam Hà Lan / Paris | Musée de Cluny & Paris Musées (CC0 Public Domain) | **CC0 (Open Access)** |
 | **Cánh IV: Thảm Dệt Tapestry & Dệt Sợi** | *Nàng Quý Tộc & Kỳ Lân: Thị Giác (La Vue)* | Xưởng Dệt Flanders & Paris (khoảng 1500) | Nam Hà Lan / Paris | Musée de Cluny & Paris Musées (CC0 Public Domain) | **CC0 (Open Access)** |
