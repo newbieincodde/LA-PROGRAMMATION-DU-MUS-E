@@ -942,25 +942,155 @@ export function setupSkeletonImageFade(container) {
 }
 
 /* ==========================================================================
-   5. SEAMLESS ARTWORK EXPANSION TRANSITION (GSAP Flip)
+   E2 ROUTE & PAGE TRANSITIONS (GSAP Flip Shared-Element & Soft Fades)
    ========================================================================== */
-export function animateCardExpansion(cardMediaEl, targetContainer, onComplete) {
-  if (isReducedMotion() || typeof Flip === 'undefined' || !cardMediaEl) {
+let _pendingFlipState = null;
+let _activeTransitionTimeline = null;
+
+/**
+ * Capture source element geometry before navigating
+ */
+export function setPendingFlipSource(element) {
+  if (!element || !isMotionAllowed('routeTransitions')) {
+    _pendingFlipState = null;
+    return;
+  }
+  const rect = element.getBoundingClientRect();
+  if (rect.width === 0 || rect.height === 0) {
+    _pendingFlipState = null;
+    return;
+  }
+  _pendingFlipState = {
+    element,
+    rect: {
+      left: rect.left,
+      top: rect.top,
+      width: rect.width,
+      height: rect.height,
+    },
+    src: element.currentSrc || element.src,
+  };
+}
+
+/**
+ * Execute shared-element transition from clicked card to artwork hero image
+ */
+export function executeFlipToArtworkHero(targetHeroImg, onComplete) {
+  if (_activeTransitionTimeline) {
+    _activeTransitionTimeline.kill();
+    _activeTransitionTimeline = null;
+  }
+
+  if (!_pendingFlipState || !targetHeroImg || !isMotionAllowed('routeTransitions') || isReducedMotion()) {
+    if (targetHeroImg) targetHeroImg.style.opacity = '1';
+    if (onComplete) onComplete();
+    _pendingFlipState = null;
+    return;
+  }
+
+  const sourceRect = _pendingFlipState.rect;
+  _pendingFlipState = null;
+
+  let isFinished = false;
+  const fallbackTimer = setTimeout(() => {
+    if (!isFinished) {
+      isFinished = true;
+      gsap.fromTo(targetHeroImg, { opacity: 0 }, { opacity: 1, duration: 0.45, ease: 'power2.out' });
+      if (onComplete) onComplete();
+    }
+  }, 600);
+
+  const performFlip = () => {
+    if (isFinished) return;
+    isFinished = true;
+    clearTimeout(fallbackTimer);
+
+    const targetRect = targetHeroImg.getBoundingClientRect();
+    if (sourceRect.width === 0 || targetRect.width === 0) {
+      gsap.fromTo(targetHeroImg, { opacity: 0 }, { opacity: 1, duration: 0.45, ease: 'power2.out' });
+      if (onComplete) onComplete();
+      return;
+    }
+
+    const dx = sourceRect.left - targetRect.left;
+    const dy = sourceRect.top - targetRect.top;
+    const sx = sourceRect.width / targetRect.width;
+    const sy = sourceRect.height / targetRect.height;
+
+    _activeTransitionTimeline = gsap.timeline({
+      onComplete: () => {
+        _activeTransitionTimeline = null;
+        if (onComplete) onComplete();
+      },
+    });
+
+    _activeTransitionTimeline.fromTo(
+      targetHeroImg,
+      {
+        x: dx,
+        y: dy,
+        scaleX: sx,
+        scaleY: sy,
+        transformOrigin: 'top left',
+        opacity: 0.9,
+      },
+      {
+        x: 0,
+        y: 0,
+        scaleX: 1,
+        scaleY: 1,
+        opacity: 1,
+        duration: 0.65,
+        ease: 'power3.out',
+        clearProps: 'transform',
+      }
+    );
+  };
+
+  if (targetHeroImg.complete && targetHeroImg.naturalWidth > 0) {
+    performFlip();
+  } else {
+    targetHeroImg.addEventListener('load', performFlip, { once: true });
+    targetHeroImg.addEventListener('error', performFlip, { once: true });
+  }
+}
+
+/**
+ * Soft fade & micro-elevation transition between views
+ */
+export function animateViewPageTransition(targetContainer, onComplete) {
+  if (_activeTransitionTimeline) {
+    _activeTransitionTimeline.kill();
+    _activeTransitionTimeline = null;
+  }
+
+  if (!targetContainer || !isMotionAllowed('routeTransitions') || isReducedMotion()) {
+    if (targetContainer) targetContainer.style.opacity = '1';
     if (onComplete) onComplete();
     return;
   }
 
-  try {
-    const state = Flip.getState(cardMediaEl);
-    if (onComplete) onComplete();
-
-    if (targetContainer) {
-      gsap.fromTo(targetContainer, { opacity: 0.82 }, { opacity: 1.0, duration: 0.45, ease: 'power2.out' });
+  _activeTransitionTimeline = gsap.fromTo(
+    targetContainer,
+    { opacity: 0.88, y: 10 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.4,
+      ease: 'power2.out',
+      clearProps: 'transform',
+      onComplete: () => {
+        _activeTransitionTimeline = null;
+        if (onComplete) onComplete();
+      },
     }
-  } catch (err) {
-    console.warn('[Motion] Flip transition fallback:', err);
-    if (onComplete) onComplete();
-  }
+  );
+}
+
+// Backward-compatible alias for existing callers
+export function animateCardExpansion(cardMediaEl, targetContainer, onComplete) {
+  if (cardMediaEl) setPendingFlipSource(cardMediaEl);
+  if (onComplete) onComplete();
 }
 
 /* ==========================================================================

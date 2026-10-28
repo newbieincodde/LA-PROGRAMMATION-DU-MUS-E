@@ -21,6 +21,8 @@ import {
   scrollToTop,
   setupSkeletonImageFade,
   applyRoomPalette,
+  executeFlipToArtworkHero,
+  animateViewPageTransition,
 } from './animations.js';
 
 let _activeRoute = null;
@@ -331,6 +333,18 @@ export async function navigateTo(hashOrRoute, replace = false) {
   // Apply skeleton loading with graceful decode fades to all images in this view
   if (targetContainer) {
     setupSkeletonImageFade(targetContainer);
+  }
+
+  // E2: Execute Flip Shared-Element or Soft Page Transition
+  if (targetContainer) {
+    if (targetViewName === 'artwork') {
+      const heroImg = targetContainer.querySelector('.artwork-master-image');
+      if (heroImg) {
+        executeFlipToArtworkHero(heroImg);
+      }
+    } else {
+      animateViewPageTransition(targetContainer);
+    }
   }
 
   // Handle Diptych view initialization if needed

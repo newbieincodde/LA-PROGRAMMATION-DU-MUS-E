@@ -36,6 +36,7 @@ import {
   initTimelineRailDrawing,
   applyRoomPalette,
   getCurrentActiveRoomId,
+  setPendingFlipSource,
 } from './animations.js';
 import { initRouter, navigateTo, getCurrentRoute } from './router.js';
 
@@ -1303,6 +1304,19 @@ async function initApp() {
     await themeManager.toggle();
     applyRoomPalette(getCurrentActiveRoomId(), true);
   });
+
+  // E2: Capture source thumbnail for Flip shared-element transitions
+  document.addEventListener(
+    'click',
+    (e) => {
+      const card = e.target.closest('.artwork-card, .room-art-card, .editorial-card, .story-art-card, .room-featured-card');
+      if (card) {
+        const img = card.querySelector('img');
+        if (img) setPendingFlipSource(img);
+      }
+    },
+    { capture: true }
+  );
 
   // Keyboard Shortcuts
   window.addEventListener('keydown', async (e) => {
