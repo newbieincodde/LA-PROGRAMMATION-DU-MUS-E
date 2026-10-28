@@ -342,6 +342,42 @@ html[data-theme="dark"] .specs-table tr:hover {
 }
 
 /* ==========================================================================
+   E8 SKELETON LOADING & GRACEFUL DECODE FADES
+   ========================================================================== */
+@keyframes skeletonPulse {
+  0% { opacity: 0.35; }
+  50% { opacity: 0.75; }
+  100% { opacity: 0.35; }
+}
+
+.skeleton-placeholder {
+  position: relative !important;
+  overflow: hidden !important;
+  background-color: rgba(212, 175, 55, 0.06) !important;
+}
+
+.skeleton-placeholder::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 100%
+  );
+  animation: skeletonPulse 1.8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-placeholder::after {
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
    ACCESSIBILITY & PREFERS-REDUCED-MOTION
    ========================================================================== */
 :focus-visible {

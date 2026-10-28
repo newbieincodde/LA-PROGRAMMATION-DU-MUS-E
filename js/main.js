@@ -32,6 +32,7 @@ import {
   refreshSplitTextOnLanguageChange,
   animateCardExpansion,
   initAmbientDustParticles,
+  setupSkeletonImageFade,
 } from './animations.js';
 import { initRouter, navigateTo, getCurrentRoute } from './router.js';
 
@@ -585,6 +586,9 @@ function renderCollectionCards(artworks) {
       }
     });
   });
+
+  // Apply skeleton loading shimmers with graceful decode fade
+  setupSkeletonImageFade(grid);
 
   // Re-bind 3D tilt & magnetic interactions on rendered collection cards
   initMagneticAndHover();

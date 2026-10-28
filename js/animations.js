@@ -687,6 +687,53 @@ function initCustomCursor() {
 }
 
 /* ==========================================================================
+   E8 SKELETON LOADING & GRACEFUL DECODE FADES
+   ========================================================================== */
+export function setupSkeletonImageFade(container) {
+  if (!container || typeof document === 'undefined') return;
+  const allowFade = isMotionAllowed('skeletons');
+
+  const imgs = container.querySelectorAll(
+    'img.artwork-master-image, img.room-featured-img, img.room-art-thumb, img.card-img, img.story-art-img, img.chamber-portal-img, img.plaster-panel-img'
+  );
+
+  imgs.forEach((img) => {
+    if (img.complete && img.naturalWidth > 0) {
+      img.classList.add('is-loaded');
+      img.style.opacity = '1';
+      return;
+    }
+
+    const parent = img.parentElement;
+    if (allowFade && parent && !parent.classList.contains('skeleton-placeholder')) {
+      parent.classList.add('skeleton-placeholder');
+    }
+
+    if (!allowFade || isReducedMotion()) {
+      img.style.opacity = '1';
+      return;
+    }
+
+    img.style.opacity = '0';
+    img.style.transition = 'opacity 0.35s ease-out';
+
+    const onReady = () => {
+      img.style.opacity = '1';
+      if (parent) parent.classList.remove('skeleton-placeholder');
+      img.classList.add('is-loaded');
+      refreshAllScrollTriggers();
+    };
+
+    if ('decode' in img) {
+      img.decode().then(onReady).catch(onReady);
+    } else {
+      img.onload = onReady;
+      img.onerror = onReady;
+    }
+  });
+}
+
+/* ==========================================================================
    5. SEAMLESS ARTWORK EXPANSION TRANSITION (GSAP Flip)
    ========================================================================== */
 export function animateCardExpansion(cardMediaEl, targetContainer, onComplete) {

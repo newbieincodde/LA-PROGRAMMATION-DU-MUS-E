@@ -19,6 +19,7 @@ import {
   initViewTriggers,
   refreshAllScrollTriggers,
   scrollToTop,
+  setupSkeletonImageFade,
 } from './animations.js';
 
 let _activeRoute = null;
@@ -325,6 +326,11 @@ export async function navigateTo(hashOrRoute, replace = false) {
 
   // Initialize view-specific animations & triggers
   initViewTriggers(targetViewName, targetContainer);
+
+  // Apply skeleton loading with graceful decode fades to all images in this view
+  if (targetContainer) {
+    setupSkeletonImageFade(targetContainer);
+  }
 
   // Handle Diptych view initialization if needed
   if (targetViewName === 'diptych' && typeof window.initDiptychStudio === 'function') {
