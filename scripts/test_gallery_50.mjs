@@ -122,6 +122,34 @@ async function main() {
     console.log('Artwork Dimensions (Touch):', artDimTouch);
     if (!artTitleTouch?.includes('Xúc Giác')) throw new Error('Touch title mismatch');
 
+    // 4.5. Test all 4 Curatorial Stories & Aliases
+    console.log('--> Testing #stories index');
+    await sendCmd('Page.navigate', { url: 'http://localhost:8000/#stories' });
+    await setTimeout(1000);
+    const storiesCount = await evaluate("document.querySelectorAll('.story-index-card').length");
+    console.log(`Stories Index count: ${storiesCount} / 4`);
+    if (storiesCount !== 4) throw new Error(`Expected 4 stories, found ${storiesCount}`);
+
+    const testStories = [
+      { url: '#story/alchemy-polychromy', expectedTitle: 'Vết Tích Sắc Màu Thất Lạc' },
+      { url: '#story/alchemy-impasto', expectedTitle: 'Địa Hình 1cm² Sơn Dầu' },
+      { url: '#story/alchemy-matrix', expectedTitle: 'Thuật Toán Ma Trận Sợi Dệt' },
+      { url: '#story/alchemy-shadows', expectedTitle: 'Khoảng Lặng Của Bóng Tối' },
+      { url: '#story/alchemy-fresco', expectedTitle: 'Vết Tích Sắc Màu Thất Lạc' }, // Alias 1
+      { url: '#story/alchemy-loom', expectedTitle: 'Thuật Toán Ma Trận Sợi Dệt' } // Alias 3
+    ];
+
+    for (const ts of testStories) {
+      console.log(`--> Testing ${ts.url}`);
+      await sendCmd('Page.navigate', { url: `http://localhost:8000/${ts.url}` });
+      await setTimeout(1000);
+      const sTitle = await evaluate("document.querySelector('.single-story-title')?.innerText");
+      console.log(`Loaded ${ts.url} -> Title: '${sTitle}'`);
+      if (!sTitle || !sTitle.includes(ts.expectedTitle)) {
+        throw new Error(`Failed to load story ${ts.url}: expected '${ts.expectedTitle}', got '${sTitle}'`);
+      }
+    }
+
     // 5. Mobile responsive check (390x844)
     console.log('--> Testing Mobile Viewport (390x844)');
     await sendCmd('Emulation.setDeviceMetricsOverride', {

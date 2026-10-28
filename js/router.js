@@ -61,7 +61,13 @@ export function parseHash(hashStr) {
 
   const parts = raw.split('/');
   const routeName = parts[0].toLowerCase();
-  const param = parts[1] ? decodeURIComponent(parts[1]) : null;
+  let param = parts[1] ? decodeURIComponent(parts[1]) : null;
+
+  // Seamless alias mapping for legacy / alternate story IDs
+  if (routeName === 'story' && param) {
+    if (param === 'alchemy-fresco') param = 'alchemy-polychromy';
+    if (param === 'alchemy-loom') param = 'alchemy-matrix';
+  }
 
   return { name: routeName, param, query };
 }
