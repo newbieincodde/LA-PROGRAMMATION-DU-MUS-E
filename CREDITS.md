@@ -104,10 +104,14 @@ Dự án cung cấp kiến trúc **Dual-Compatibility** (chạy trực tiếp kh
 | **Vite** | `^8.3.5` | Evan You & Vite Contributors | **MIT License** | `node_modules/vite` | Môi trường đóng gói sản xuất (`npm run build`) |
 
 > [!IMPORTANT]
-> **Lưu ý Bản Quyền Hoạt Họa GSAP (GreenSock Licensing Notice):**
-> - **GSAP Core, ScrollTrigger, Flip và Observer** được phát hành theo giấy phép chuẩn *GreenSock Standard 'No-Charge' License* — hoàn toàn miễn phí cho các website thông thường, portfolio cá nhân, và các dự án không thu phí định kỳ từ người dùng cuối.
-> - **SplitText** là plugin cao cấp thuộc *Club GSAP*. Khi sử dụng dự án cho các sản phẩm thương mại tính phí trực tiếp tới nhiều khách hàng (như bán template trên ThemeForest có tính phí giấy phép mở rộng Extended License), người triển khai cần sở hữu giấy phép thương mại chính thức từ GreenSock (xem chi tiết tại [gsap.com/pricing](https://gsap.com/pricing)). Dự án đã được thiết kế sẵn cơ chế fallback tự động an toàn (graceful degradation) nếu SplitText không được nạp.
-
+> **Báo Cáo Pháp Lý & Bản Quyền Hoạt Họa GSAP (GreenSock Standard License):**
+> - **Cập nhật chính sách cấp phép GSAP (sau khi Webflow sáp nhập GreenSock):** Toàn bộ thư viện cốt lõi GSAP cùng **tất cả các plugin mở rộng** (*ScrollTrigger, SplitText, Flip, Observer, MorphSVG, DrawSVG*) hiện tại được phát hành **hoàn toàn miễn phí cho cả mục đích cá nhân lẫn thương mại (100% Free for Commercial Use)** theo giấy phép chuẩn *GSAP Standard License* (chi tiết tại [gsap.com/standard-license](https://gsap.com/standard-license)).
+> - **Quy định khi sử dụng trong Template thương mại (ThemeForest, Gumroad, Creative Market):**
+>   - Việc tích hợp GSAP để tạo nên các hiệu ứng chuyển động, cuộn trang, và tương tác mỹ thuật phục vụ cho website template bán cho người dùng cuối là **hoàn toàn hợp lệ và được phép**.
+>   - Điều khoản cấm duy nhất: Không được phép trích xuất mã nguồn GSAP để đóng gói và bán lại như một sản phẩm cạnh tranh trực tiếp (ví dụ: công cụ tạo animation, UI animation builder hoặc bộ hiệu ứng mã nguồn độc lập nhằm bán lại bản quyền code của GreenSock).
+> - **Kiến trúc Motion Flags (js/motion-config.js):** Dự án cung cấp công tắc tổng master cùng các cờ điều khiển độc lập cho từng hiệu ứng (lenis, heroTypography, microInteractions, skeletons, selfDrawing, 
+oomPalette, 
+outeTransitions, horizontalPortals, scrollytelling), cho phép người mua template tự do tắt/bật bất kỳ hiệu ứng nào theo ý muốn hoặc tuân thủ nguyên tắc accessibility prefers-reduced-motion.
 ---
 
 ## 4. Hướng Dẫn Pháp Lý Về Bản Đồ Độ Sâu (Depth Map Licensing)

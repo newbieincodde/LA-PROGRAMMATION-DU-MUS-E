@@ -976,20 +976,43 @@ function initCustomCursor() {
 /* ==========================================================================
    E7 PER-ROOM COLOR PALETTES (Cinematic Atmosphere Morphing)
    ========================================================================== */
-export function calculateContrastRatio(hex1, hex2) {
+export function calculateContrastRatio(color1, color2) {
   function srgbToLin(c) {
     const v = c / 255.0;
     return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
   }
-  function getLuminance(hex) {
-    const clean = hex.replace('#', '');
-    const r = parseInt(clean.substring(0, 2), 16);
-    const g = parseInt(clean.substring(2, 4), 16);
-    const b = parseInt(clean.substring(4, 6), 16);
+  function parseRgb(str) {
+    if (!str) return [0, 0, 0];
+    const s = String(str).trim();
+    if (s.startsWith('rgb')) {
+      const match = s.match(/\d+(\.\d+)?/g);
+      if (match && match.length >= 3) {
+        return [parseFloat(match[0]), parseFloat(match[1]), parseFloat(match[2])];
+      }
+    }
+    const clean = s.replace('#', '');
+    if (clean.length === 3) {
+      return [
+        parseInt(clean[0] + clean[0], 16),
+        parseInt(clean[1] + clean[1], 16),
+        parseInt(clean[2] + clean[2], 16),
+      ];
+    }
+    if (clean.length >= 6) {
+      return [
+        parseInt(clean.substring(0, 2), 16),
+        parseInt(clean.substring(2, 4), 16),
+        parseInt(clean.substring(4, 6), 16),
+      ];
+    }
+    return [0, 0, 0];
+  }
+  function getLuminance(color) {
+    const [r, g, b] = parseRgb(color);
     return 0.2126 * srgbToLin(r) + 0.7152 * srgbToLin(g) + 0.0722 * srgbToLin(b);
   }
-  const l1 = getLuminance(hex1);
-  const l2 = getLuminance(hex2);
+  const l1 = getLuminance(color1);
+  const l2 = getLuminance(color2);
   const lighter = Math.max(l1, l2);
   const darker = Math.min(l1, l2);
   return (lighter + 0.05) / (darker + 0.05);
@@ -1359,7 +1382,7 @@ export async function refreshSplitTextOnLanguageChange() {
    7. SECTION F: AMBIENT MUSEUM DUST MOTES (Subtle Three.js Points)
    ========================================================================== */
 export function initAmbientDustParticles(mountEl) {
-  if (isReducedMotion() || !ANIMATION_CONFIG.enableParticles || !mountEl) {
+  if (isReducedMotion() || !isMotionAllowed('cursor') || !mountEl) {
     return null;
   }
 

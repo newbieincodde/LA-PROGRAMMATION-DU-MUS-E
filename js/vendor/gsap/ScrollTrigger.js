@@ -2700,4 +2700,4 @@ ScrollTrigger.core = {
   }
 };
 _getGSAP() && gsap.registerPlugin(ScrollTrigger);
-export { ScrollTrigger, ScrollTrigger as default };
+export { ScrollTrigger as default };

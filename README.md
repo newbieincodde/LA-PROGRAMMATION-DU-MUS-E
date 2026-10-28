@@ -36,15 +36,19 @@ Mẫu web tái hiện trải nghiệm triển lãm bảo tàng danh giá với c
    - Băng chuyền chuyển ảnh liên tiếp `unwoven.js` nâng cấp kích thước màn ảnh rộng (`cardAspect: 0.72`, chiều cao chiếm 76vh), mang lại ấn tượng thị giác choáng ngợp và sang trọng bậc nhất.
    - 26 dải ruy-băng chuyển động hữu cơ với hiệu ứng rách viền (tear zone flutter) và tự dệt lại mượt mà khi cuộn hoặc kéo chuột.
 
-3. **Động Cơ Hoạt Họa Điện Ảnh & Tương Tác Xúc Giác (Kinetic Motion Suite):**
-   - **Lenis Momentum Scrolling:** Cuộn trang quán tính nhung mượt đồng bộ trực tiếp với `gsap.ticker` và `ScrollTrigger.update`, triệt tiêu hoàn toàn giật khung hình.
-   - **Cinematic Hero Gallery Reveal:** Khởi đầu triển lãm với mặt nạ `clip-path` và thu phóng vi mô (`scale 1.08 -> 1.0`) trên băng chuyền dệt sợi, kết hợp hiệu ứng tách chữ `SplitText` 3D xoay lật mềm mại.
-   - **Scroll-Driven Parallax & Section Reveals:** Tự động phát hiện khi các tiêu đề, thẻ tác phẩm, thẻ bài tiểu luận và mốc thời gian bước vào tầm nhìn (`ScrollTrigger`).
-   - **Magnetic Cursor & 3D Artwork Perspective Tilt:** Nút điều khiển lực hút nam châm mượt mà kết hợp góc nghiêng 3D con trỏ chuột (`transformPerspective`) và phóng to nhẹ hình ảnh khi rê chuột trên desktop.
-   - **Seamless Flip Card Expansion:** Mở rộng thẻ tranh sang phòng triển lãm 3D mượt mà qua giải thuật `GSAP Flip`.
-   - **Bầu Không Khí Bảo Tàng Hữu Cơ (Ambient Dust Motes):** Bụi bay lơ lửng nhẹ nhàng trong tiền sảnh dệt sợi với Three.js `Points`, tạo cảm giác không gian triển lãm sống động và lắng đọng.
-   - **Đa Ngôn Ngữ i18n VI / FR / EN:** Thanh chuyển đổi ngôn ngữ tráng lệ; tự động tái phân tách typography (`SplitText`) sau mỗi lần đổi ngôn ngữ mà không gây lỗi layout.
-   - **Mobile-First Responsive Hoàn Hảo:** Đã hiệu chỉnh mọi thành phần 3D Dock, Circadian Slider, thanh công cụ bảo tàng, đảm bảo không tràn viền màn hình (`0px horizontal overflow`) từ 320px đến 430px.
+3. **Hệ Thống 8 Hoạt Họa Chữ Ký Chuẩn Bảo Tàng (8 Signature Animations Suite):**
+   - Đặt sau hệ thống quản lý cờ tập trung **js/motion-config.js** với công tắc tổng master: true và từng cờ độc lập. Tôn trọng tuyệt đối tiêu chuẩn trợ năng prefers-reduced-motion và vô hiệu hóa các hiệu ứng con trỏ chuột trên thiết bị cảm ứng (hover: hover) and (pointer: fine).
+   - **E0 (Lenis Smooth Momentum):** Cuộn trang quán tính nhung mượt đồng bộ trực tiếp với gsap.ticker và ScrollTrigger.update, bảo toàn cuộn nội bộ với thuộc tính data-lenis-prevent.
+   - **E3 (Hero Opening & Expressive Typography):** Băng chuyền dệt sợi mở màn với mặt nạ clip-path và thu phóng vi mô (scale 1.08 -> 1.0), tiêu đề .foyer-title tách chữ SplitText chuẩn hoá NFC tiếng Việt, giấu và trồi lên từ phía dưới (lines,words).
+   - **E4 (Micro-Interactions & Hover):** Nút bấm hút nam châm vi tế (magnetic pull 6–8px), thẻ tranh nghiêng 3D chân thực (^{\circ}-6^{\circ}$) kết hợp vi thu phóng 1.05x, gạch chân tự vẽ mượt mà trên các liên kết văn bản giám tuyển.
+   - **E8 (Skeleton Loading & Graceful Decode Fade):** Khung giữ chỗ shimmer với tỉ lệ cố định (spect-ratio 16/10 & 4/3) triệt tiêu hoàn toàn giật layout (Cumulative Layout Shift); hình ảnh chuyển tiếp mượt mà sau khi giải mã phần cứng (img.decode()).
+   - **E6 (Self-Drawing SVG Lines & Timeline Rail):** Vạch phân cách kiến trúc tự vẽ nét (stroke-dashoffset scrub) cùng trục thời gian 2.800 năm sáng đèn cột mốc khi người xem lướt qua.
+   - **E7 (Per-Room Dynamic Palettes):** Chuyển tông màu nền và sắc độ nhấn theo 4 cánh bảo tàng qua biến CSS (--color-bg, --color-text, --color-accent) trong 0.9s, đồng bộ màu biên shader Unwoven và vượt chuẩn tương phản WCAG AA ($\ge 14:1$).
+   - **E2 (Route & Page Transitions):** Chuyển cảnh mở rộng thẻ tranh mượt mà sang ảnh chính trang #artwork/<id> bằng thuật toán chia sẻ phần tử **GSAP Flip**, kèm cơ chế cross-fade dự phòng an toàn 600ms.
+   - **E5 (Pinned Horizontal Portals):** Không gian 4 cánh bảo tàng cuộn ngang ghim màn hình trên máy tính ($\ge 901	ext{px}$); tự động rơi về dạng lưới dọc thông minh trên máy tính bảng và điện thoại.
+   - **E1 (Scrollytelling Engine):** 
+     - *E1-A (Bức tường phù điêu):* Cuộn ghim trang để xoay góc rọi đèn xiên (18°, 45°, 75°, 12°) đồng bộ cùng các nút bấm preset.
+     - *E1-B (Bài luận giám tuyển):* Cố định sàn chiếu sáng 3D Relighting tương tác theo nhịp cuộn bài viết, tự động kích hoạt chế độ bản đồ pháp tuyến Surface Normal Map khi phân tích cấu trúc vi mô vật liệu.
 
 4. **Công Cụ Bảo Tồn & Giám Định Kỹ Thuật Số 3D (Digital Conservation Tools):**
    - **Interactive Torchlight Relighting:** Nguồn sáng ảo tương tác theo chuột với dò tia bóng tự thân 12 bước (12-step self-shadowing raymarch).
