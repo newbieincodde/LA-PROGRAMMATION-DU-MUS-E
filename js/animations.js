@@ -228,8 +228,8 @@ if (typeof window !== 'undefined') {
    2. CINEMATIC GALLERY REVEAL (Hero Opening Sequence)
    ========================================================================== */
 export async function runHeroReveal() {
-  if (isReducedMotion()) {
-    // If user prefers reduced motion, ensure all elements are visible immediately
+  if (!isMotionAllowed('heroTypography')) {
+    // If motion is disallowed or reduced, ensure hero elements are visible immediately
     const foyer = document.getElementById('foyer-loom-wrap');
     if (foyer) foyer.style.opacity = '1';
     return null;
@@ -244,7 +244,7 @@ export async function runHeroReveal() {
 
   const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-  // 1. Reveal Continuous Ribbon Loom with cinematic clip-path mask and subtle zoom scale
+  // 1. Reveal Continuous Ribbon Loom with cinematic clip-path mask and subtle zoom scale (1.08 -> 1.0)
   const heroLoom = document.getElementById('foyer-loom-wrap') || document.getElementById('foyer-carousel-stage');
   if (heroLoom) {
     tl.fromTo(
@@ -258,7 +258,7 @@ export async function runHeroReveal() {
         opacity: 1,
         scale: 1.0,
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-        duration: 1.7,
+        duration: 1.6,
         ease: 'power2.inOut',
       },
       0
@@ -276,26 +276,31 @@ export async function runHeroReveal() {
     );
   }
 
-  // 3. Animate Hero Title with SplitText
+  // 3. Animate Hero Title with SplitText (Lines + Words masked from below, NFC normalized)
   const titleEl = document.querySelector('.foyer-title');
-  if (titleEl && ANIMATION_CONFIG.enableSplitText && typeof SplitText !== 'undefined') {
+  if (titleEl && typeof SplitText !== 'undefined') {
     try {
-      const split = new SplitText(titleEl, { type: 'words,chars', wordsClass: 'split-word', charsClass: 'split-char' });
+      if (titleEl.textContent) {
+        titleEl.textContent = titleEl.textContent.normalize('NFC');
+      }
+      const split = new SplitText(titleEl, {
+        type: 'lines,words',
+        linesClass: 'split-line',
+        wordsClass: 'split-word',
+      });
       activeSplitInstances.push(split);
 
       tl.fromTo(
-        split.chars,
+        split.words,
         {
           opacity: 0,
-          y: 32,
-          rotateX: -28,
+          yPercent: 100,
         },
         {
           opacity: 1,
-          y: 0,
-          rotateX: 0,
+          yPercent: 0,
           duration: 0.85,
-          stagger: 0.016,
+          stagger: 0.035,
           ease: 'power3.out',
         },
         0.35
@@ -679,6 +684,8 @@ export function revertSplitText() {
 export async function refreshSplitTextOnLanguageChange() {
   revertSplitText();
 
+  if (!isMotionAllowed('heroTypography')) return;
+
   // Wait for font rendering to settle
   if (document.fonts && document.fonts.ready) {
     try {
@@ -686,16 +693,23 @@ export async function refreshSplitTextOnLanguageChange() {
     } catch (_) {}
   }
 
-  // Re-split foyer title with newly translated text
+  // Re-split foyer title with newly translated text (Lines + Words, NFC normalized)
   const titleEl = document.querySelector('.foyer-title');
-  if (titleEl && ANIMATION_CONFIG.enableSplitText && typeof SplitText !== 'undefined') {
+  if (titleEl && typeof SplitText !== 'undefined') {
     try {
-      const split = new SplitText(titleEl, { type: 'words,chars', wordsClass: 'split-word', charsClass: 'split-char' });
+      if (titleEl.textContent) {
+        titleEl.textContent = titleEl.textContent.normalize('NFC');
+      }
+      const split = new SplitText(titleEl, {
+        type: 'lines,words',
+        linesClass: 'split-line',
+        wordsClass: 'split-word',
+      });
       activeSplitInstances.push(split);
       gsap.fromTo(
-        split.chars,
-        { opacity: 0, y: 14 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.015, ease: 'power2.out' }
+        split.words,
+        { opacity: 0, yPercent: 80 },
+        { opacity: 1, yPercent: 0, duration: 0.65, stagger: 0.025, ease: 'power2.out' }
       );
     } catch (_) {}
   }

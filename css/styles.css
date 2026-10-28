@@ -304,6 +304,19 @@ html[data-theme="dark"] .specs-table tr:hover {
 }
 
 /* ==========================================================================
+   E3 EXPRESSIVE TYPOGRAPHY (SplitText & Cinematic Masks)
+   ========================================================================== */
+.split-line {
+  overflow: hidden !important;
+  display: block;
+}
+
+.split-word {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* ==========================================================================
    ACCESSIBILITY & PREFERS-REDUCED-MOTION
    ========================================================================== */
 :focus-visible {
