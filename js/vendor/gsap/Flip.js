@@ -1559,4 +1559,4 @@ Flip.version = "3.15.0"; // function whenImagesLoad(el, func) {
 // }
 
 typeof window !== "undefined" && window.gsap && window.gsap.registerPlugin(Flip);
-export { Flip as default };
+export { Flip, Flip as default };

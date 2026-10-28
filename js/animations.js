@@ -16,41 +16,100 @@ import SplitText from 'gsap/SplitText';
 import Flip from 'gsap/Flip';
 import Lenis from 'lenis';
 import * as THREE from 'three';
+import { motionConfig, isMotionAllowed } from './motion-config.js';
+import { isReducedMotion } from './logic.js';
 
-// Register GSAP Core Plugins
+// Register GSAP Core Plugins on the shared GSAP instance
 if (typeof gsap !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, SplitText, Flip);
+  if (typeof window !== 'undefined') {
+    window.gsap = gsap;
+    window.ScrollTrigger = ScrollTrigger;
+    window.SplitText = SplitText;
+    window.Flip = Flip;
+  }
 }
 
-// Global Animation Configuration & State
-export const ANIMATION_CONFIG = {
-  enableLenis: true,
-  enableScrollTrigger: true,
-  enableSplitText: true,
-  enableMagnetic: true,
-  enableTilt: true,
-  enableParticles: true,
-};
-
+// Global Animation State
 let lenisInstance = null;
 let activeSplitInstances = [];
 let magneticElements = [];
 let tiltElements = [];
 let atmosphereParticleSystem = null;
 
+// Per-view ScrollTrigger tracking to guarantee zero trigger leaks or duplicates
+const viewTriggersMap = new Map();
+
 /**
- * Check if the user requests reduced motion
+ * Register a ScrollTrigger instance to a specific view lifecycle
  */
-function isReducedMotion() {
-  if (typeof window === 'undefined') return false;
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+export function registerViewTrigger(viewName, trigger) {
+  if (!trigger) return;
+  if (!viewTriggersMap.has(viewName)) {
+    viewTriggersMap.set(viewName, []);
+  }
+  viewTriggersMap.get(viewName).push(trigger);
+}
+
+/**
+ * Clean up all triggers associated with a view when exiting
+ */
+export function cleanupViewTriggers(viewName) {
+  if (!viewName) return;
+  if (viewTriggersMap.has(viewName)) {
+    const triggers = viewTriggersMap.get(viewName);
+    triggers.forEach((t) => {
+      try {
+        if (t && typeof t.kill === 'function') {
+          t.kill(true); // revert DOM changes where appropriate
+        }
+      } catch (_) {}
+    });
+    viewTriggersMap.delete(viewName);
+  }
+}
+
+/**
+ * Clean up all registered view triggers
+ */
+export function cleanupAllViewTriggers() {
+  viewTriggersMap.forEach((triggers, name) => {
+    cleanupViewTriggers(name);
+  });
+  viewTriggersMap.clear();
+}
+
+/**
+ * Safe trigger refresh after view render or image decode
+ */
+export function refreshAllScrollTriggers() {
+  if (typeof ScrollTrigger !== 'undefined') {
+    ScrollTrigger.refresh();
+  }
+}
+
+/**
+ * Count all active ScrollTriggers (useful for programmatic leak verification)
+ */
+export function getActiveScrollTriggersCount() {
+  return typeof ScrollTrigger !== 'undefined' ? ScrollTrigger.getAll().length : 0;
+}
+
+if (typeof window !== 'undefined') {
+  window.getActiveScrollTriggersCount = getActiveScrollTriggersCount;
+  window.refreshAllScrollTriggers = refreshAllScrollTriggers;
 }
 
 /* ==========================================================================
    1. LENIS SMOOTH SCROLLING ENGINE (Synchronized with GSAP Ticker)
    ========================================================================== */
 export function initSmoothScrolling() {
-  if (isReducedMotion() || !ANIMATION_CONFIG.enableLenis || typeof Lenis === 'undefined') {
+  if (!isMotionAllowed('lenis') || typeof Lenis === 'undefined') {
+    if (lenisInstance) {
+      lenisInstance.destroy();
+      lenisInstance = null;
+      if (typeof window !== 'undefined') window.lenis = null;
+    }
     return null;
   }
 
@@ -70,16 +129,25 @@ export function initSmoothScrolling() {
       infinite: false,
     });
 
+    if (typeof window !== 'undefined') {
+      window.lenis = lenisInstance;
+    }
+
     // Synchronize Lenis with ScrollTrigger
     lenisInstance.on('scroll', ScrollTrigger.update);
 
     // Drive Lenis from GSAP's optimized ticker loop (Zero duplicate requestAnimationFrame)
     gsap.ticker.add((time) => {
-      lenisInstance.raf(time * 1000);
+      if (lenisInstance) {
+        lenisInstance.raf(time * 1000);
+      }
     });
 
     // Disable lag smoothing to prevent scroll jumping under heavy frame budgets
     gsap.ticker.lagSmoothing(0);
+
+    // Auto-apply data-lenis-prevent to inner scroll containers
+    applyLenisPreventAttributes();
 
     return lenisInstance;
   } catch (err) {
@@ -92,8 +160,37 @@ export function getLenis() {
   return lenisInstance;
 }
 
+export function applyLenisPreventAttributes() {
+  if (typeof document === 'undefined') return;
+  const selectors = [
+    '.timeline-rail-wrap',
+    '.timeline-track-wrap',
+    '.circadian-milestones',
+    '.category-chips',
+    '.category-chips-bar',
+    '.dossier-body',
+    '.curatorial-drawer-body',
+    '.shaders-drawer',
+    '.shaders-drawer-body',
+    '.nav-flyout',
+    '.mobile-nav-drawer',
+    '.story-sticky-pane',
+    '.specs-dl',
+    '#foyer-loom-wrap',
+    '#foyer-carousel-stage',
+  ];
+  selectors.forEach((sel) => {
+    document.querySelectorAll(sel).forEach((el) => {
+      el.setAttribute('data-lenis-prevent', '');
+    });
+  });
+}
+
+/**
+ * Universal scroll-to helper with Lenis / Native fallback
+ */
 export function scrollToTarget(target, options = {}) {
-  if (lenisInstance) {
+  if (lenisInstance && isMotionAllowed('lenis')) {
     lenisInstance.scrollTo(target, {
       offset: options.offset || 0,
       immediate: options.immediate || false,
@@ -102,14 +199,29 @@ export function scrollToTarget(target, options = {}) {
     });
   } else {
     if (typeof target === 'number') {
-      window.scrollTo({ top: target, behavior: isReducedMotion() ? 'auto' : 'smooth' });
+      window.scrollTo({ top: target, behavior: isReducedMotion() || options.immediate ? 'auto' : 'smooth' });
     } else if (typeof target === 'string') {
       const el = document.querySelector(target);
-      if (el) el.scrollIntoView({ behavior: isReducedMotion() ? 'auto' : 'smooth' });
+      if (el) el.scrollIntoView({ behavior: isReducedMotion() || options.immediate ? 'auto' : 'smooth' });
     } else if (target instanceof HTMLElement) {
-      target.scrollIntoView({ behavior: isReducedMotion() ? 'auto' : 'smooth' });
+      target.scrollIntoView({ behavior: isReducedMotion() || options.immediate ? 'auto' : 'smooth' });
     }
   }
+}
+
+/**
+ * Unified scrollToTop hook that Lenis overrides when active
+ */
+export function scrollToTop(immediate = false) {
+  if (lenisInstance && isMotionAllowed('lenis')) {
+    lenisInstance.scrollTo(0, { immediate });
+  } else if (typeof window !== 'undefined') {
+    window.scrollTo({ top: 0, behavior: immediate || isReducedMotion() ? 'auto' : 'smooth' });
+  }
+}
+
+if (typeof window !== 'undefined') {
+  window.scrollToTop = scrollToTop;
 }
 
 /* ==========================================================================
@@ -220,22 +332,22 @@ export async function runHeroReveal() {
    3. SCROLL-DRIVEN PARALLAX & SECTION REVEALS
    ========================================================================== */
 export function initScrollReveals() {
-  if (isReducedMotion() || !ANIMATION_CONFIG.enableScrollTrigger || typeof ScrollTrigger === 'undefined') {
+  if (!isMotionAllowed()) {
     return;
   }
 
-  // Clear previous triggers
-  ScrollTrigger.getAll().forEach((t) => t.kill());
+  // Clear previous home triggers to guarantee zero duplicates
+  cleanupViewTriggers('home');
 
-  // A. Editorial Section Headings (All Pages & Chapters)
+  // A. Editorial Section Headings on Home View
   const sectionHeaders = document.querySelectorAll(
-    '.plaster-wall-header, .alchemy-header, .portals-header, .collection-masthead, .timeline-header, .diptych-header-block, .curatorial-masthead, .visit-masthead'
+    '#view-home .plaster-wall-header, #view-home .alchemy-header, #view-home .portals-header'
   );
 
   sectionHeaders.forEach((header) => {
-    const pretitle = header.querySelector('.section-chapter-tag, .section-pretitle, .curatorial-tag, .visit-tag');
-    const title = header.querySelector('h2, .plaster-wall-title, .alchemy-title, .portals-title, .collection-title, .timeline-title, .diptych-title, .curatorial-title, .visit-title');
-    const lead = header.querySelector('p, .plaster-wall-lead, .alchemy-lead, .portals-lead, .collection-lead, .timeline-lead, .curatorial-quote, .visit-lead');
+    const pretitle = header.querySelector('.section-chapter-tag, .section-pretitle');
+    const title = header.querySelector('h2, .plaster-wall-title, .alchemy-title, .portals-title');
+    const lead = header.querySelector('p, .plaster-wall-lead, .alchemy-lead, .portals-lead');
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -254,12 +366,16 @@ export function initScrollReveals() {
     if (lead) {
       tl.fromTo(lead, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out' }, '-=0.45');
     }
+
+    if (tl.scrollTrigger) {
+      registerViewTrigger('home', tl.scrollTrigger);
+    }
   });
 
   // B. Chapter II Plaster Wall Cards
   const plasterGrid = document.querySelector('.plaster-panel-grid');
   if (plasterGrid) {
-    ScrollTrigger.create({
+    const st = ScrollTrigger.create({
       trigger: plasterGrid,
       start: 'top 85%',
       onEnter: () => {
@@ -274,12 +390,13 @@ export function initScrollReveals() {
       },
       once: true,
     });
+    registerViewTrigger('home', st);
   }
 
   // C. Chapter III Alchemy Essay Cards & Metrics
   const alchemyContent = document.querySelector('.alchemy-content-grid');
   if (alchemyContent) {
-    ScrollTrigger.create({
+    const st = ScrollTrigger.create({
       trigger: alchemyContent,
       start: 'top 82%',
       onEnter: () => {
@@ -294,12 +411,13 @@ export function initScrollReveals() {
       },
       once: true,
     });
+    registerViewTrigger('home', st);
   }
 
   // D. Chapter IV Chamber Portal Cards
   const portalsGrid = document.querySelector('.chamber-portals-grid');
   if (portalsGrid) {
-    ScrollTrigger.create({
+    const st = ScrollTrigger.create({
       trigger: portalsGrid,
       start: 'top 82%',
       onEnter: () => {
@@ -314,52 +432,13 @@ export function initScrollReveals() {
       },
       once: true,
     });
+    registerViewTrigger('home', st);
   }
 
-  // E. Collection Grid Cards (Archive Page)
-  const collectionGrid = document.getElementById('editorial-grid') || document.getElementById('collection-grid');
-  if (collectionGrid) {
-    ScrollTrigger.create({
-      trigger: collectionGrid,
-      start: 'top 85%',
-      onEnter: () => {
-        const cards = collectionGrid.querySelectorAll('.artwork-card, .editorial-card');
-        if (cards && cards.length) {
-          gsap.fromTo(
-            cards,
-            { opacity: 0, y: 35, scale: 0.98 },
-            { opacity: 1, y: 0, scale: 1.0, duration: 0.7, stagger: 0.06, ease: 'power2.out' }
-          );
-        }
-      },
-      once: true,
-    });
-  }
-
-  // F. Timeline Milestone Track Reveal
-  const timelineTrack = document.getElementById('timeline-track');
-  if (timelineTrack) {
-    ScrollTrigger.create({
-      trigger: timelineTrack,
-      start: 'top 85%',
-      onEnter: () => {
-        const items = timelineTrack.querySelectorAll('.milestone-node, .timeline-card');
-        if (items && items.length) {
-          gsap.fromTo(
-            items,
-            { opacity: 0, y: 28 },
-            { opacity: 1, y: 0, duration: 0.65, stagger: 0.05, ease: 'power2.out' }
-          );
-        }
-      },
-      once: true,
-    });
-  }
-
-  // G. Subtle Layered Parallax for Decorative Backdrops
+  // E. Subtle Layered Parallax for Decorative Backdrops
   const parallaxBackdrops = document.querySelectorAll('.plaster-wall-backdrop, .alchemy-backdrop');
   parallaxBackdrops.forEach((backdrop) => {
-    gsap.fromTo(
+    const tween = gsap.fromTo(
       backdrop,
       { yPercent: -6 },
       {
@@ -373,9 +452,74 @@ export function initScrollReveals() {
         },
       }
     );
+    if (tween.scrollTrigger) {
+      registerViewTrigger('home', tween.scrollTrigger);
+    }
   });
 
-  ScrollTrigger.refresh();
+  refreshAllScrollTriggers();
+}
+
+/**
+ * Initialize dynamic triggers for secondary views (collection, room, artwork, story, etc.)
+ */
+export function initViewTriggers(viewName, containerEl) {
+  if (!isMotionAllowed()) return;
+  cleanupViewTriggers(viewName);
+
+  if (viewName === 'home') {
+    initScrollReveals();
+    return;
+  }
+
+  const container = containerEl || document.getElementById(`view-${viewName}`);
+  if (!container) return;
+
+  // Animate headings
+  const headers = container.querySelectorAll(
+    '.room-view-header, .artwork-detail-hero, .story-view-header, .stories-masthead, .collection-masthead, .timeline-header, .curatorial-masthead, .visit-masthead'
+  );
+  headers.forEach((header) => {
+    const title = header.querySelector('h1, h2, .room-title, .artwork-title, .story-title, .collection-title');
+    const lead = header.querySelector('p, .room-tagline, .artwork-artist-origin, .story-subtitle, .collection-lead');
+    if (title || lead) {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: header,
+          start: 'top 88%',
+          toggleActions: 'play none none none',
+        },
+      });
+      if (title) tl.fromTo(title, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' });
+      if (lead) tl.fromTo(lead, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' }, '-=0.3');
+      if (tl.scrollTrigger) registerViewTrigger(viewName, tl.scrollTrigger);
+    }
+  });
+
+  // Animate cards inside this view using ScrollTrigger batch
+  const cards = container.querySelectorAll('.artwork-card, .editorial-card, .room-art-card, .story-card, .story-art-card');
+  if (cards && cards.length > 0) {
+    const batches = ScrollTrigger.batch(cards, {
+      start: 'top 90%',
+      onEnter: (batch) => {
+        gsap.fromTo(
+          batch,
+          { opacity: 0, y: 28, scale: 0.98 },
+          { opacity: 1, y: 0, scale: 1.0, duration: 0.6, stagger: 0.05, ease: 'power2.out' }
+        );
+      },
+      once: true,
+    });
+    if (Array.isArray(batches)) {
+      batches.forEach((t) => registerViewTrigger(viewName, t));
+    } else if (batches) {
+      registerViewTrigger(viewName, batches);
+    }
+  }
+
+  requestAnimationFrame(() => {
+    refreshAllScrollTriggers();
+  });
 }
 
 /* ==========================================================================

@@ -14,6 +14,12 @@ import {
   renderStoriesIndexView,
   renderStoryView,
 } from './views.js';
+import {
+  cleanupViewTriggers,
+  initViewTriggers,
+  refreshAllScrollTriggers,
+  scrollToTop,
+} from './animations.js';
 
 let _activeRoute = null;
 let _routeChangeListeners = [];
@@ -284,6 +290,11 @@ export async function navigateTo(hashOrRoute, replace = false) {
     window.exitFocusMode();
   }
 
+  const previousViewName = _activeRoute ? _activeRoute.name : null;
+  if (previousViewName && previousViewName !== targetViewName) {
+    cleanupViewTriggers(previousViewName);
+  }
+
   // Deactivate all views, activate target
   knownViewNames.forEach((name) => {
     const el = document.getElementById(`view-${name}`);
@@ -311,6 +322,9 @@ export async function navigateTo(hashOrRoute, replace = false) {
       await renderStoryView(targetContainer, route.param);
     }
   }
+
+  // Initialize view-specific animations & triggers
+  initViewTriggers(targetViewName, targetContainer);
 
   // Handle Diptych view initialization if needed
   if (targetViewName === 'diptych' && typeof window.initDiptychStudio === 'function') {
@@ -341,12 +355,8 @@ export async function navigateTo(hashOrRoute, replace = false) {
   // Update Document title & aria-live announcer
   await updateDocumentMeta(_activeRoute);
 
-  // Scroll to top
-  if (window.lenis && typeof window.lenis.scrollTo === 'function') {
-    window.lenis.scrollTo(0, { immediate: true });
-  } else {
-    window.scrollTo({ top: 0, behavior: 'auto' });
-  }
+  // Unified scroll to top hook (Lenis-aware)
+  scrollToTop(true);
 
   // Notify registered callbacks
   _routeChangeListeners.forEach((fn) => {

@@ -1056,6 +1056,6 @@ var Lenis = class {
 	}
 };
 //#endregion
-export { Lenis as default };
+export { Lenis, Lenis as default };
 
 //# sourceMappingURL=lenis.mjs.map
