@@ -313,7 +313,11 @@ export async function renderArtworkView(container, artworkId) {
             </div>
             <div class="artwork-origin-line">
               <span class="origin-label">Xuất xứ:</span>
-              <span class="origin-val">${escapeHtml(art.origin)} (${escapeHtml(art.source || 'The Met Collection')})</span>
+              <span class="origin-val">${escapeHtml(art.origin)} ${
+                typeof art.source === 'object' && art.source !== null && art.source.searchUrl
+                  ? `(<a href="${escapeHtml(art.source.searchUrl)}" target="_blank" rel="noopener noreferrer" style="color:var(--color-accent); text-decoration:underline;">${escapeHtml(art.source.museum || 'The Met Collection')}</a>)`
+                  : `(${escapeHtml((typeof art.source === 'object' && art.source !== null ? art.source.museum : art.source) || 'The Met Collection')})`
+              }</span>
             </div>
           </div>
 

@@ -284,19 +284,44 @@ export async function getStories() {
 }
 
 /**
- * Get a specific story / essay by its ID or numeral
+ * Get a specific story / essay by its ID, numeral (Roman or Arabic), or keyword
  */
 export async function getStory(id) {
   if (!id) return null;
   const stories = await getStories();
-  const search = String(id).trim().toLowerCase();
+  const search = String(id).trim().toLowerCase().replace(/^story\//, '').replace(/^#story\//, '');
+
+  const numeralMap = {
+    '1': 'i',
+    '2': 'ii',
+    '3': 'iii',
+    '4': 'iv',
+    'bai-luan-1': 'i',
+    'bai-luan-2': 'ii',
+    'bai-luan-3': 'iii',
+    'bai-luan-4': 'iv',
+    'essay-1': 'i',
+    'essay-2': 'ii',
+    'essay-3': 'iii',
+    'essay-4': 'iv'
+  };
+
+  const mappedNumeral = numeralMap[search] || search;
+
   return (
-    stories.find(
-      (s) =>
-        s.id.toLowerCase() === search ||
-        s.numeral.toLowerCase() === search ||
-        `alchemy-${s.numeral}`.toLowerCase() === search
-    ) || null
+    stories.find((s) => {
+      const sId = s.id.toLowerCase();
+      const sNum = s.numeral.toLowerCase();
+      return (
+        sId === search ||
+        sNum === search ||
+        sNum === mappedNumeral ||
+        sId.includes(search) ||
+        `alchemy-${sNum}` === search ||
+        `alchemy-${sNum}` === mappedNumeral ||
+        search.endsWith(sId)
+      );
+    }) || null
   );
 }
 

@@ -506,8 +506,8 @@ export function initHorizontalPortals() {
         trigger: section,
         pin: true,
         scrub: 1.0,
-        start: 'top top',
-        end: () => `+=${totalTravel + window.innerHeight * 0.75}`,
+        start: 'top 80px',
+        end: () => `+=${totalTravel}`,
         invalidateOnRefresh: true,
         anticipatePin: 1,
       },
@@ -576,21 +576,31 @@ export function initPlasterWallScrolly() {
     { angle: 12, label: '12° Hoàng Hôn Xiên Sâu · Sợi Dệt' },
   ];
 
-  const totalLength = window.innerHeight * 2.2;
-
-  const st = ScrollTrigger.create({
-    trigger: section,
-    start: 'top top',
-    end: () => `+=${totalLength}`,
-    pin: true,
-    anticipatePin: 1,
-    onUpdate: (self) => {
-      const idx = Math.min(stepsData.length - 1, Math.floor(self.progress * stepsData.length));
-      setPlasterAngle(stepsData[idx].angle);
-    },
-  });
-
-  registerViewTrigger('home', st);
+  const cards = section.querySelectorAll('.plaster-panel-card');
+  if (cards && cards.length >= 4) {
+    cards.forEach((card, idx) => {
+      const step = stepsData[idx] || stepsData[0];
+      const st = ScrollTrigger.create({
+        trigger: card,
+        start: 'top 75%',
+        end: 'bottom 25%',
+        onEnter: () => setPlasterAngle(step.angle),
+        onEnterBack: () => setPlasterAngle(step.angle),
+      });
+      registerViewTrigger('home', st);
+    });
+  } else {
+    const st = ScrollTrigger.create({
+      trigger: section,
+      start: 'top center',
+      end: 'bottom center',
+      onUpdate: (self) => {
+        const idx = Math.min(stepsData.length - 1, Math.floor(self.progress * stepsData.length));
+        setPlasterAngle(stepsData[idx].angle);
+      },
+    });
+    registerViewTrigger('home', st);
+  }
 }
 
 let currentStoryStage = null;
@@ -614,6 +624,7 @@ export function initStoryRelightingScrolly(mountEl, artwork) {
       lightElevation: 1.2,
       lightIntensity: 1.0,
     });
+    currentStoryStage.init().catch((e) => console.warn('[Relighting Stage] init failed:', e));
 
     const storyLayout = mountEl.closest('.story-content-layout');
     if (!storyLayout) return;
