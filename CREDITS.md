@@ -4,21 +4,21 @@ Dự án mẫu **ÉTHÉRÉ Atelier & Gallery — Đại Triển Lãm "Ánh Sáng
 
 ---
 
-## 1. Bản Quyền 18 Kiệt Tác Nghệ Thuật Trong Triển Lãm (Public Domain / CC0 Open Access)
+## 1. Bản Quyền 17 Kiệt Tác Nghệ Thuật Trong Triển Lãm (Public Domain / CC0 Open Access)
 
-Toàn bộ 18 tác phẩm nghệ thuật trưng bày trong triển lãm đều được số hóa từ chương trình **Open Access (CC0 - Creative Commons Zero)** của các bảo tàng danh giá hàng đầu thế giới (**The Metropolitan Museum of Art**, **Art Institute of Chicago**), cho phép tự do sử dụng cho mục đích cá nhân lẫn thương mại quốc tế:
+Toàn bộ 17 tác phẩm nghệ thuật trưng bày trong triển lãm đều được số hóa từ chương trình **Open Access (CC0 - Creative Commons Zero)** của các bảo tàng danh giá hàng đầu thế giới (**The Metropolitan Museum of Art**, **Art Institute of Chicago**), cho phép tự do sử dụng cho mục đích cá nhân lẫn thương mại quốc tế:
 
 | Cánh Trưng Bày | Tác Phẩm | Nghệ Sĩ / Xuất Xứ | Bảo Tàng Lưu Trữ | Số Định Danh (Accession No.) | Giấy Phép |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Cánh I: Cổ Vật & Phù Điêu Đá** | *Phù Điêu Thần Hộ Mệnh Có Cánh* | Nghệ nhân Assyria (khoảng 883–859 TCN) | The Metropolitan Museum of Art | The Met No. 32.143.4 | **CC0 (Open Access)** |
 | **Cánh I: Cổ Vật & Phù Điêu Đá** | *Bích Họa Nàng Maenad Múa Tại Boscoreale* | Họa sĩ La Mã (khoảng 50–40 TCN) | The Metropolitan Museum of Art | The Met No. 03.14.5 | **CC0 (Open Access)** |
-| **Cánh I: Cổ Vật & Phù Điêu Đá** | *Tượng Thanh Niên Hy Lạp Cổ Điển (Kouros)* | Nhà điêu khắc Attica (khoảng 590–580 TCN) | The Metropolitan Museum of Art | The Met No. 32.11.1 | **CC0 (Open Access)** |
+| **Cánh I: Cổ Vật & Phù Điêu Đá** | *Tượng Thanh Niên Hy Lạp Cổ Điển (Wounded Amazon)* | Nhà điêu khắc La Mã / Hy Lạp | The Metropolitan Museum of Art | The Met No. 32.11.1 | **CC0 (Open Access)** |
 | **Cánh II: Sơn Dầu & Impasto** | *Cánh Đồng Lúa Với Cây Bách* | Vincent van Gogh (1889) | The Metropolitan Museum of Art | The Met No. 1993.132 | **CC0 (Open Access)** |
 | **Cánh II: Sơn Dầu & Impasto** | *Chân Dung Tự Họa Đội Mũ Rơm* | Vincent van Gogh (1887) | The Metropolitan Museum of Art | The Met No. 67.187.106 | **CC0 (Open Access)** |
 | **Cánh II: Sơn Dầu & Impasto** | *Những Cây Bách (Cypresses)* | Vincent van Gogh (1889) | The Metropolitan Museum of Art | The Met No. 49.30 | **CC0 (Open Access)** |
 | **Cánh II: Sơn Dầu & Impasto** | *Phòng Ngủ Tại Arles* | Vincent van Gogh (1889) | Art Institute of Chicago | AIC No. 1926.252 | **CC0 (Open Access)** |
 | **Cánh II: Sơn Dầu & Impasto** | *Aristotle Bên Tượng Bán Thân Homer* | Rembrandt van Rijn (1653) | The Metropolitan Museum of Art | The Met No. 61.198 | **CC0 (Open Access)** |
-| **Cánh II: Sơn Dầu & Impasto** | *Chân Dung Tự Họa Rembrandt (1660)* | Rembrandt van Rijn (1660) | The Metropolitan Museum of Art | The Met No. 26.101.1 | **CC0 (Open Access)** |
+| **Cánh II: Sơn Dầu & Impasto** | *Flora (Nàng Flora)* | Rembrandt van Rijn (khoảng 1654) | The Metropolitan Museum of Art | The Met No. 26.101.1 | **CC0 (Open Access)** |
 | **Cánh II: Sơn Dầu & Impasto** | *Cầu Nhật Bản & Hồ Hoa Súng* | Claude Monet (1899) | The Metropolitan Museum of Art | The Met No. 29.100.110 | **CC0 (Open Access)** |
 | **Cánh II: Sơn Dầu & Impasto** | *Tĩnh Vật Với Táo & Bình Nước* | Paul Cézanne (khoảng 1895–1898) | The Metropolitan Museum of Art | The Met No. 61.101.4 | **CC0 (Open Access)** |
 | **Cánh II: Sơn Dầu & Impasto** | *Thiếu Nữ Bên Bình Nước* | Johannes Vermeer (khoảng 1662) | The Metropolitan Museum of Art | The Met No. 89.15.21 | **CC0 (Open Access)** |
@@ -27,7 +27,6 @@ Toàn bộ 18 tác phẩm nghệ thuật trưng bày trong triển lãm đều �
 | **Cánh III: Khắc Gỗ Ukiyo-e** | *Gió Lành Buổi Sớm Núi Phú Sĩ (Phú Sĩ Đỏ)* | Katsushika Hokusai (khoảng 1830–1832) | The Metropolitan Museum of Art | The Met No. JP2569 | **CC0 (Open Access)** |
 | **Cánh IV: Thảm Dệt Tapestry** | *Kỳ Lân Bị Giam Giữ (Unicorn in Captivity)* | Thợ dệt Nam Hà Lan (khoảng 1495–1505) | The Met Cloisters | The Met No. 37.80.6 | **CC0 (Open Access)** |
 | **Cánh IV: Thảm Dệt Tapestry** | *Những Người Đi Săn Kỳ Lân* | Thợ dệt Nam Hà Lan (khoảng 1495–1505) | The Met Cloisters | The Met No. 37.80.1 | **CC0 (Open Access)** |
-| **Cánh V: Nghiên Cứu Đương Đại** | *Nghiên Cứu Chuyển Động Quang Học & Ánh Sáng* | ÉTHÉRÉ Digital Atelier (2026) | Studio ÉTHÉRÉ | Open CC0 Creative | **CC0 Public** |
 
 > [!NOTE]
 > Mọi tác phẩm đều đi kèm liên kết kiểm tra trực tiếp tới cơ sở dữ liệu hiện vật chính thức của The Met (`metmuseum.org`) và Art Institute of Chicago (`artic.edu`).

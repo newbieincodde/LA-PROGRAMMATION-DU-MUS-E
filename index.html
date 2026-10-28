@@ -69,6 +69,9 @@
   <!-- Accessibility Skip Link -->
   <a href="#main-content" class="skip-link">Nhảy đến nội dung chính (Skip to content)</a>
 
+  <!-- Accessible Route Live Announcer for Screen Readers -->
+  <div id="route-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
   <!-- Preloader Screen -->
   <div id="preloader" aria-live="polite" role="status">
     <div class="preloader-brand">ÉTHÉRÉ</div>
@@ -161,13 +164,139 @@
       </a>
 
       <nav class="louvre-nav" aria-label="Menu phân mục bảo tàng">
+        <!-- 1. Home Direct Link -->
         <a href="#home" class="louvre-nav-item active" data-nav="home" data-i18n="nav-home">Trang Chủ</a>
-        <a href="#exhibition" class="louvre-nav-item" data-nav="exhibition" data-i18n="nav-exhibition">Triển Lãm 3D</a>
-        <a href="#collection" class="louvre-nav-item" data-nav="collection" data-i18n="nav-collection">Kho Lưu Trữ</a>
-        <a href="#timeline" class="louvre-nav-item" data-nav="timeline" data-i18n="nav-timeline">Niên Đại</a>
-        <a href="#diptych" class="louvre-nav-item" data-nav="diptych" data-i18n="nav-diptych">✦ Đối Thoại 2 Thời Đại</a>
+
+        <!-- 2. Collection Flyout -->
+        <div class="nav-flyout-wrapper">
+          <button 
+            type="button" 
+            class="louvre-nav-item btn-nav-flyout-trigger" 
+            data-nav="collection"
+            aria-expanded="false" 
+            aria-haspopup="true" 
+            aria-controls="flyout-collection">
+            <span data-i18n="nav-collection">Bộ Sưu Tập</span>
+            <span class="flyout-caret" aria-hidden="true">▾</span>
+          </button>
+          <div id="flyout-collection" class="nav-flyout-panel" role="region" aria-label="Bộ sưu tập 4 cánh bảo tàng">
+            <div class="flyout-grid-rooms">
+              <a href="#room/I" class="flyout-room-card" data-nav="room/I">
+                <div class="flyout-room-num">CÁNH I</div>
+                <div class="flyout-room-title">Cổ Vật &amp; Phù Điêu Đá</div>
+                <div class="flyout-room-era">883 TCN – Thế kỷ II SCN</div>
+              </a>
+              <a href="#room/II" class="flyout-room-card" data-nav="room/II">
+                <div class="flyout-room-num">CÁNH II</div>
+                <div class="flyout-room-title">Bậc Thầy Sơn Dầu &amp; Chiaroscuro</div>
+                <div class="flyout-room-era">1653 – 1889</div>
+              </a>
+              <a href="#room/III" class="flyout-room-card" data-nav="room/III">
+                <div class="flyout-room-num">CÁNH III</div>
+                <div class="flyout-room-title">Khắc Gỗ Ukiyo-e &amp; Hiện Đại</div>
+                <div class="flyout-room-era">1830 – 1916</div>
+              </a>
+              <a href="#room/IV" class="flyout-room-card" data-nav="room/IV">
+                <div class="flyout-room-num">CÁNH IV</div>
+                <div class="flyout-room-title">Thảm Dệt Tapestry &amp; Dệt Sợi</div>
+                <div class="flyout-room-era">1495 – 1505</div>
+              </a>
+            </div>
+            <div class="flyout-footer">
+              <a href="#collection" class="flyout-footer-action" data-nav="collection" data-i18n="nav-all-archive">
+                Xem toàn bộ 17 kiệt tác trong kho lưu trữ →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Stories Flyout -->
+        <div class="nav-flyout-wrapper">
+          <button 
+            type="button" 
+            class="louvre-nav-item btn-nav-flyout-trigger" 
+            data-nav="stories"
+            aria-expanded="false" 
+            aria-haspopup="true" 
+            aria-controls="flyout-stories">
+            <span data-i18n="nav-stories">Bài Luận</span>
+            <span class="flyout-caret" aria-hidden="true">▾</span>
+          </button>
+          <div id="flyout-stories" class="nav-flyout-panel" role="region" aria-label="Bài luận chuyên đề">
+            <div class="flyout-grid-essays">
+              <a href="#story/alchemy-fresco" class="flyout-essay-item" data-nav="story/alchemy-fresco">
+                <span class="flyout-essay-num">BÀI LUẬN I</span>
+                <span class="flyout-essay-title">Vữa Pompeii &amp; Sự Biến Ảo Của Thạch Cao</span>
+                <span class="flyout-essay-sub">Hóa học bột vôi tôi &amp; sắc tố son khoáng cinnabar</span>
+              </a>
+              <a href="#story/alchemy-impasto" class="flyout-essay-item" data-nav="story/alchemy-impasto">
+                <span class="flyout-essay-num">BÀI LUẬN II</span>
+                <span class="flyout-essay-title">Impasto &amp; Khảo Cứu Gờ Sơn Dầu Dày</span>
+                <span class="flyout-essay-sub">Lực căng bề mặt &amp; nhát dao xúc giác của Van Gogh</span>
+              </a>
+              <a href="#story/alchemy-loom" class="flyout-essay-item" data-nav="story/alchemy-loom">
+                <span class="flyout-essay-num">BÀI LUẬN III</span>
+                <span class="flyout-essay-title">Ma Trận Dệt Sợi &amp; Tiền Thân Mã Nhị Phân</span>
+                <span class="flyout-essay-sub">8.200.000 nút dệt &amp; thuật toán ribbon unwoven</span>
+              </a>
+              <a href="#story/alchemy-shadows" class="flyout-essay-item" data-nav="story/alchemy-shadows">
+                <span class="flyout-essay-num">BÀI LUẬN IV</span>
+                <span class="flyout-essay-title">Bóng Tối Khảo Cổ &amp; Ánh Sáng Chiaroscuro</span>
+                <span class="flyout-essay-sub">Độ sâu bóng tối của Rembrandt dưới ngọn nến xưa</span>
+              </a>
+            </div>
+            <div class="flyout-footer">
+              <a href="#stories" class="flyout-footer-action" data-nav="stories" data-i18n="nav-all-stories">
+                Xem tất cả 4 bài luận chuyên đề →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Conservation Tools Flyout -->
+        <div class="nav-flyout-wrapper">
+          <button 
+            type="button" 
+            class="louvre-nav-item btn-nav-flyout-trigger" 
+            data-nav="tools"
+            aria-expanded="false" 
+            aria-haspopup="true" 
+            aria-controls="flyout-tools">
+            <span data-i18n="nav-tools">Công Cụ Bảo Tồn</span>
+            <span class="flyout-caret" aria-hidden="true">▾</span>
+          </button>
+          <div id="flyout-tools" class="nav-flyout-panel flyout-panel-tools" role="region" aria-label="Công cụ nghiên cứu">
+            <div class="flyout-tools-list">
+              <a href="#artwork/rembrandt-aristotle" class="flyout-tool-item" data-nav="artwork/rembrandt-aristotle">
+                <span class="tool-item-icon">✦</span>
+                <div class="tool-item-content">
+                  <div class="tool-item-title" data-i18n="nav-tool-3d">✦ Chiếu Sáng 3D Relighting</div>
+                  <div class="tool-item-desc" data-i18n="nav-tool-3d-desc">Mô phỏng nguồn sáng ảo quét qua gờ sơn và rãnh đục</div>
+                </div>
+              </a>
+              <a href="#timeline" class="flyout-tool-item" data-nav="timeline">
+                <span class="tool-item-icon">⏳</span>
+                <div class="tool-item-content">
+                  <div class="tool-item-title" data-i18n="nav-tool-timeline">⏳ Biên Niên Sử Nghệ Thuật</div>
+                  <div class="tool-item-desc" data-i18n="nav-tool-timeline-desc">Tiến trình 2.800 năm xúc giác và phong cách</div>
+                </div>
+              </a>
+              <a href="#diptych" class="flyout-tool-item highlight-tool" data-nav="diptych">
+                <span class="tool-item-icon">✦</span>
+                <div class="tool-item-content">
+                  <div class="tool-item-title" data-i18n="nav-tool-diptych">✦ Xưởng So Sánh Diptych</div>
+                  <div class="tool-item-desc" data-i18n="nav-tool-diptych-desc">Bàn đối chiếu song song hai kiệt tác với ánh sáng cào</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Curatorial Plain Link -->
         <a href="#curatorial" class="louvre-nav-item" data-nav="curatorial" data-i18n="nav-curatorial">Giám Tuyển</a>
-        <a href="#visit" class="louvre-nav-item" data-nav="visit" data-i18n="nav-visit">Đặt Vé / Mua Mẫu</a>
+
+        <!-- 6. Visit Plain Link -->
+        <a href="#visit" class="louvre-nav-item" data-nav="visit" data-i18n="nav-visit">Đặt Vé · Bản Quyền</a>
       </nav>
 
       <!-- Mobile Quick Actions & Luxury Hamburger Menu Trigger -->
@@ -397,6 +526,26 @@
         </div>
       </footer>
     </div>
+
+    <!-- =====================================================================
+         VIEW: ROOM HUB (#room/:id)
+         ===================================================================== -->
+    <div id="view-room" class="view-page" role="region" aria-label="Không gian cánh bảo tàng"></div>
+
+    <!-- =====================================================================
+         VIEW: ARTWORK DETAIL PAGE (#artwork/:id)
+         ===================================================================== -->
+    <div id="view-artwork" class="view-page" role="region" aria-label="Hồ sơ chi tiết tác phẩm"></div>
+
+    <!-- =====================================================================
+         VIEW: STORIES INDEX (#stories)
+         ===================================================================== -->
+    <div id="view-stories" class="view-page" role="region" aria-label="Chỉ mục bài luận giám tuyển"></div>
+
+    <!-- =====================================================================
+         VIEW: SINGLE STORY PAGE (#story/:id)
+         ===================================================================== -->
+    <div id="view-story" class="view-page" role="region" aria-label="Bài luận chuyên đề giám tuyển"></div>
 
     <!-- =====================================================================
          VIEW 2: THE COLLECTION (Trang riêng biệt cho Kho lưu trữ & Bộ lọc)
@@ -931,37 +1080,82 @@ for (let i = 0; i &lt; 26; i++) {
           </div>
         </a>
 
-        <a href="#diptych" class="mobile-nav-link highlight-link" data-nav="diptych">
-          <span class="mob-nav-icon">✦</span>
-          <div class="mob-nav-info">
-            <span class="mob-nav-title">✦ Đối Thoại 2 Thời Đại</span>
-            <span class="mob-nav-sub">Bàn so sánh song song &amp; Ánh sáng cào</span>
+        <!-- Mobile Group 1: Collection & 4 Wings -->
+        <div class="mob-nav-group">
+          <div class="mob-group-heading">
+            <span>BỘ SƯU TẬP 4 CÁNH BẢO TÀNG</span>
           </div>
-        </a>
+          <div class="mob-group-sublinks">
+            <a href="#room/I" class="mob-sub-link" data-nav="room/I">
+              <span class="sub-num">CÁNH I</span>
+              <span class="sub-title">Cổ Vật &amp; Phù Điêu Đá (883 TCN – Tk II)</span>
+            </a>
+            <a href="#room/II" class="mob-sub-link" data-nav="room/II">
+              <span class="sub-num">CÁNH II</span>
+              <span class="sub-title">Bậc Thầy Sơn Dầu &amp; Chiaroscuro</span>
+            </a>
+            <a href="#room/III" class="mob-sub-link" data-nav="room/III">
+              <span class="sub-num">CÁNH III</span>
+              <span class="sub-title">Khắc Gỗ Ukiyo-e &amp; Hiện Đại</span>
+            </a>
+            <a href="#room/IV" class="mob-sub-link" data-nav="room/IV">
+              <span class="sub-num">CÁNH IV</span>
+              <span class="sub-title">Thảm Dệt Tapestry &amp; Dệt Sợi</span>
+            </a>
+            <a href="#collection" class="mob-sub-link all-link" data-nav="collection">
+              <span>↳ Xem Toàn Bộ 17 Kiệt Tác Trong Kho →</span>
+            </a>
+          </div>
+        </div>
 
-        <a href="#exhibition" class="mobile-nav-link" data-nav="exhibition">
-          <span class="mob-nav-icon">👁</span>
-          <div class="mob-nav-info">
-            <span class="mob-nav-title">Triển Lãm 3D Xúc Giác</span>
-            <span class="mob-nav-sub">Soi bóng bề mặt &amp; Nhịp sinh học 24H</span>
+        <!-- Mobile Group 2: Curatorial Stories -->
+        <div class="mob-nav-group">
+          <div class="mob-group-heading">
+            <span>BÀI LUẬN GIÁM TUYỂN (ESSAIS)</span>
           </div>
-        </a>
+          <div class="mob-group-sublinks">
+            <a href="#story/alchemy-fresco" class="mob-sub-link" data-nav="story/alchemy-fresco">
+              <span class="sub-num">BÀI LUẬN I</span>
+              <span class="sub-title">Vữa Pompeii &amp; Thạch Cao Khảo Cổ</span>
+            </a>
+            <a href="#story/alchemy-impasto" class="mob-sub-link" data-nav="story/alchemy-impasto">
+              <span class="sub-num">BÀI LUẬN II</span>
+              <span class="sub-title">Impasto &amp; Gờ Sơn Dầu Van Gogh</span>
+            </a>
+            <a href="#story/alchemy-loom" class="mob-sub-link" data-nav="story/alchemy-loom">
+              <span class="sub-num">BÀI LUẬN III</span>
+              <span class="sub-title">Ma Trận Sợi &amp; Mã Nhị Phân Thảm</span>
+            </a>
+            <a href="#story/alchemy-shadows" class="mob-sub-link" data-nav="story/alchemy-shadows">
+              <span class="sub-num">BÀI LUẬN IV</span>
+              <span class="sub-title">Bóng Tối Khảo Cổ &amp; Chiaroscuro</span>
+            </a>
+            <a href="#stories" class="mob-sub-link all-link" data-nav="stories">
+              <span>↳ Xem Chỉ Mục 4 Bài Luận Giám Tuyển →</span>
+            </a>
+          </div>
+        </div>
 
-        <a href="#timeline" class="mobile-nav-link" data-nav="timeline">
-          <span class="mob-nav-icon">⏳</span>
-          <div class="mob-nav-info">
-            <span class="mob-nav-title">Hành Trình 2.800 Năm</span>
-            <span class="mob-nav-sub">11 Cột mốc lịch sử nghệ thuật</span>
+        <!-- Mobile Group 3: Conservation Tools -->
+        <div class="mob-nav-group">
+          <div class="mob-group-heading">
+            <span>CÔNG CỤ BẢO TỒN &amp; NGHIÊN CỨU</span>
           </div>
-        </a>
-
-        <a href="#collection" class="mobile-nav-link" data-nav="collection">
-          <span class="mob-nav-icon">🖼</span>
-          <div class="mob-nav-info">
-            <span class="mob-nav-title">Kho Lưu Trữ 18 Kiệt Tác</span>
-            <span class="mob-nav-sub">The Met &amp; Art Institute of Chicago</span>
+          <div class="mob-group-sublinks">
+            <a href="#artwork/rembrandt-aristotle" class="mob-sub-link" data-nav="artwork/rembrandt-aristotle">
+              <span class="sub-num">✦ 3D</span>
+              <span class="sub-title">Chiếu Sáng 3D Relighting</span>
+            </a>
+            <a href="#diptych" class="mob-sub-link highlight-sub" data-nav="diptych">
+              <span class="sub-num">✦ ĐỐI THOẠI</span>
+              <span class="sub-title">Xưởng So Sánh Diptych Song Song</span>
+            </a>
+            <a href="#timeline" class="mob-sub-link" data-nav="timeline">
+              <span class="sub-num">⏳ 2.800 NĂM</span>
+              <span class="sub-title">Biên Niên Sử Lịch Sử Nghệ Thuật</span>
+            </a>
           </div>
-        </a>
+        </div>
 
         <a href="#curatorial" class="mobile-nav-link" data-nav="curatorial">
           <span class="mob-nav-icon">📜</span>

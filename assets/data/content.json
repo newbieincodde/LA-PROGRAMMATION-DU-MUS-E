@@ -227,7 +227,12 @@
       },
       "image": "./assets/images/assyrian-relief.jpg",
       "depth": "./assets/depths/assyrian-relief.png",
-      "alt": "Phù điêu đá Assyria khắc hình thần hộ mệnh có cánh với áo tua và vòng đeo tay"
+      "alt": "Phù điêu đá Assyria khắc hình thần hộ mệnh có cánh với áo tua và vòng đeo tay",
+      "relatedArtworkIds": [
+        "roman-dancing-maenad",
+        "greek-wounded-amazon",
+        "wheat-field-cypresses"
+      ]
     },
     {
       "id": "roman-dancing-maenad",
@@ -271,7 +276,12 @@
       },
       "image": "./assets/images/roman-dancing-maenad.jpg",
       "depth": "./assets/depths/roman-dancing-maenad.png",
-      "alt": "Bích họa La Mã cổ đại vẽ người phụ nữ múa trên nền vữa đỏ son Pompeiian"
+      "alt": "Bích họa La Mã cổ đại vẽ người phụ nữ múa trên nền vữa đỏ son Pompeiian",
+      "relatedArtworkIds": [
+        "assyrian-winged-genie",
+        "greek-wounded-amazon",
+        "rembrandt-aristotle"
+      ]
     },
     {
       "id": "greek-wounded-amazon",
@@ -311,7 +321,11 @@
       },
       "image": "./assets/images/greek-wounded-amazon.jpg",
       "depth": "./assets/depths/greek-wounded-amazon.png",
-      "alt": "Tượng cẩm thạch Hy Lạp cổ đại tạc hình thanh niên Kouros đứng thẳng"
+      "alt": "Tượng cẩm thạch Hy Lạp cổ đại tạc hình thanh niên Kouros đứng thẳng",
+      "relatedArtworkIds": [
+        "assyrian-winged-genie",
+        "roman-dancing-maenad"
+      ]
     },
     {
       "id": "wheat-field-cypresses",
@@ -351,7 +365,13 @@
       },
       "image": "./assets/images/wheat-field.jpg",
       "depth": "./assets/depths/wheat-field.png",
-      "alt": "Tranh sơn dầu cánh đồng lúa vàng với cây bách cao vút và bầu trời cuộn mây của Van Gogh"
+      "alt": "Tranh sơn dầu cánh đồng lúa vàng với cây bách cao vút và bầu trời cuộn mây của Van Gogh",
+      "relatedArtworkIds": [
+        "van-gogh-straw-hat",
+        "van-gogh-cypresses",
+        "van-gogh-bedroom",
+        "assyrian-winged-genie"
+      ]
     },
     {
       "id": "van-gogh-straw-hat",
@@ -391,7 +411,12 @@
       },
       "image": "./assets/images/van-gogh-straw-hat.jpg",
       "depth": "./assets/depths/van-gogh-straw-hat.png",
-      "alt": "Chân dung tự họa của Vincent van Gogh đội mũ rơm với ánh mắt nghiêm nghị"
+      "alt": "Chân dung tự họa của Vincent van Gogh đội mũ rơm với ánh mắt nghiêm nghị",
+      "relatedArtworkIds": [
+        "wheat-field-cypresses",
+        "rembrandt-floras",
+        "van-gogh-bedroom"
+      ]
     },
     {
       "id": "van-gogh-cypresses",
@@ -431,7 +456,12 @@
       },
       "image": "./assets/images/van-gogh-cypresses.jpg",
       "depth": "./assets/depths/van-gogh-cypresses.png",
-      "alt": "Tranh sơn dầu hai cây bách cao vút vặn xoắn trên nền trời trăng khuyết của Van Gogh"
+      "alt": "Tranh sơn dầu hai cây bách cao vút vặn xoắn trên nền trời trăng khuyết của Van Gogh",
+      "relatedArtworkIds": [
+        "wheat-field-cypresses",
+        "van-gogh-bedroom",
+        "monet-water-lilies"
+      ]
     },
     {
       "id": "van-gogh-bedroom",
@@ -471,7 +501,18 @@
       },
       "image": "./assets/images/bedroom.jpg",
       "depth": "./assets/depths/bedroom.png",
-      "alt": "Tranh sơn dầu căn phòng ngủ màu vàng ấm với giường gỗ và hai chiếc ghế ở Arles"
+      "alt": "Tranh sơn dầu căn phòng ngủ màu vàng ấm với giường gỗ và hai chiếc ghế ở Arles",
+      "relatedArtworkIds": [
+        "wheat-field-cypresses",
+        "van-gogh-straw-hat",
+        "van-gogh-cypresses",
+        "rembrandt-aristotle",
+        "rembrandt-floras",
+        "monet-water-lilies",
+        "cezanne-apples",
+        "vermeer-water-pitcher",
+        "seurat-circus-sideshow"
+      ]
     },
     {
       "id": "rembrandt-aristotle",
@@ -511,7 +552,12 @@
       },
       "image": "./assets/images/aristotle.jpg",
       "depth": "./assets/depths/aristotle.png",
-      "alt": "Chân dung triết gia Aristotle trầm tư bên tượng bán thân nhà thơ Homer"
+      "alt": "Chân dung triết gia Aristotle trầm tư bên tượng bán thân nhà thơ Homer",
+      "relatedArtworkIds": [
+        "rembrandt-floras",
+        "vermeer-water-pitcher",
+        "roman-dancing-maenad"
+      ]
     },
     {
       "id": "rembrandt-floras",
@@ -551,7 +597,18 @@
       },
       "image": "./assets/images/rembrandt-floras.jpg",
       "depth": "./assets/depths/rembrandt-floras.png",
-      "alt": "Chân dung tự họa tuổi 54 của danh họa Rembrandt van Rijn"
+      "alt": "Chân dung tự họa tuổi 54 của danh họa Rembrandt van Rijn",
+      "relatedArtworkIds": [
+        "wheat-field-cypresses",
+        "van-gogh-straw-hat",
+        "van-gogh-cypresses",
+        "van-gogh-bedroom",
+        "rembrandt-aristotle",
+        "monet-water-lilies",
+        "cezanne-apples",
+        "vermeer-water-pitcher",
+        "seurat-circus-sideshow"
+      ]
     },
     {
       "id": "monet-water-lilies",
@@ -591,7 +648,12 @@
       },
       "image": "./assets/images/monet-water-lilies.jpg",
       "depth": "./assets/depths/monet-water-lilies.png",
-      "alt": "Cặp đôi chèo thuyền buồm trên dòng sông Seine xanh ngắt của Édouard Manet"
+      "alt": "Cặp đôi chèo thuyền buồm trên dòng sông Seine xanh ngắt của Édouard Manet",
+      "relatedArtworkIds": [
+        "cezanne-apples",
+        "seurat-circus-sideshow",
+        "wheat-field-cypresses"
+      ]
     },
     {
       "id": "cezanne-apples",
@@ -631,7 +693,11 @@
       },
       "image": "./assets/images/cezanne-apples.jpg",
       "depth": "./assets/depths/cezanne-apples.png",
-      "alt": "Bức tranh kịch tính cảnh chàng quý tộc trẻ bị móc túi dưới sự mê hoặc của bà bói"
+      "alt": "Bức tranh kịch tính cảnh chàng quý tộc trẻ bị móc túi dưới sự mê hoặc của bà bói",
+      "relatedArtworkIds": [
+        "monet-water-lilies",
+        "seurat-circus-sideshow"
+      ]
     },
     {
       "id": "vermeer-water-pitcher",
@@ -671,7 +737,11 @@
       },
       "image": "./assets/images/vermeer-water-pitcher.jpg",
       "depth": "./assets/depths/vermeer-water-pitcher.png",
-      "alt": "Chân dung thương nhân Flemish Lucas van Uffel cầm com-pa bên bàn sách"
+      "alt": "Chân dung thương nhân Flemish Lucas van Uffel cầm com-pa bên bàn sách",
+      "relatedArtworkIds": [
+        "rembrandt-aristotle",
+        "rembrandt-floras"
+      ]
     },
     {
       "id": "seurat-circus-sideshow",
@@ -711,7 +781,18 @@
       },
       "image": "./assets/images/seurat-circus-sideshow.jpg",
       "depth": "./assets/depths/seurat-circus-sideshow.png",
-      "alt": "Bản phác thảo điểm màu cảnh người dân dạo chơi trên bãi cỏ sông Seine của Seurat"
+      "alt": "Bản phác thảo điểm màu cảnh người dân dạo chơi trên bãi cỏ sông Seine của Seurat",
+      "relatedArtworkIds": [
+        "wheat-field-cypresses",
+        "van-gogh-straw-hat",
+        "van-gogh-cypresses",
+        "van-gogh-bedroom",
+        "rembrandt-aristotle",
+        "rembrandt-floras",
+        "monet-water-lilies",
+        "cezanne-apples",
+        "vermeer-water-pitcher"
+      ]
     },
     {
       "id": "hokusai-great-wave",
@@ -751,7 +832,11 @@
       },
       "image": "./assets/images/great-wave.jpg",
       "depth": "./assets/depths/great-wave.png",
-      "alt": "Bản khắc gỗ Nhật Bản cảnh sóng lớn trùm lên ba chiếc thuyền và núi Phú Sĩ phía xa"
+      "alt": "Bản khắc gỗ Nhật Bản cảnh sóng lớn trùm lên ba chiếc thuyền và núi Phú Sĩ phía xa",
+      "relatedArtworkIds": [
+        "hokusai-red-fuji",
+        "unicorn-in-captivity"
+      ]
     },
     {
       "id": "hokusai-red-fuji",
@@ -791,7 +876,10 @@
       },
       "image": "./assets/images/hokusai-red-fuji.jpg",
       "depth": "./assets/depths/hokusai-red-fuji.png",
-      "alt": "Hộp sơn mài đen rắc bột vàng đắp nổi phù điêu Thọ tinh của nghệ nhân Nhật Bản"
+      "alt": "Hộp sơn mài đen rắc bột vàng đắp nổi phù điêu Thọ tinh của nghệ nhân Nhật Bản",
+      "relatedArtworkIds": [
+        "hokusai-great-wave"
+      ]
     },
     {
       "id": "unicorn-in-captivity",
@@ -831,7 +919,11 @@
       },
       "image": "./assets/images/unicorn-tapestry.jpg",
       "depth": "./assets/depths/unicorn-tapestry.png",
-      "alt": "Tấm thảm dệt kỳ lân trắng bị xích vào cây lựu giữa vườn hoa millefleurs thời Phục hưng"
+      "alt": "Tấm thảm dệt kỳ lân trắng bị xích vào cây lựu giữa vườn hoa millefleurs thời Phục hưng",
+      "relatedArtworkIds": [
+        "unicorn-hunters",
+        "hokusai-great-wave"
+      ]
     },
     {
       "id": "unicorn-hunters",
@@ -871,7 +963,10 @@
       },
       "image": "./assets/images/unicorn-hunters.jpg",
       "depth": "./assets/depths/unicorn-hunters.png",
-      "alt": "Mặt dây chuyền ngọc mã não khắc nổi dũng sĩ Hercules diệt sư tử Nemean"
+      "alt": "Mặt dây chuyền ngọc mã não khắc nổi dũng sĩ Hercules diệt sư tử Nemean",
+      "relatedArtworkIds": [
+        "unicorn-in-captivity"
+      ]
     }
   ],
   "timelineMilestones": [
@@ -1027,10 +1122,30 @@
           "peripheralIdea": "Thế kỷ XVIII, nhà sử học Johann Winckelmann đã vô tình đồng nhất 'vẻ đẹp lý tưởng cổ điển' với màu đá trắng trần trụi, khiến nhiều viện bảo tàng châu Âu từng dùng bàn chải sắt kỳ cọ sạch những mảng màu cổ sót lại. Nhưng sự biến mất của sắc tố lại là một món quà bất ngờ: khi chiếc áo màu sắc phù phiếm bị rửa trôi, con mắt người xem bị tước bỏ sự lóa mắt để bắt buộc phải chạm vào hình khối thuần khiết — từng đường búa đục dứt khoát, độ ráp của thạch cao và độ bóng tự nhiên của tinh thể đá.",
           "quote": "« Thời gian đã rửa sạch lớp trang điểm của màu sắc để trả tác phẩm về với linh hồn vĩnh cửu của xúc giác. »",
           "metrics": [
-            { "label": "Niên Đại Phong Hóa", "value": "2.885 Năm" },
-            { "label": "Phương Pháp Soi", "value": "Huỳnh Quang Tia X (XRF)" },
-            { "label": "Sắc Tố Cổ Đại", "value": "Cinnabar & Malachite" },
-            { "label": "Trạng Thái Xúc Giác", "value": "Đá Thạch Cao Thạch Điêu" }
+            {
+              "label": "Niên Đại Phong Hóa",
+              "value": "2.885 Năm"
+            },
+            {
+              "label": "Phương Pháp Soi",
+              "value": "Huỳnh Quang Tia X (XRF)"
+            },
+            {
+              "label": "Sắc Tố Cổ Đại",
+              "value": "Cinnabar & Malachite"
+            },
+            {
+              "label": "Trạng Thái Xúc Giác",
+              "value": "Đá Thạch Cao Thạch Điêu"
+            }
+          ],
+          "rooms": [
+            "I"
+          ],
+          "relatedArtworkIds": [
+            "assyrian-winged-genie",
+            "roman-dancing-maenad",
+            "greek-wounded-amazon"
           ]
         },
         {
@@ -1043,10 +1158,32 @@
           "peripheralIdea": "Bề mặt ngoài tiếp xúc với không khí khô trước, co lại thành một lớp màng nhăn nheo đặc trưng, trong khi phần lõi bên trong vẫn ở trạng thái bán lỏng suốt nửa thế kỷ. Khi đặt nguồn sáng xiên 15 độ, mỗi gờ sơn đổ bóng dài gấp 3 lần chiều cao thực tế. Bằng việc di chuyển ngọn đèn ảo, ta không chỉ ngắm một bức tranh hai chiều; ta đang bay trên một rặng núi Alps vi mô nơi mỗi nhát dao phết sơn ghi lại chính nhịp thở gấp gáp và cơn rung cơ bắp của người họa sĩ.",
           "quote": "« Một centimet vuông sơn dầu không phải là bề mặt phẳng; nó là một vùng địa lý chứa đầy sự giày vò và khát vọng sống. »",
           "metrics": [
-            { "label": "Độ Cao Gờ Sơn", "value": "4.2mm (Đỉnh Đắp Dao)" },
-            { "label": "Hiện Tượng Hóa Học", "value": "Trùng Hợp Oxy Hóa Dầu Lanh" },
-            { "label": "Góc Đổ Bóng Tối Ưu", "value": "15° Raking Chiaroscuro" },
-            { "label": "Tỷ Lệ Bóng Đổ", "value": "3 : 1 Chiều Cao Gờ" }
+            {
+              "label": "Độ Cao Gờ Sơn",
+              "value": "4.2mm (Đỉnh Đắp Dao)"
+            },
+            {
+              "label": "Hiện Tượng Hóa Học",
+              "value": "Trùng Hợp Oxy Hóa Dầu Lanh"
+            },
+            {
+              "label": "Góc Đổ Bóng Tối Ưu",
+              "value": "15° Raking Chiaroscuro"
+            },
+            {
+              "label": "Tỷ Lệ Bóng Đổ",
+              "value": "3 : 1 Chiều Cao Gờ"
+            }
+          ],
+          "rooms": [
+            "II"
+          ],
+          "relatedArtworkIds": [
+            "wheat-field-cypresses",
+            "van-gogh-straw-hat",
+            "van-gogh-cypresses",
+            "van-gogh-bedroom",
+            "rembrandt-aristotle"
           ]
         },
         {
@@ -1058,10 +1195,29 @@
           "historicalSecret": "Người ta thường nghĩ công nghệ nhị phân là phát kiến của thời đại máy tính. Nhưng nguồn gốc sâu xa của mã nhị phân 0-1 bắt đầu từ những khung dệt thảm thủ công của thế kỷ XV, tiền thân trực tiếp của máy dệt thẻ đục lỗ Jacquard và cỗ máy tính toán cơ học của Ada Lovelace.",
           "peripheralIdea": "Bức thảm 'Kỳ Lân Bị Giam Giữ' chứa hơn 8 triệu nút giao giữa sợi dọc (warp) và sợi ngang (weft). Mỗi nút dệt là một quyết định nhị phân dứt khoát: sợi len nổi lên (1) hay chìm xuống (0). Mỗi sợi tơ tằm óng nhuộm rễ cây xuyến chi chính là một sub-pixel hữu cơ có khả năng tán xạ ánh sáng theo góc xiên. Trong ÉTHÉRÉ, thuật toán Unwoven Loom chia thảm thành 26 dải ruy-băng sóng liên tục để nhắc nhở rằng: nghệ thuật dệt sợi cổ xưa và đồ họa máy tính đương đại cùng chung một ngôn ngữ ma trận toán học.",
           "metrics": [
-            { "label": "Điểm Nút Nhị Phân", "value": "8.200.000 Nút Dệt" },
-            { "label": "Mật Độ Sợi Dọc", "value": "120 Sợi / Inch" },
-            { "label": "Thảo Mộc Nhuộm", "value": "101 Loài Cây Tự Nhiên" },
-            { "label": "Dải Sợi Unwoven", "value": "26 Ribbon Buffers" }
+            {
+              "label": "Điểm Nút Nhị Phân",
+              "value": "8.200.000 Nút Dệt"
+            },
+            {
+              "label": "Mật Độ Sợi Dọc",
+              "value": "120 Sợi / Inch"
+            },
+            {
+              "label": "Thảo Mộc Nhuộm",
+              "value": "101 Loài Cây Tự Nhiên"
+            },
+            {
+              "label": "Dải Sợi Unwoven",
+              "value": "26 Ribbon Buffers"
+            }
+          ],
+          "rooms": [
+            "IV"
+          ],
+          "relatedArtworkIds": [
+            "unicorn-in-captivity",
+            "unicorn-hunters"
           ]
         },
         {
@@ -1074,10 +1230,32 @@
           "peripheralIdea": "Rembrandt van Rijn chưa từng biết đến bóng đèn điện. Ông vẽ 'Aristotle Bên Tượng Homer' trong căn phòng tối tăm chỉ le lói một ngọn nến hoặc tia nắng yếu ớt lọt qua khe cửa sổ áp mái lúc xế chiều. Ánh sáng của Rembrandt không phải thứ ánh sáng đều đặn của máy móc; đó là thứ ánh sáng kịch tính phải vật lộn quyết liệt để thoát khỏi bóng tối đặc quánh. ÉTHÉRÉ tắt đi ánh sáng cố định của bảo tàng để trao ngọn đèn pin ảo vào tay bạn: chỉ khi bạn làm chủ bóng tối, bạn mới thực sự trân quý từng tia sáng.",
           "quote": "« Bóng tối không phải là sự vắng mặt của ánh sáng; bóng tối là cái nôi nuôi dưỡng chiều sâu và bí mật của linh hồn tác phẩm. »",
           "metrics": [
-            { "label": "Độ Sáng Bảo Tàng", "value": "500 Lux (Làm Phẳng Khối)" },
-            { "label": "Ánh Sáng Ngọn Nến", "value": "1.5 – 5 Lux (Nguyên Bản)" },
-            { "label": "Kỹ Thuật Dò Tia", "value": "12-Step Self-Shadowing" },
-            { "label": "Trạng Thái Thưởng Lãm", "value": "Chiaroscuro Tương Tác" }
+            {
+              "label": "Độ Sáng Bảo Tàng",
+              "value": "500 Lux (Làm Phẳng Khối)"
+            },
+            {
+              "label": "Ánh Sáng Ngọn Nến",
+              "value": "1.5 – 5 Lux (Nguyên Bản)"
+            },
+            {
+              "label": "Kỹ Thuật Dò Tia",
+              "value": "12-Step Self-Shadowing"
+            },
+            {
+              "label": "Trạng Thái Thưởng Lãm",
+              "value": "Chiaroscuro Tương Tác"
+            }
+          ],
+          "rooms": [
+            "II",
+            "I"
+          ],
+          "relatedArtworkIds": [
+            "rembrandt-aristotle",
+            "rembrandt-floras",
+            "vermeer-water-pitcher",
+            "roman-dancing-maenad"
           ]
         }
       ]

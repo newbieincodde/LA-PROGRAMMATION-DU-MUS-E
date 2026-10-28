@@ -33,6 +33,7 @@ import {
   animateCardExpansion,
   initAmbientDustParticles,
 } from './animations.js';
+import { initRouter, navigateTo, getCurrentRoute } from './router.js';
 
 // Global Application State
 let allArtworksList = [];
@@ -199,8 +200,11 @@ export async function openFocusArtwork(artworkInput) {
   dock?.classList.remove('is-collapsed');
   btnShow?.classList.remove('is-visible');
 
-  // Update Breadcrumbs
-  updateBreadcrumbs('Expositions (3D)', artwork.title);
+  // Ensure Breadcrumbs indicate 3D focus
+  const crumbDept = document.getElementById('crumb-dept');
+  const crumbTitle = document.getElementById('crumb-title');
+  if (crumbDept) crumbDept.textContent = 'Triển Lãm 3D';
+  if (crumbTitle) crumbTitle.textContent = artwork.title;
 
   // Update Zen Room Badge
   const roomBadge = document.getElementById('zen-room-badge');
@@ -272,18 +276,6 @@ export function exitFocusMode() {
     fullRelighting.destroy();
     fullRelighting = null;
   }
-
-  // Restore active view breadcrumbs
-  const sectionLabels = {
-    home: { dept: 'Trưng Bày & Sự Kiện', title: 'Ánh Sáng Đi Qua Thời Gian' },
-    collection: { dept: 'Kho Lưu Trữ', title: 'Kho Lưu Trữ 4 Cánh Bảo Tàng' },
-    timeline: { dept: 'Niên Đại Lịch Sử', title: '2.800 Năm Tiến Trình Xúc Giác' },
-    diptych: { dept: 'Nghiên Cứu Đối Sánh', title: '✦ Đối Thoại Giám Tuyển 2 Thời Đại' },
-    curatorial: { dept: 'Giám Tuyển', title: 'Lời Tựa Giám Tuyển & Triết Lý Xúc Giác' },
-    visit: { dept: 'Tham Quan & Đặt Vé', title: 'Đặt Lịch Tham Quan & Mua Mẫu' },
-  };
-  const info = sectionLabels[activeView] || sectionLabels.home;
-  updateBreadcrumbs(info.dept, info.title);
 }
 
 export function navigateArtworkStep(step) {
@@ -459,79 +451,11 @@ function setupSearchModal() {
 /* ==========================================================================
    6. BREADCRUMBS & MULTI-VIEW SPA PAGE ROUTER
    ========================================================================== */
-function updateBreadcrumbs(dept, title) {
-  const crumbDept = document.getElementById('crumb-dept');
-  const crumbTitle = document.getElementById('crumb-title');
-  if (crumbDept) crumbDept.textContent = dept;
-  if (crumbTitle) crumbTitle.textContent = title;
-}
-
 export function switchView(viewName) {
-  exitFocusMode();
-  const validViews = ['home', 'collection', 'timeline', 'diptych', 'curatorial', 'visit'];
-  const targetView = validViews.includes(viewName) ? viewName : 'home';
-  activeView = targetView;
-
-  // Toggle active view containers
-  validViews.forEach((v) => {
-    const el = document.getElementById(`view-${v}`);
-    if (el) {
-      if (v === targetView) {
-        el.classList.add('is-active');
-      } else {
-        el.classList.remove('is-active');
-      }
-    }
-  });
-
-  // Update nav item active states
-  const navItems = document.querySelectorAll('.louvre-nav-item');
-  navItems.forEach((n) => {
-    if (n.getAttribute('data-nav') === targetView) {
-      n.classList.add('active');
-    } else {
-      n.classList.remove('active');
-    }
-  });
-
-  // Update breadcrumbs
-  const sectionLabels = {
-    home: { dept: 'Trưng Bày & Sự Kiện', title: 'Ánh Sáng Đi Qua Thời Gian' },
-    collection: { dept: 'Kho Lưu Trữ', title: 'Kho Lưu Trữ 4 Cánh Bảo Tàng' },
-    timeline: { dept: 'Niên Đại Lịch Sử', title: '2.800 Năm Tiến Trình Xúc Giác' },
-    diptych: { dept: 'Nghiên Cứu Đối Sánh', title: '✦ Đối Thoại Giám Tuyển 2 Thời Đại' },
-    curatorial: { dept: 'Giám Tuyển', title: 'Lời Tựa Giám Tuyển & Triết Lý Xúc Giác' },
-    visit: { dept: 'Tham Quan & Đặt Vé', title: 'Đặt Lịch Tham Quan & Mua Mẫu' },
-  };
-  const info = sectionLabels[targetView] || sectionLabels.home;
-  updateBreadcrumbs(info.dept, info.title);
-
-  // If opening diptych view, initialize studio
-  if (targetView === 'diptych') {
-    initDiptychStudio();
-  }
-
-  // Smooth scroll to top via Lenis
-  scrollToTarget(0, { immediate: false, duration: 0.8 });
-  initScrollReveals();
+  navigateTo(viewName);
 }
 
 function setupNavigationRouting() {
-  const navItems = document.querySelectorAll('.louvre-nav-item');
-
-  navItems.forEach((link) => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = link.getAttribute('data-nav');
-      if (target === 'exhibition') {
-        openFocusArtwork(allArtworksList[0]);
-      } else {
-        switchView(target);
-        window.history.pushState(null, '', `#${target}`);
-      }
-    });
-  });
-
   // Mobile Navigation Drawer Controller
   setupMobileNavigation();
 
@@ -540,26 +464,8 @@ function setupNavigationRouting() {
     openFocusArtwork(allArtworksList[0]);
   });
 
-  // Handle browser back / forward buttons
-  window.addEventListener('popstate', () => {
-    const hash = window.location.hash.replace('#', '') || 'home';
-    if (hash === 'exhibition') {
-      openFocusArtwork(allArtworksList[0]);
-    } else {
-      switchView(hash);
-    }
-  });
-
-  // Initial load check
-  const initialHash = window.location.hash.replace('#', '') || 'home';
-  if (['home', 'collection', 'timeline', 'diptych', 'curatorial', 'visit'].includes(initialHash)) {
-    switchView(initialHash);
-  } else if (initialHash === 'exhibition') {
-    switchView('home');
-    setTimeout(() => openFocusArtwork(allArtworksList[0]), 300);
-  } else {
-    switchView('home');
-  }
+  // Initialize unified delegated router
+  initRouter();
 }
 
 function setupMobileNavigation() {
@@ -567,7 +473,6 @@ function setupMobileNavigation() {
   const btnCloseMobileMenu = document.getElementById('btn-close-mobile-menu');
   const mobileNavDrawer = document.getElementById('mobile-nav-drawer');
   const mobileNavBackdrop = document.getElementById('mobile-nav-backdrop');
-  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
   const themeToggleMob = document.getElementById('theme-toggle-btn-mob');
   const btnMobileShaders = document.getElementById('btn-mobile-shaders');
   const btnMobileSearch = document.getElementById('btn-mobile-search');
@@ -577,6 +482,7 @@ function setupMobileNavigation() {
     mobileNavBackdrop?.classList.add('is-open');
     btnMobileMenu?.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
+    btnCloseMobileMenu?.focus();
   }
 
   function closeMobileNav() {
@@ -596,24 +502,6 @@ function setupMobileNavigation() {
 
   btnCloseMobileMenu?.addEventListener('click', closeMobileNav);
   mobileNavBackdrop?.addEventListener('click', closeMobileNav);
-
-  mobileNavLinks.forEach((link) => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = link.getAttribute('data-nav');
-      closeMobileNav();
-
-      mobileNavLinks.forEach(l => l.classList.remove('active'));
-      link.classList.add('active');
-
-      if (target === 'exhibition') {
-        openFocusArtwork(allArtworksList[0]);
-      } else {
-        switchView(target);
-        window.history.pushState(null, '', `#${target}`);
-      }
-    });
-  });
 
   // Sync mobile theme button with main theme switcher
   themeToggleMob?.addEventListener('click', () => {
@@ -658,7 +546,7 @@ function renderCollectionCards(artworks) {
       const mediumSpec = specs.find((s) => s.label.toLowerCase().includes('chất liệu'))?.value || '';
 
       return `
-      <article class="artwork-card" data-art-id="${art.id}" tabindex="0" role="button" aria-label="Xem chi tiết ${art.title}">
+      <article class="artwork-card" data-art-id="${art.id}" tabindex="0" role="button" aria-label="Xem hồ sơ chi tiết ${art.title}">
         <div class="card-media">
           <img src="${art.image}" alt="${art.alt || art.title}" class="card-img" loading="lazy" />
           <span class="card-room-badge">${art.roomName || 'Cánh Triển Lãm'}</span>
@@ -668,6 +556,10 @@ function renderCollectionCards(artworks) {
           <h3 class="card-title">${art.title}</h3>
           <span class="card-artist-year">${art.artist || ''} · ${art.year || ''}</span>
           ${mediumSpec ? `<span style="font-size:0.72rem; color:var(--color-muted); margin-top:2px;">${mediumSpec}</span>` : ''}
+          <div class="card-actions-quick" style="display:flex; gap:8px; margin-top:12px;">
+            <a href="#artwork/${art.id}" class="btn-card-inspect" style="text-decoration:none;">Hồ Sơ</a>
+            <button type="button" class="btn-card-3d btn-launch-3d-relighting" data-artwork-id="${art.id}">✦ 3D</button>
+          </div>
         </div>
       </article>
     `;
@@ -676,17 +568,16 @@ function renderCollectionCards(artworks) {
 
   grid.querySelectorAll('.artwork-card').forEach((card) => {
     const artId = card.getAttribute('data-art-id');
-    const handler = () => {
-      const media = card.querySelector('.card-media') || card;
-      animateCardExpansion(media, document.getElementById('exhibition'), () => {
-        openFocusArtwork(artId);
-      });
+    const handler = (e) => {
+      // If clicking directly on 3D trigger or link, let delegated listeners handle it
+      if (e?.target?.closest('.btn-launch-3d-relighting, a')) return;
+      navigateTo(`#artwork/${artId}`);
     };
     card.addEventListener('click', handler);
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        handler();
+        navigateTo(`#artwork/${artId}`);
       }
     });
   });
@@ -1216,6 +1107,11 @@ async function renderHomeExperiences() {
               </div>
 
               ${essay.quote ? `<div class="alchemy-quote-pendant">${essay.quote}</div>` : ''}
+              <div style="margin-top: 18px;">
+                <a href="#story/${essay.id}" class="btn-read-essay-arrow" style="font-size:0.82rem; color:var(--color-accent); font-weight:600; text-decoration:none;">
+                  Đọc Toàn Văn Khảo Cứu &amp; Số Liệu →
+                </a>
+              </div>
             </div>
           </article>
         `)
@@ -1274,32 +1170,16 @@ async function renderHomeExperiences() {
         });
       });
 
-      // Action: View Collection Filtered Wing
+      // Action: View Dedicated Room Hub
       grid.querySelectorAll('.btn-portal-wing').forEach((btn) => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
           const wingRoom = btn.getAttribute('data-filter-wing');
-          switchView('collection');
-          window.history.pushState(null, '', '#collection');
-          // Trigger filter chip
-          const chip = document.querySelector(`.cat-chip[data-filter="${wingRoom}"]`);
-          if (chip) chip.click();
+          navigateTo(`#room/${wingRoom}`);
         });
       });
     }
   }
-
-  // Ensure all newly created .louvre-nav-item links in footer or cards work with router
-  document.querySelectorAll('.home-architectural-footer .louvre-nav-item').forEach((link) => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = link.getAttribute('data-nav');
-      if (target) {
-        switchView(target);
-        window.history.pushState(null, '', `#${target}`);
-      }
-    });
-  });
 }
 
 /* ==========================================================================
@@ -1319,6 +1199,10 @@ async function initApp() {
   i18n.init();
   allArtworksList = await getAllArtworks();
   window.openFocusArtwork = openFocusArtwork;
+  window.exitFocusMode = exitFocusMode;
+  window.navigateTo = navigateTo;
+  window.switchView = navigateTo;
+  window.initDiptychStudio = initDiptychStudio;
 
   // Initialize Lenis Smooth Scrolling Engine synchronized with GSAP ScrollTrigger
   initSmoothScrolling();

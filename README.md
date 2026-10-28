@@ -9,9 +9,28 @@ Mẫu web tái hiện trải nghiệm triển lãm bảo tàng danh giá với c
 
 ## ✦ Điểm Nhấn Công Nghệ & Thương Mại Độc Quyền (Grand Edition)
 
-1. **Quy Mô Bảo Tàng 5 Cánh & 18 Kiệt Tác CC0 (5x Scale Expansion):**
-   - Mở rộng từ 6 lên **18 kiệt tác thật** được số hóa Open Access CC0 từ **The Metropolitan Museum of Art** và **Art Institute of Chicago**.
-   - 5 cánh trưng bày chuyên biệt: Cổ vật đá Assyria & La Mã, Bậc thầy Sơn dầu Impasto (Van Gogh, Rembrandt, Monet, Cézanne, Vermeer, Seurat), Khắc gỗ Ukiyo-e Hokusai, Thảm dệt Tapestry Phục hưng, và Nghiên cứu quang học đương đại.
+1. **Quy Mô Bảo Tàng 4 Cánh & 17 Kiệt Tác CC0 (Authentic Museum Taxonomy):**
+   - **17 kiệt tác thật** được số hóa Open Access CC0 từ **The Metropolitan Museum of Art** và **Art Institute of Chicago**.
+   - 4 cánh trưng bày chuyên biệt:
+     - **Cánh I:** Cổ Vật Đá Assyria & Bích Họa La Mã (883 TCN – Thế kỷ II SCN)
+     - **Cánh II:** Bậc Thầy Sơn Dầu & Chiaroscuro (Van Gogh, Rembrandt, Monet, Cézanne, Vermeer, Seurat)
+     - **Cánh III:** Khắc Gỗ Ukiyo-e Hokusai & Mỹ Nghệ Á Đông
+     - **Cánh IV:** Thảm Dệt Tapestry Phục Hưng & Nghệ Thuật Dệt Sợi
+   - **Cấu Trúc Phân Cấp Thông Tin 3 Cấp Độ (3-Tier Museum Architecture):**
+     $$\text{Room (Hub Cánh Trưng Bày)} \longrightarrow \text{Artwork (Hồ Sơ Chi Tiết)} \longrightarrow \text{Story (Bài Luận Giám Tuyển)}$$
+   - **Hệ Thống Định Tuyến Hash Router Chuyên Biệt (`js/router.js`):**
+     - `#home`: Tiền sảnh Foyer, băng chuyền dệt sợi Cinema-Scale & lối vào các phân khu.
+     - `#room/<I|II|III|IV>`: Trang không gian từng cánh, kiệt tác tiêu biểu, danh mục hiện vật, bài luận liên quan và nút chuyển cánh kế tiếp.
+     - `#artwork/<id>`: Hồ sơ kiệt tác chi tiết, thông số kỹ thuật `<dl>`, phân tích giám định, nút kích hoạt 3D Relighting, chuyển tác phẩm cùng cánh (cyclical) và bài luận liên hệ.
+     - `#stories`: Chỉ mục 4 bài luận chuyên đề giám tuyển.
+     - `#story/<id>`: Toàn văn khảo cứu giám tuyển, bí mật khảo cổ, ý niệm bên lề, bảng thông số vật liệu và tác phẩm minh hoạ.
+     - `#collection`: Kho lưu trữ 17 kiệt tác với bộ lọc thời gian thực và ô tìm kiếm.
+     - `#timeline`: Biên niên sử nghệ thuật 2.800 năm (10 cột mốc lịch sử).
+     - `#diptych`: Xưởng đối thoại so sánh song song 2 kiệt tác với ánh sáng cào.
+     - `#curatorial`: Lời tựa và tuyên ngôn hội đồng giám tuyển.
+     - `#visit`: Đặt lịch tham quan & giấy phép số hóa thương mại.
+     - `#exhibition`: Lối tắt mở ngay chế độ chiếu sáng 3D Relighting.
+     - *Dự phòng lỗi (Fallback):* Bất kỳ định tuyến hoặc mã hiện vật không hợp lệ sẽ tự động quay về `#home` an toàn, không gây màn hình trắng.
 
 2. **Dải Băng Chuyền Dệt Sợi Cinema-Scale (76vh Full-Bleed Ribbon Loom):**
    - Băng chuyền chuyển ảnh liên tiếp `unwoven.js` nâng cấp kích thước màn ảnh rộng (`cardAspect: 0.72`, chiều cao chiếm 76vh), mang lại ấn tượng thị giác choáng ngợp và sang trọng bậc nhất.
@@ -32,16 +51,16 @@ Mẫu web tái hiện trải nghiệm triển lãm bảo tàng danh giá với c
    - **Surface Normal Map Mode:** Chuyển đổi hiển thị vector pháp tuyến bề mặt dưới dạng bản đồ phổ màu RGB iridescent.
    - **Macro-Inspection Zoom (1.0x – 2.5x):** Phóng đại siêu vi tế để kiểm tra từng vết nứt vữa fresco và từng gờ sơn dầu impasto.
 
-4. **Trục Thời Gian Lịch Sử Tương Tác (Chronological Timeline Rail):**
-   - Dòng thời gian 2.800 năm từ năm 883 TCN đến năm 2026 SCN với 11 cột mốc lịch sử nghệ thuật. Nhấp vào cột mốc để điều hướng và lọc nhanh tác phẩm.
+5. **Trục Thời Gian Lịch Sử Tương Tác (Chronological Timeline Rail):**
+   - Dòng thời gian 2.800 năm từ năm 883 TCN đến thế kỷ XX với 10 cột mốc lịch sử nghệ thuật. Nhấp vào cột mốc để điều hướng và lọc nhanh tác phẩm.
 
-5. **Bộ Lọc Danh Mục & Tìm Kiếm Trực Tiếp (Live Archive Search & Filter):**
-   - Thanh tìm kiếm tức thời kết hợp các thẻ chip lọc theo 5 cánh trưng bày, cập nhật danh mục 18 tác phẩm mà không tải lại trang.
+6. **Bộ Lọc Danh Mục & Tìm Kiếm Trực Tiếp (Live Archive Search & Filter):**
+   - Thanh tìm kiếm tức thời kết hợp các thẻ chip lọc theo 4 cánh trưng bày, cập nhật danh mục 17 tác phẩm mà không tải lại trang.
 
-6. **Hướng Dẫn Âm Thanh Thủ Tục (Procedural Museum Ambient Drone):**
+7. **Hướng Dẫn Âm Thanh Thủ Tục (Procedural Museum Ambient Drone):**
    - Tích hợp bộ tạo âm nền bảo tàng tĩnh lặng tần số điều hòa ấm 108Hz/162Hz sử dụng native **Web Audio API** (không cần file âm thanh ngoài nặng nề, mặc định tắt để tôn trọng người xem).
 
-7. **Kiến Trúc Đổi Nội Dung "Zero-Code" (Single Source of Truth):**
+8. **Kiến Trúc Đổi Nội Dung "Zero-Code" (Single Source of Truth):**
    - Toàn bộ nội dung triển lãm (tiêu đề, tên phòng, thông tin tác phẩm, số định danh hiện vật, preset ánh sáng, bảng màu) nằm gọn trong **duy nhất 1 file cấu hình**: `assets/data/content.json`.
    - Màu nền trang web (Trắng Ngà `#F4F0E8` / Obsidian `#0B0B0C`) và màu biên shader chia sẻ **cùng một biến duy nhất**.
 
@@ -53,12 +72,23 @@ Mẫu web tái hiện trải nghiệm triển lãm bảo tàng danh giá với c
 /du-an-nhom-x
 │-- /assets
 │   │-- /data
-│   │   └── content.json      # FILE CẤU HÌNH DUY NHẤT: 18 tác phẩm, timeline, màu sắc, preset
-│   │-- /images               # 18+ ảnh khuếch tán (Diffuse maps) chuẩn bảo tàng CC0
-│   └── /depths               # 18+ bản đồ độ sâu (Depth maps) vi chi tiết tương ứng
+│   │   └── content.json      # FILE CẤU HÌNH DUY NHẤT: 17 tác phẩm, timeline, màu sắc, preset
+│   │-- /images               # 17 ảnh khuếch tán (Diffuse maps) chuẩn bảo tàng CC0
+│   └── /depths               # 17 bản đồ độ sâu (Depth maps) vi chi tiết tương ứng
 │-- /css
-│   │-- layout.css            # Lưới bố cục 1-Page, Cinema Loom, Zen Stage, Timeline, Archive
-│   └── styles.css            # Hệ thống màu sắc ngà/đen, kiểu chữ Cormorant Garamond, Theme Engine
+│   │-- layout.css            # Bố cục đa tầng, Navigation Flyouts, 3D Zen Stage, Timeline, Archive
+│   └── styles.css            # Hệ thống màu sắc ngà/đen, kiểu chữ European Fine Art, Theme Engine
+│-- /js
+│   │-- router.js             # Hash Router quản lý 3 cấp độ (Room → Artwork → Story), Breadcrumbs
+│   │-- views.js              # Template renderers cho Room, Artwork Detail, Stories & Story Pages
+│   │-- data.js               # Data Engine, Selectors & Dev Schema Validator
+│   │-- relighting.js         # Động cơ Three.js WebGL/WebGPU Shader Relighting
+│   │-- unwoven.js            # Băng chuyền dệt sợi Cinema-Scale Ribbon Loom (26 dải sợi)
+│   │-- animations.js         # GSAP ScrollTrigger, Lenis Smooth Scroll, Ambient Particles
+│   │-- main.js               # Bộ điều phối trung tâm toàn bộ ứng dụng SPA
+│   │-- i18n.js               # Hệ thống đa ngôn ngữ quốc tế VI / FR / EN
+│   └── logic.js              # Quản lý giao diện Sáng / Tối và Audio Toggle
+│-- CREDITS.md                # Danh mục bản quyền 17 tác phẩm CC0 The Met/AIC & giấy phép MIT
 │-- /js
 │   │-- animations.js         # Động cơ hoạt họa điện ảnh (Lenis, ScrollTrigger, SplitText, Flip, Tilt, Particles)
 │   │-- data.js               # Logic truy xuất JSON (map, filter, reduce, search, timeline)
@@ -118,4 +148,4 @@ Mọi thông tin đều được cấu hình tập trung trong `assets/data/cont
 
 ## 📜 Bản Quyền & Giấy Phép (License)
 - Toàn bộ mã nguồn phát hành dưới giấy phép **MIT License**.
-- Toàn bộ 18 hình ảnh tác phẩm nghệ thuật thuộc phạm vi công cộng **CC0 (Open Access)** từ The Met và Art Institute of Chicago. Xem chi tiết tại `CREDITS.md`.
+- Toàn bộ 17 hình ảnh tác phẩm nghệ thuật thuộc phạm vi công cộng **CC0 (Open Access)** từ The Met và Art Institute of Chicago. Xem chi tiết tại `CREDITS.md`.
