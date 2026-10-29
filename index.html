@@ -850,15 +850,29 @@
                   </div>
                 </div>
                 <div class="ticket-footer">
-                  <div class="ticket-qr-mock">
-                    <span class="qr-mock-code">✦ ✦ ✦<br>LOUVRE<br>PASS</span>
+                  <div class="ticket-qr-container">
+                    <canvas id="ticket-qr-canvas" class="ticket-qr-canvas" width="140" height="140" aria-label="Mã QR xác thực vé điện tử"></canvas>
                   </div>
                   <div class="ticket-signoff">
                     <span>BẢO CHỨNG HỘI ĐỒNG GIÁM TUYỂN ÉTHÉRÉ</span>
-                    <small>Có giá trị sử dụng trọn đời · Không thể chuyển nhượng</small>
+                    <small id="ticket-timestamp">Thời gian cấp: Hôm nay · Xác thực mật mã SHA-256</small>
                   </div>
                 </div>
               </div>
+
+              <!-- Ticket Action Tools -->
+              <div class="ticket-actions-group">
+                <button type="button" id="btn-download-pass" class="btn-ticket-action btn-ticket-download" title="Tải thẻ vé điện tử dạng ảnh PNG">
+                  <span aria-hidden="true">📥</span> Tải Thẻ Vé (PNG)
+                </button>
+                <button type="button" id="btn-verify-pass" class="btn-ticket-action btn-ticket-verify" title="Mô phỏng máy quét mã QR soát vé bảo tàng">
+                  <span aria-hidden="true">✦</span> Quét &amp; Xác Thực
+                </button>
+                <button type="button" id="btn-open-wallet" class="btn-ticket-action btn-ticket-wallet" title="Xem danh sách các vé đã đặt trong ví">
+                  <span aria-hidden="true">🎟️</span> Ví Vé (<span id="wallet-count">0</span>)
+                </button>
+              </div>
+
               <button type="button" id="btn-reset-booking" class="btn-reset-booking">
                 ✦ Đặt Thêm Vé Hoặc Gửi Yêu Cầu Khác
               </button>
@@ -1221,6 +1235,61 @@ for (let i = 0; i &lt; 26; i++) {
       </div>
     </div>
   </aside>
+
+  <!-- =======================================================================
+       TICKET QR VERIFICATION SCANNER MODAL
+       ======================================================================= -->
+  <div id="ticket-verify-modal-backdrop" class="verify-modal-backdrop" aria-hidden="true" style="display: none;">
+    <div class="verify-modal-box" role="dialog" aria-modal="true" aria-label="Mô phỏng máy quét soát vé bảo tàng">
+      <div class="verify-modal-header">
+        <h3 class="verify-title">✦ Máy Quét Soát Vé ÉTHÉRÉ Atelier</h3>
+        <button type="button" id="btn-close-verify-modal" class="btn-close-verify" aria-label="Đóng máy quét">✕</button>
+      </div>
+      <div class="scanner-screen">
+        <div class="scanner-laser"></div>
+        <div class="scanner-result" id="scanner-result-box">
+          <div class="scanner-badge-valid">✓ HỢP LỆ — ĐÃ XÁC THỰC BẢO CHỨNG</div>
+          <div class="scanner-info-row">
+            <span class="info-label">Khách Quý:</span>
+            <span class="info-val" id="scan-guest-name">Hoàng Minh Đức</span>
+          </div>
+          <div class="scanner-info-row">
+            <span class="info-label">Mã Định Danh:</span>
+            <span class="info-val gold" id="scan-serial">#ETH-2026-8839</span>
+          </div>
+          <div class="scanner-info-row">
+            <span class="info-label">Hạng Vé:</span>
+            <span class="info-val" id="scan-pass-type">Thương Mại &amp; Triển Lãm</span>
+          </div>
+          <div class="scanner-info-row">
+            <span class="info-label">Đặc Quyền:</span>
+            <span class="info-val">Toàn Quyền 4 Cánh Bảo Tàng &amp; 3D Relighting</span>
+          </div>
+        </div>
+      </div>
+      <div class="verify-modal-footer">
+        <small>Xác thực chữ ký số thời gian thực từ mã QR của khách tham quan.</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       MY BOOKED TICKETS WALLET MODAL
+       ======================================================================= -->
+  <div id="ticket-wallet-modal-backdrop" class="verify-modal-backdrop" aria-hidden="true" style="display: none;">
+    <div class="verify-modal-box wallet-modal-box" role="dialog" aria-modal="true" aria-label="Ví vé đã đặt của khách tham quan">
+      <div class="verify-modal-header">
+        <h3 class="verify-title">🎟️ Ví Vé Tham Quan Của Tôi</h3>
+        <button type="button" id="btn-close-wallet-modal" class="btn-close-verify" aria-label="Đóng ví vé">✕</button>
+      </div>
+      <div class="wallet-list-container" id="wallet-tickets-list" data-lenis-prevent>
+        <!-- Booked tickets rendered here -->
+      </div>
+      <div class="verify-modal-footer">
+        <button type="button" id="btn-clear-wallet" class="btn-clear-wallet">Xóa Lịch Sử Vé</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Core Script Module Entrypoint -->
   <script type="module" src="./js/main.js"></script>

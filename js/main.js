@@ -20,6 +20,7 @@ import {
 
 import { themeManager } from './logic.js';
 import { RelightingStage, calculateCircadianLight } from './relighting.js';
+import { generateTicketQR } from './qrcode.js';
 import { UnwovenCarousel } from './unwoven.js';
 import { i18n } from './i18n.js';
 import {
@@ -1069,10 +1070,139 @@ function setupDiptychButtons() {
 /* ==========================================================================
    10. BOOKING FORM SETUP (Xuất vé kỹ thuật số Digital Louvre Pass tức thì)
    ========================================================================== */
+let currentActiveTicket = null;
+
+function getWalletTickets() {
+  try {
+    const raw = localStorage.getItem('ethere_wallet_passes');
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveTicketToWallet(ticket) {
+  try {
+    const list = getWalletTickets();
+    list.unshift(ticket);
+    localStorage.setItem('ethere_wallet_passes', JSON.stringify(list.slice(0, 20)));
+  } catch (e) {}
+}
+
+function updateWalletBadge() {
+  const badge = document.getElementById('wallet-count');
+  if (badge) {
+    const count = getWalletTickets().length;
+    badge.textContent = count;
+  }
+}
+
+function downloadTicketAsPNG(ticket) {
+  if (!ticket) return;
+  const canvas = document.createElement('canvas');
+  canvas.width = 800;
+  canvas.height = 460;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  // Background Dark Luxury Gradient
+  const grad = ctx.createLinearGradient(0, 0, 800, 460);
+  grad.addColorStop(0, '#1c1917');
+  grad.addColorStop(1, '#0f0e0d');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 800, 460);
+
+  // Border Gold Accent
+  ctx.strokeStyle = '#d4af37';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(16, 16, 768, 428);
+  ctx.lineWidth = 1;
+  ctx.strokeRect(22, 22, 756, 416);
+
+  // Header Title
+  ctx.fillStyle = '#d4af37';
+  ctx.font = 'bold 22px serif';
+  ctx.fillText('ÉTHÉRÉ ATELIER · PARIS', 48, 64);
+
+  ctx.fillStyle = '#22c55e';
+  ctx.font = 'bold 13px sans-serif';
+  ctx.fillText('✦ ĐÃ XÁC THỰC BẢO CHỨNG BẢO TÀNG', 480, 64);
+
+  // Dividers
+  ctx.strokeStyle = 'rgba(212, 175, 55, 0.3)';
+  ctx.beginPath();
+  ctx.moveTo(48, 86);
+  ctx.lineTo(752, 86);
+  ctx.stroke();
+
+  // Guest Name
+  ctx.fillStyle = '#a8a29e';
+  ctx.font = '12px sans-serif';
+  ctx.fillText('CHỦ THẺ / KHÁCH QUÝ', 48, 126);
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 26px serif';
+  ctx.fillText(ticket.guestName || 'Khách Quý', 48, 162);
+
+  // Serial & Type
+  ctx.fillStyle = '#a8a29e';
+  ctx.font = '12px sans-serif';
+  ctx.fillText('MÃ ĐỊNH DANH', 48, 216);
+  ctx.fillStyle = '#d4af37';
+  ctx.font = 'bold 20px monospace';
+  ctx.fillText(ticket.serial || '#ETH-2026', 48, 246);
+
+  ctx.fillStyle = '#a8a29e';
+  ctx.font = '12px sans-serif';
+  ctx.fillText('HẠNG VÉ', 320, 216);
+  ctx.fillStyle = '#ffffff';
+  ctx.font = '17px sans-serif';
+  ctx.fillText(ticket.passType || 'Thương Mại & Triển Lãm', 320, 246);
+
+  // Access Privileges
+  ctx.fillStyle = '#a8a29e';
+  ctx.font = '12px sans-serif';
+  ctx.fillText('ĐẶC QUYỀN TRUY CẬP', 48, 300);
+  ctx.fillStyle = '#d4af37';
+  ctx.font = 'italic 15px sans-serif';
+  ctx.fillText('Toàn Quyền 4 Cánh Triển Lãm · Chiếu Sáng 3D Relighting & Shaders', 48, 328);
+
+  // Footer & Timestamp
+  ctx.fillStyle = '#78716c';
+  ctx.font = '12px sans-serif';
+  ctx.fillText(`Thời gian cấp: ${ticket.date || 'Hôm nay'} · Mã xác thực: SHA-256`, 48, 400);
+
+  // Draw QR Canvas onto Ticket
+  const qrCanvas = document.getElementById('ticket-qr-canvas');
+  if (qrCanvas) {
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(580, 160, 160, 160);
+    ctx.drawImage(qrCanvas, 590, 170, 140, 140);
+  }
+
+  // Trigger Download
+  const link = document.createElement('a');
+  link.download = `ethere-louvre-pass-${(ticket.serial || '').replace('#', '')}.png`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
 function setupBookingForm() {
   const form = document.getElementById('visit-booking-form');
   const ticketPass = document.getElementById('booking-ticket-pass');
   const btnReset = document.getElementById('btn-reset-booking');
+  const btnDownload = document.getElementById('btn-download-pass');
+  const btnVerify = document.getElementById('btn-verify-pass');
+  const btnOpenWallet = document.getElementById('btn-open-wallet');
+
+  const verifyModal = document.getElementById('ticket-verify-modal-backdrop');
+  const btnCloseVerify = document.getElementById('btn-close-verify-modal');
+
+  const walletModal = document.getElementById('ticket-wallet-modal-backdrop');
+  const btnCloseWallet = document.getElementById('btn-close-wallet-modal');
+  const walletList = document.getElementById('wallet-tickets-list');
+  const btnClearWallet = document.getElementById('btn-clear-wallet');
+
+  updateWalletBadge();
 
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -1084,16 +1214,136 @@ function setupBookingForm() {
     const guestEl = document.getElementById('ticket-guest-name');
     const typeEl = document.getElementById('ticket-pass-type');
     const serialEl = document.getElementById('ticket-serial');
+    const timeEl = document.getElementById('ticket-timestamp');
+
+    const randNum = Math.floor(1000 + Math.random() * 9000);
+    const serial = `#ETH-2026-${randNum}`;
+    const now = new Date();
+    const formattedDate = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')} · ${now.toLocaleDateString('vi-VN')}`;
 
     if (guestEl) guestEl.textContent = guestName;
     if (typeEl) typeEl.textContent = passType;
-    if (serialEl) {
-      const randNum = Math.floor(1000 + Math.random() * 9000);
-      serialEl.textContent = `#ETH-2026-${randNum}`;
+    if (serialEl) serialEl.textContent = serial;
+    if (timeEl) timeEl.textContent = `Thời gian cấp: ${formattedDate} · Xác thực mật mã SHA-256`;
+
+    currentActiveTicket = {
+      serial,
+      guestName,
+      passType,
+      date: formattedDate,
+      timestamp: Date.now()
+    };
+
+    // Generate genuine QR Code onto canvas
+    const qrCanvas = document.getElementById('ticket-qr-canvas');
+    if (qrCanvas) {
+      const qrPayload = `ETHERE-PASS:${serial}|GUEST:${guestName}|TYPE:${passType}|DATE:${formattedDate}`;
+      generateTicketQR(qrCanvas, qrPayload, 140);
     }
+
+    saveTicketToWallet(currentActiveTicket);
+    updateWalletBadge();
 
     form.style.display = 'none';
     if (ticketPass) ticketPass.style.display = 'block';
+  });
+
+  // Download pass as PNG
+  btnDownload?.addEventListener('click', () => {
+    if (currentActiveTicket) downloadTicketAsPNG(currentActiveTicket);
+  });
+
+  // Open Scanner Verification Modal
+  btnVerify?.addEventListener('click', () => {
+    if (!currentActiveTicket) return;
+    const scanGuest = document.getElementById('scan-guest-name');
+    const scanSerial = document.getElementById('scan-serial');
+    const scanType = document.getElementById('scan-pass-type');
+
+    if (scanGuest) scanGuest.textContent = currentActiveTicket.guestName;
+    if (scanSerial) scanSerial.textContent = currentActiveTicket.serial;
+    if (scanType) scanType.textContent = currentActiveTicket.passType;
+
+    if (verifyModal) {
+      verifyModal.style.display = 'flex';
+      verifyModal.setAttribute('aria-hidden', 'false');
+    }
+  });
+
+  btnCloseVerify?.addEventListener('click', () => {
+    if (verifyModal) {
+      verifyModal.style.display = 'none';
+      verifyModal.setAttribute('aria-hidden', 'true');
+    }
+  });
+
+  // Open Booked Wallet Modal
+  btnOpenWallet?.addEventListener('click', () => {
+    const tickets = getWalletTickets();
+    if (walletList) {
+      if (!tickets.length) {
+        walletList.innerHTML = '<div style="text-align: center; color: var(--color-muted); padding: 24px;">Chưa có vé nào trong ví.</div>';
+      } else {
+        walletList.innerHTML = tickets.map((t, idx) => `
+          <div class="wallet-ticket-item">
+            <div class="wallet-item-details">
+              <h4>${t.guestName} · <span style="color: var(--color-louvre-gold);">${t.serial}</span></h4>
+              <p>${t.passType} · ${t.date}</p>
+            </div>
+            <button type="button" class="btn-wallet-view-pass" data-ticket-index="${idx}">Xem Lại Vé</button>
+          </div>
+        `).join('');
+
+        walletList.querySelectorAll('.btn-wallet-view-pass').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const idx = parseInt(btn.getAttribute('data-ticket-index') || '0', 10);
+            const selected = tickets[idx];
+            if (selected) {
+              currentActiveTicket = selected;
+              const guestEl = document.getElementById('ticket-guest-name');
+              const typeEl = document.getElementById('ticket-pass-type');
+              const serialEl = document.getElementById('ticket-serial');
+              const timeEl = document.getElementById('ticket-timestamp');
+              if (guestEl) guestEl.textContent = selected.guestName;
+              if (typeEl) typeEl.textContent = selected.passType;
+              if (serialEl) serialEl.textContent = selected.serial;
+              if (timeEl) timeEl.textContent = `Thời gian cấp: ${selected.date}`;
+
+              const qrCanvas = document.getElementById('ticket-qr-canvas');
+              if (qrCanvas) {
+                const qrPayload = `ETHERE-PASS:${selected.serial}|GUEST:${selected.guestName}|TYPE:${selected.passType}|DATE:${selected.date}`;
+                generateTicketQR(qrCanvas, qrPayload, 140);
+              }
+
+              if (form) form.style.display = 'none';
+              if (ticketPass) ticketPass.style.display = 'block';
+              if (walletModal) {
+                walletModal.style.display = 'none';
+                walletModal.setAttribute('aria-hidden', 'true');
+              }
+            }
+          });
+        });
+      }
+    }
+
+    if (walletModal) {
+      walletModal.style.display = 'flex';
+      walletModal.setAttribute('aria-hidden', 'false');
+    }
+  });
+
+  btnCloseWallet?.addEventListener('click', () => {
+    if (walletModal) {
+      walletModal.style.display = 'none';
+      walletModal.setAttribute('aria-hidden', 'true');
+    }
+  });
+
+  btnClearWallet?.addEventListener('click', () => {
+    localStorage.removeItem('ethere_wallet_passes');
+    updateWalletBadge();
+    if (walletList) walletList.innerHTML = '<div style="text-align: center; color: var(--color-muted); padding: 24px;">Đã xóa toàn bộ lịch sử vé.</div>';
   });
 
   btnReset?.addEventListener('click', () => {
