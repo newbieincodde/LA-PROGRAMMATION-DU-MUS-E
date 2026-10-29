@@ -421,7 +421,7 @@ function setupSearchModal() {
       .map(
         (art) => `
         <div class="search-result-item" data-art-id="${art.id}">
-          <img src="${art.image}" alt="${art.title}" class="search-result-thumb" loading="lazy" />
+          <img src="${art.image}" alt="${art.title}" class="search-result-thumb" loading="lazy" decoding="async" />
           <div class="search-result-info">
             <span class="search-result-title">${art.title}</span>
             <span class="search-result-meta">${art.artist || ''} · ${art.year || ''}</span>
@@ -551,14 +551,16 @@ function renderCollectionCards(artworks) {
   }
 
   grid.innerHTML = artworks
-    .map((art) => {
+    .map((art, idx) => {
       const specs = Array.isArray(art.specs) ? art.specs : [];
       const mediumSpec = specs.find((s) => s.label?.toLowerCase().includes('chất liệu'))?.value || art.specs?.medium || '';
+      const isAboveFold = idx < 4;
+      const loadingAttr = isAboveFold ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
 
       return `
       <article class="artwork-card" data-art-id="${art.id}" tabindex="0" role="button" aria-label="Xem hồ sơ chi tiết ${art.title}">
         <div class="card-media">
-          <img src="${art.image}" alt="${art.alt || art.title}" class="card-img" loading="lazy" />
+          <img src="${art.image}" alt="${art.alt || art.title}" class="card-img" ${loadingAttr} decoding="async" />
           <span class="card-room-badge">${art.roomName || 'Cánh Triển Lãm'}</span>
         </div>
         <div class="card-details">
@@ -1021,7 +1023,7 @@ async function renderHomeExperiences() {
                 <span class="plaster-light-badge">✦ ${p.lightAngle}</span>
               </div>
               <div class="plaster-media-wrap">
-                <img src="${p.image}" alt="${p.title}" class="plaster-media-img" loading="lazy" />
+                <img src="${p.image}" alt="${p.title}" class="plaster-media-img" loading="lazy" decoding="async" />
                 <div class="plaster-raking-overlay"></div>
               </div>
               <h3 class="plaster-card-title">${p.title}</h3>
@@ -1158,7 +1160,7 @@ async function renderHomeExperiences() {
                 <span class="portal-counter-pill">${w.artworkCount}</span>
               </div>
               <div class="portal-img-wrap">
-                <img src="${w.image}" alt="${w.name}" class="portal-thumb-img" loading="lazy" />
+                <img src="${w.image}" alt="${w.name}" class="portal-thumb-img" loading="lazy" decoding="async" />
               </div>
               <h3 class="portal-title">${w.name}</h3>
               <div class="portal-era">${w.era}</div>

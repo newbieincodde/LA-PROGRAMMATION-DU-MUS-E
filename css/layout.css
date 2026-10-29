@@ -4845,6 +4845,10 @@ html[data-theme="light"] .room-story-card {
   background: #0d0c0b;
   box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.35);
   border: 1px solid var(--color-border);
+  min-height: clamp(300px, 45vw, 560px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .artwork-master-image {

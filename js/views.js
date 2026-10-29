@@ -100,8 +100,7 @@ export async function renderRoomView(container, roomId) {
               <img 
                 src="${escapeHtml(featuredArt.image)}" 
                 alt="${escapeHtml(featuredArt.alt || featuredArt.title)}" 
-                class="room-featured-img" 
-                loading="eager" />
+                class="room-featured-img" loading="eager" fetchpriority="high" decoding="async" />
               <div class="room-featured-overlay-actions">
                 <button 
                   type="button" 
@@ -156,7 +155,7 @@ export async function renderRoomView(container, roomId) {
             <article class="room-art-card">
               <div class="room-art-thumb-wrap">
                 <a href="#artwork/${escapeHtml(art.id)}" class="room-art-thumb-link" aria-label="Xem chi tiết ${escapeHtml(art.title)}">
-                  <img src="${escapeHtml(art.image)}" alt="${escapeHtml(art.alt || art.title)}" class="room-art-thumb" loading="lazy" />
+                  <img src="${escapeHtml(art.image)}" alt="${escapeHtml(art.alt || art.title)}" class="room-art-thumb" loading="lazy" decoding="async" />
                 </a>
                 <div class="room-card-hover-actions">
                   <a href="#artwork/${escapeHtml(art.id)}" class="btn-card-inspect">Chi Tiết</a>
@@ -276,9 +275,7 @@ export async function renderArtworkView(container, artworkId) {
             <img 
               src="${escapeHtml(art.image)}" 
               alt="${escapeHtml(art.alt || art.title)}" 
-              class="artwork-master-image" 
-              itemprop="image" 
-              loading="eager" />
+              class="artwork-master-image" itemprop="image" loading="eager" fetchpriority="high" decoding="async" />
             <div class="artwork-image-watermark">ÉTHÉRÉ ATELIER · 3D RELIGHTING ENGINE</div>
           </div>
 
@@ -431,7 +428,7 @@ export async function renderArtworkView(container, artworkId) {
                 (rel) => `
               <article class="rel-art-card">
                 <div class="rel-thumb-wrap">
-                  <img src="${escapeHtml(rel.image)}" alt="${escapeHtml(rel.alt || rel.title)}" class="rel-thumb" loading="lazy" />
+                  <img src="${escapeHtml(rel.image)}" alt="${escapeHtml(rel.alt || rel.title)}" class="rel-thumb" loading="lazy" decoding="async" />
                   <a href="#artwork/${escapeHtml(rel.id)}" class="rel-overlay-link" aria-label="Xem ${escapeHtml(rel.title)}"></a>
                 </div>
                 <div class="rel-info">
@@ -644,7 +641,7 @@ export async function renderStoryView(container, storyId) {
                 (art) => `
               <article class="story-art-card">
                 <div class="story-art-visual">
-                  <img src="${escapeHtml(art.image)}" alt="${escapeHtml(art.alt || art.title)}" class="story-art-img" loading="lazy" />
+                  <img src="${escapeHtml(art.image)}" alt="${escapeHtml(art.alt || art.title)}" class="story-art-img" loading="lazy" decoding="async" />
                   <div class="story-art-actions">
                     <a href="#artwork/${escapeHtml(art.id)}" class="btn-inspect-art">Hồ Sơ</a>
                     <button type="button" class="btn-art-3d btn-launch-3d-relighting" data-artwork-id="${escapeHtml(art.id)}">✦ 3D</button>
