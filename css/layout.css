@@ -4491,6 +4491,19 @@ html[data-theme="light"] .room-art-card {
   background: #0d0c0b;
 }
 
+.room-art-thumb-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.room-art-thumb-link:focus-visible {
+  outline: 2px solid var(--color-gold, #D4AF37);
+  outline-offset: -2px;
+}
+
 .room-art-thumb {
   width: 100%;
   height: 100%;
@@ -4499,7 +4512,8 @@ html[data-theme="light"] .room-art-card {
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.room-art-card:hover .room-art-thumb {
+.room-art-card:hover .room-art-thumb,
+.room-art-thumb-link:focus-visible .room-art-thumb {
   transform: scale(1.06);
 }
 
@@ -4512,9 +4526,11 @@ html[data-theme="light"] .room-art-card {
   opacity: 0;
   transform: translateY(-6px);
   transition: all 0.25s ease;
+  z-index: 2;
 }
 
-.room-art-card:hover .room-card-hover-actions {
+.room-art-card:hover .room-card-hover-actions,
+.room-art-card:focus-within .room-card-hover-actions {
   opacity: 1;
   transform: translateY(0);
 }

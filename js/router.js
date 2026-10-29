@@ -7,7 +7,7 @@
  * Plus Collections, Timeline, Diptych, Curatorial, Visit and Home.
  */
 
-import { getRoom, getArtwork, getStory, getAllArtworks } from './data.js';
+import { getRoom, getArtwork, getStory, getAllArtworks, normalizeRoomId } from './data.js';
 import {
   renderRoomView,
   renderArtworkView,
@@ -381,10 +381,10 @@ export async function navigateTo(hashOrRoute, replace = false) {
 
   // E7: Animate per-room dynamic color palette
   if (targetViewName === 'room') {
-    applyRoomPalette(route.param || 'I');
+    applyRoomPalette(normalizeRoomId(route.param) || 'I');
   } else if (targetViewName === 'artwork') {
     const art = await getArtwork(route.param);
-    applyRoomPalette(art && art.room ? art.room : 'I');
+    applyRoomPalette(art && art.room ? normalizeRoomId(art.room) : 'I');
   } else {
     applyRoomPalette(null);
   }

@@ -471,20 +471,47 @@ export class RelightingStage {
 
   destroy() {
     if (this.animationId) {
-      cancelAnimationFrame(this.animationId);
+      if (typeof cancelAnimationFrame === 'function') {
+        cancelAnimationFrame(this.animationId);
+      }
+      this.animationId = null;
     }
-    if (this.mount) {
+    if (this.mount && typeof this.mount.removeEventListener === 'function') {
       this.mount.removeEventListener('pointermove', this.onPointerMove);
       this.mount.removeEventListener('pointerdown', this.onPointerMove);
     }
-    window.removeEventListener('resize', this.onResize);
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', this.onResize);
+    }
 
     if (this.mesh) {
-      this.mesh.geometry.dispose();
+      if (this.mesh.geometry) this.mesh.geometry.dispose();
+      this.mesh = null;
+    }
+    if (this.material) {
+      if (this.material.uniforms) {
+        if (this.material.uniforms.uMap?.value?.dispose) {
+          this.material.uniforms.uMap.value.dispose();
+        }
+        if (this.material.uniforms.uDepthMap?.value?.dispose) {
+          this.material.uniforms.uDepthMap.value.dispose();
+        }
+      }
       this.material.dispose();
+      this.material = null;
     }
     if (this.renderer) {
+      const dom = this.renderer.domElement;
+      if (dom && dom.parentNode) {
+        dom.parentNode.removeChild(dom);
+      }
       this.renderer.dispose();
+      if (typeof this.renderer.forceContextLoss === 'function') {
+        this.renderer.forceContextLoss();
+      }
+      this.renderer = null;
     }
+    this.scene = null;
+    this.camera = null;
   }
 }

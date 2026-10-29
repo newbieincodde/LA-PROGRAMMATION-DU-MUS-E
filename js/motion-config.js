@@ -17,7 +17,7 @@ export const motionConfig = {
   selfDrawing: true,        // E6: Self-drawing SVG timeline track & milestone dots
   roomPalette: true,        // E7: Per-room dynamic CSS variable morphing
   routeTransitions: true,   // E2: GSAP Flip shared-element & soft cross-fades
-  horizontalPortals: true,  // E5: Pinned horizontal scroll for chamber portals
+  horizontalPortals: false, // E5: Pinned horizontal scroll for chamber portals (disabled to preserve all 4 wings in unified grid & prevent blank gap)
   scrollytelling: true,     // E1: Pinned scrollytelling (Plaster Wall & Story relighting)
   cursor: false,            // Optional museum custom cursor (default: false per prompt)
   marquee: false,           // Optional section marquee strip (default: false per prompt)

@@ -134,12 +134,40 @@ export async function getArtworkByIndex(index) {
 }
 
 /**
+ * Normalize room identifier to canonical Roman numeral ('I', 'II', 'III', 'IV')
+ * Supports Roman numerals, Arabic numbers ('1', '2', '3', '4'),
+ * and common prefixes ('room-1', 'room-I', 'room/1', 'cánh-1', etc.)
+ * @param {string|number} id
+ * @returns {string} Canonical Roman numeral or uppercase trimmed string
+ */
+export function normalizeRoomId(id) {
+  if (id === null || id === undefined) return '';
+  const clean = String(id)
+    .trim()
+    .toUpperCase()
+    .replace(/^#?ROOM[\/-]?/, '')
+    .replace(/^CÁNH[\/-]?/, '')
+    .replace(/^CANH[\/-]?/, '');
+
+  const numeralMap = {
+    '1': 'I',
+    '2': 'II',
+    '3': 'III',
+    '4': 'IV',
+  };
+
+  return numeralMap[clean] || clean;
+}
+
+/**
  * Filter artworks by room using Array.prototype.filter
- * @param {string} roomId ('I', 'II', 'III', 'IV')
+ * Supports canonical Roman numerals and numeric aliases
+ * @param {string} roomId ('I', 'II', 'III', 'IV' or '1', '2', '3', '4')
  */
 export async function getArtworksByRoom(roomId) {
   const artworks = await getAllArtworks();
-  return artworks.filter((art) => art.room === roomId);
+  const normalized = normalizeRoomId(roomId);
+  return artworks.filter((art) => art.room === normalized || art.room === roomId);
 }
 
 /**
@@ -259,13 +287,22 @@ export async function searchArtworks(query) {
 }
 
 /**
- * Canonical Room selector by ID or Roman numeral ('I', 'II', 'III', 'IV')
+ * Canonical Room selector by ID, Roman numeral ('I', 'II', 'III', 'IV'), or numeric alias
  */
 export async function getRoom(id) {
   if (!id) return null;
   const rooms = await getRooms();
+  const normalized = normalizeRoomId(id);
   const search = String(id).trim().toUpperCase();
-  return rooms.find((r) => r.id.toUpperCase() === search || r.numeral.toUpperCase() === search) || null;
+  return (
+    rooms.find(
+      (r) =>
+        r.id.toUpperCase() === normalized ||
+        r.numeral.toUpperCase() === normalized ||
+        r.id.toUpperCase() === search ||
+        r.numeral.toUpperCase() === search
+    ) || null
+  );
 }
 
 /**
@@ -370,10 +407,16 @@ export async function getStoriesForArtwork(id) {
 
 /**
  * Get stories / essays for a given room numeral
+ * Supports canonical Roman numerals and numeric aliases
  */
 export async function getStoriesForRoom(roomId) {
   const stories = await getStories();
-  return stories.filter((s) => Array.isArray(s.rooms) && s.rooms.includes(roomId));
+  const normalized = normalizeRoomId(roomId);
+  return stories.filter(
+    (s) =>
+      Array.isArray(s.rooms) &&
+      (s.rooms.includes(normalized) || s.rooms.includes(roomId))
+  );
 }
 
 /**
