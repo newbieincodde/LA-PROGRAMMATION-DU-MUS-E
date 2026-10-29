@@ -39,7 +39,7 @@ import {
   setPendingFlipSource,
   setPlasterAngle,
 } from './animations.js';
-import { initRouter, navigateTo, getCurrentRoute } from './router.js';
+import { initRouter, navigateTo, getCurrentRoute, refreshCurrentView } from './router.js';
 
 // Global Application State
 let allArtworksList = [];
@@ -843,9 +843,18 @@ async function populateTimeline() {
    ========================================================================== */
 async function populateCuratorialSection() {
   const essayContainer = document.getElementById('curatorial-essay-paragraphs');
-  const statement = await getCuratorialStatement();
+  if (!essayContainer) return;
 
-  if (essayContainer && statement?.paragraphs) {
+  const localizedParagraphs = i18n.getCuratorialParagraphs();
+  if (localizedParagraphs && localizedParagraphs.length > 0) {
+    essayContainer.innerHTML = localizedParagraphs
+      .map((p) => `<p>${p}</p>`)
+      .join('');
+    return;
+  }
+
+  const statement = await getCuratorialStatement();
+  if (statement?.paragraphs) {
     essayContainer.innerHTML = statement.paragraphs
       .map((p) => `<p>${p}</p>`)
       .join('');
@@ -1441,8 +1450,10 @@ async function initApp() {
   i18n.onBeforeLanguageChange(() => {
     revertSplitText();
   });
-  i18n.onLanguageChange(() => {
+  i18n.onLanguageChange(async () => {
     refreshSplitTextOnLanguageChange();
+    await populateCuratorialSection();
+    await refreshCurrentView();
   });
 
   if (preloaderBar) preloaderBar.style.width = '60%';

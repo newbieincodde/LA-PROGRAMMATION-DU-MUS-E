@@ -8,6 +8,7 @@
  */
 
 import { getRoom, getArtwork, getStory, getAllArtworks, normalizeRoomId } from './data.js';
+import { i18n } from './i18n.js';
 import {
   renderRoomView,
   renderArtworkView,
@@ -85,7 +86,8 @@ export function parseHash(hashStr) {
 /**
  * Update dynamic breadcrumbs
  */
-async function updateBreadcrumbs(route) {
+export async function updateBreadcrumbs(route) {
+  if (!route) route = _activeRoute || { name: 'home' };
   const breadcrumbBar = document.querySelector('.museum-breadcrumbs');
   const breadcrumbInner = document.querySelector('.breadcrumbs-inner');
   if (!breadcrumbBar || !breadcrumbInner) return;
@@ -100,66 +102,67 @@ async function updateBreadcrumbs(route) {
   document.querySelector('.site-header')?.classList.add('has-breadcrumbs');
 
   let crumbs = [
-    { label: '🏛 Trang Chủ', href: '#home' }
+    { label: `🏛 ${i18n.t('nav-home')}`, href: '#home' }
   ];
 
   switch (route.name) {
     case 'room': {
-      crumbs.push({ label: 'Bộ Sưu Tập', href: '#collection' });
+      crumbs.push({ label: i18n.t('nav-collection'), href: '#collection' });
       const room = await getRoom(route.param);
-      if (room) {
-        crumbs.push({ label: `Cánh ${room.numeral}: ${room.name}`, href: null });
+      const locRoom = i18n.getRoomLocalization(route.param);
+      if (room && locRoom) {
+        crumbs.push({ label: `${i18n.t('room-wing-label')} ${room.numeral}: ${locRoom.name}`, href: null });
       } else {
-        crumbs.push({ label: `Cánh ${route.param}`, href: null });
+        crumbs.push({ label: `${i18n.t('room-wing-label')} ${route.param || ''}`, href: null });
       }
       break;
     }
     case 'artwork': {
       const art = await getArtwork(route.param);
       if (art) {
-        crumbs.push({ label: `Cánh ${art.room}`, href: `#room/${art.room}` });
+        crumbs.push({ label: `${i18n.t('room-wing-label')} ${art.room}`, href: `#room/${art.room}` });
         crumbs.push({ label: art.title, href: null });
       } else {
-        crumbs.push({ label: 'Tác Phẩm', href: null });
+        crumbs.push({ label: i18n.tRoute('artworkFallback'), href: null });
       }
       break;
     }
     case 'stories': {
-      crumbs.push({ label: 'Chỉ Mục Bài Luận', href: null });
+      crumbs.push({ label: i18n.tRoute('stories'), href: null });
       break;
     }
     case 'story': {
-      crumbs.push({ label: 'Bài Luận', href: '#stories' });
-      const story = await getStory(route.param);
-      if (story) {
-        crumbs.push({ label: story.title, href: null });
+      crumbs.push({ label: i18n.t('nav-stories'), href: '#stories' });
+      const locStory = i18n.getStoryLocalization(route.param);
+      if (locStory) {
+        crumbs.push({ label: locStory.title, href: null });
       } else {
-        crumbs.push({ label: `Bài Luận ${route.param}`, href: null });
+        crumbs.push({ label: `${i18n.tRoute('storyFallback')} ${route.param || ''}`, href: null });
       }
       break;
     }
     case 'collection': {
-      crumbs.push({ label: 'Kho Lưu Trữ Tác Phẩm', href: null });
+      crumbs.push({ label: i18n.tRoute('collection'), href: null });
       break;
     }
     case 'timeline': {
-      crumbs.push({ label: 'Biên Niên Sử Nghệ Thuật', href: null });
+      crumbs.push({ label: i18n.tRoute('timeline'), href: null });
       break;
     }
     case 'diptych': {
-      crumbs.push({ label: '✦ Xưởng Đối Thoại Diptych', href: null });
+      crumbs.push({ label: `✦ ${i18n.tRoute('diptych')}`, href: null });
       break;
     }
     case 'curatorial': {
-      crumbs.push({ label: 'Hội Đồng Giám Tuyển', href: null });
+      crumbs.push({ label: i18n.tRoute('curatorial'), href: null });
       break;
     }
     case 'visit': {
-      crumbs.push({ label: 'Tham Quan & Đặt Vé', href: null });
+      crumbs.push({ label: i18n.tRoute('visit'), href: null });
       break;
     }
     default: {
-      crumbs.push({ label: 'Khám Phá', href: null });
+      crumbs.push({ label: i18n.tRoute('notFound'), href: null });
       break;
     }
   }
@@ -186,75 +189,146 @@ function escapeHtmlText(str) {
 }
 
 /**
- * Update document.title and screen-reader route announcement
+ * Update document.title, Open Graph / Twitter metadata and screen-reader route announcement
  */
-async function updateDocumentMeta(route) {
-  let title = 'ÉTHÉRÉ Atelier — Bảo Tàng Kỹ Thuật Số';
-  let announcement = 'Đã chuyển đến: Trang Chủ Triển Lãm';
+export async function updateDocumentMeta(route) {
+  if (!route) route = _activeRoute || { name: 'home' };
+  const lang = i18n.currentLang || 'vi';
+  const brand = 'ÉTHÉRÉ Atelier';
+  let title = `${brand} — ${i18n.tRoute('home')}`;
+  let announcement = i18n.t('announcement-home', 'Đã chuyển đến: Trang Chủ Triển Lãm');
+  let description = i18n.t('meta-desc-home');
 
   switch (route.name) {
     case 'room': {
       const room = await getRoom(route.param);
-      if (room) {
-        title = `Cánh ${room.numeral}: ${room.name} — ÉTHÉRÉ Atelier`;
-        announcement = `Đã chuyển đến: Cánh ${room.numeral} — ${room.name}`;
+      const locRoom = i18n.getRoomLocalization(route.param);
+      if (room && locRoom) {
+        title = `${i18n.tRoute('roomPrefix')} ${room.numeral}: ${locRoom.name} — ${brand}`;
+        announcement = `${i18n.t('announcement-room-to', 'Đã chuyển đến cánh triển lãm:')} ${i18n.tRoute('roomPrefix')} ${room.numeral} — ${locRoom.name}`;
+        description = locRoom.tagline || description;
+      } else {
+        title = `${i18n.tRoute('roomFallback')} — ${brand}`;
+        announcement = `${i18n.t('announcement-room-to', 'Đã chuyển đến:')} ${i18n.tRoute('roomFallback')}`;
       }
       break;
     }
     case 'artwork': {
       const art = await getArtwork(route.param);
       if (art) {
-        title = `${art.title} — ${art.artist} | ÉTHÉRÉ Atelier`;
-        announcement = `Đã chuyển đến hồ sơ tác phẩm: ${art.title} của ${art.artist}`;
+        title = `${art.title} — ${art.artist} | ${brand}`;
+        announcement = `${i18n.t('announcement-art-to', 'Đã chuyển đến hồ sơ tác phẩm:')} ${art.title} (${art.artist})`;
+        description = art.narrative ? art.narrative.slice(0, 160) : description;
+      } else {
+        title = `${i18n.tRoute('artworkFallback')} — ${brand}`;
+        announcement = `${i18n.t('announcement-art-to', 'Đã chuyển đến:')} ${i18n.tRoute('artworkFallback')}`;
       }
       break;
     }
     case 'stories': {
-      title = 'Chỉ Mục Bài Luận Giám Tuyển — ÉTHÉRÉ Atelier';
-      announcement = 'Đã chuyển đến: Chỉ mục bài luận giám tuyển';
+      title = `${i18n.tRoute('stories')} — ${brand}`;
+      announcement = `${i18n.t('announcement-to', 'Đã chuyển đến:')} ${i18n.tRoute('stories')}`;
       break;
     }
     case 'story': {
       const story = await getStory(route.param);
-      if (story) {
-        title = `${story.title} | Bài Luận Giám Tuyển — ÉTHÉRÉ Atelier`;
-        announcement = `Đã chuyển đến bài luận: ${story.title}`;
+      const locStory = i18n.getStoryLocalization(route.param);
+      if (story && locStory) {
+        title = `${locStory.title} | ${i18n.tRoute('storyFallback')} — ${brand}`;
+        announcement = `${i18n.t('announcement-story-to', 'Đã chuyển đến bài luận:')} ${locStory.title}`;
+        description = locStory.subtitle || description;
+      } else {
+        title = `${i18n.tRoute('storyFallback')} — ${brand}`;
+        announcement = `${i18n.t('announcement-story-to', 'Đã chuyển đến:')} ${i18n.tRoute('storyFallback')}`;
       }
       break;
     }
     case 'collection': {
-      title = 'Kho Lưu Trữ Tác Phẩm — ÉTHÉRÉ Atelier';
-      announcement = 'Đã chuyển đến: Kho lưu trữ tác phẩm';
+      title = `${i18n.tRoute('collection')} — ${brand}`;
+      announcement = `${i18n.t('announcement-to', 'Đã chuyển đến:')} ${i18n.tRoute('collection')}`;
       break;
     }
     case 'timeline': {
-      title = 'Biên Niên Sử Nghệ Thuật — ÉTHÉRÉ Atelier';
-      announcement = 'Đã chuyển đến: Biên niên sử lịch sử';
+      title = `${i18n.tRoute('timeline')} — ${brand}`;
+      announcement = `${i18n.t('announcement-to', 'Đã chuyển đến:')} ${i18n.tRoute('timeline')}`;
       break;
     }
     case 'diptych': {
-      title = 'Xưởng Đối Thoại Diptych — ÉTHÉRÉ Atelier';
-      announcement = 'Đã chuyển đến: Xưởng đối thoại Diptych';
+      title = `${i18n.tRoute('diptych')} — ${brand}`;
+      announcement = `${i18n.t('announcement-to', 'Đã chuyển đến:')} ${i18n.tRoute('diptych')}`;
       break;
     }
     case 'curatorial': {
-      title = 'Hội Đồng Giám Tuyển — ÉTHÉRÉ Atelier';
-      announcement = 'Đã chuyển đến: Lời tựa giám tuyển';
+      title = `${i18n.tRoute('curatorial')} — ${brand}`;
+      announcement = `${i18n.t('announcement-to', 'Đã chuyển đến:')} ${i18n.tRoute('curatorial')}`;
       break;
     }
     case 'visit': {
-      title = 'Thông Tin Tham Quan & Đặt Vé — ÉTHÉRÉ Atelier';
-      announcement = 'Đã chuyển đến: Thông tin tham quan và mua vé';
+      title = `${i18n.tRoute('visit')} — ${brand}`;
+      announcement = `${i18n.t('announcement-to', 'Đã chuyển đến:')} ${i18n.tRoute('visit')}`;
+      break;
+    }
+    case 'exhibition': {
+      title = `${i18n.tRoute('exhibition')} — ${brand}`;
+      announcement = `${i18n.t('announcement-to', 'Đã chuyển đến:')} ${i18n.tRoute('exhibition')}`;
+      break;
+    }
+    default: {
+      if (route.name && route.name !== 'home') {
+        title = `${i18n.tRoute('notFound')} — ${brand}`;
+        announcement = `${i18n.t('announcement-to', 'Đã chuyển đến:')} ${i18n.tRoute('notFound')}`;
+      }
       break;
     }
   }
 
+  // Assign document title safely
   document.title = title;
 
+  // Sync Open Graph & Twitter meta tags safely
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.setAttribute('content', title);
+  const twTitle = document.querySelector('meta[name="twitter:title"]');
+  if (twTitle) twTitle.setAttribute('content', title);
+
+  const ogDesc = document.querySelector('meta[property="og:description"]');
+  if (ogDesc && description) ogDesc.setAttribute('content', description);
+  const twDesc = document.querySelector('meta[name="twitter:description"]');
+  if (twDesc && description) twDesc.setAttribute('content', description);
+
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc && description) metaDesc.setAttribute('content', description);
+
+  // Sync locale
+  const localeMap = { vi: 'vi_VN', fr: 'fr_FR', en: 'en_US' };
+  const ogLocale = document.querySelector('meta[property="og:locale"]');
+  if (ogLocale) ogLocale.setAttribute('content', localeMap[lang] || 'vi_VN');
+
+  // Announce to screen reader
   const announcer = document.getElementById('route-announcer');
   if (announcer) {
     announcer.textContent = announcement;
   }
+}
+
+/**
+ * Re-render active dynamic view when language changes
+ */
+export async function refreshCurrentView() {
+  if (!_activeRoute) return;
+  const targetViewName = _activeRoute.name;
+  const targetContainer = document.getElementById(`view-${targetViewName}`);
+  if (targetContainer) {
+    if (targetViewName === 'room') {
+      await renderRoomView(targetContainer, _activeRoute.param || 'I');
+    } else if (targetViewName === 'stories') {
+      await renderStoriesIndexView(targetContainer);
+    } else if (targetViewName === 'story') {
+      await renderStoryView(targetContainer, _activeRoute.param);
+    }
+  }
+  await updateBreadcrumbs(_activeRoute);
+  await updateDocumentMeta(_activeRoute);
 }
 
 /**
@@ -403,13 +477,6 @@ export async function navigateTo(hashOrRoute, replace = false) {
 
   // Close any open navigation flyouts
   closeAllNavFlyouts();
-
-  // Announce page route change to screen readers
-  const announcer = document.getElementById('route-announcer');
-  if (announcer) {
-    const crumbTitle = document.getElementById('crumb-title')?.textContent || targetViewName;
-    announcer.textContent = `Đã chuyển đến: ${crumbTitle}`;
-  }
 }
 
 /**

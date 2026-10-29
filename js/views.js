@@ -19,6 +19,7 @@ import {
   getRoomAdjacentArtworks,
 } from './data.js';
 import { initStoryRelightingScrolly } from './animations.js';
+import { i18n } from './i18n.js';
 
 /**
  * Escape HTML utility to prevent XSS in dynamic templates
@@ -53,13 +54,18 @@ export async function renderRoomView(container, roomId) {
   if (!room) {
     container.innerHTML = `
       <section class="view-not-found" style="padding: 120px 24px; text-align: center;">
-        <h2 style="font-family: var(--font-serif); font-size: 2rem;">Không Tìm Thấy Cánh Triển Lãm</h2>
-        <p style="color: var(--color-muted); margin: 16px 0 24px;">Cánh triển lãm "${escapeHtml(roomId)}" không tồn tại trong kho lưu trữ.</p>
-        <a href="#collection" class="btn-room-cta">← Khám Phá Toàn Bộ Bộ Sưu Tập</a>
+        <h2 style="font-family: var(--font-serif); font-size: 2rem;">${escapeHtml(i18n.t('room-not-found-title'))}</h2>
+        <p style="color: var(--color-muted); margin: 16px 0 24px;">${escapeHtml(i18n.t('room-not-found-desc'))}</p>
+        <a href="#collection" class="btn-room-cta">${escapeHtml(i18n.t('room-back-to-collection'))}</a>
       </section>
     `;
     return;
   }
+
+  const locRoom = i18n.getRoomLocalization(room.id) || room;
+  const roomName = locRoom.name || room.name;
+  const roomTagline = locRoom.tagline || room.tagline;
+  const roomPeriod = locRoom.period || room.period;
 
   const [allRooms, roomArtworks, relatedStories] = await Promise.all([
     getRooms(),
@@ -81,12 +87,12 @@ export async function renderRoomView(container, roomId) {
       <header class="room-view-header">
         <div class="room-header-inner">
           <div class="room-badge-row">
-            <span class="room-numeral-pill">CÁNH ${escapeHtml(room.numeral)}</span>
-            <span class="room-period-badge">${escapeHtml(room.period)}</span>
+            <span class="room-numeral-pill">${escapeHtml(i18n.t('room-wing-label'))} ${escapeHtml(room.numeral)}</span>
+            <span class="room-period-badge">${escapeHtml(roomPeriod)}</span>
             ${room.lightHint ? `<span class="room-lighthint-badge"><span class="lighthint-icon">✦</span> ${escapeHtml(room.lightHint)}</span>` : ''}
           </div>
-          <h1 class="room-title">${escapeHtml(room.name)}</h1>
-          <p class="room-tagline">${escapeHtml(room.tagline)}</p>
+          <h1 class="room-title">${escapeHtml(roomName)}</h1>
+          <p class="room-tagline">${escapeHtml(roomTagline)}</p>
         </div>
       </header>
 
@@ -108,12 +114,12 @@ export async function renderRoomView(container, roomId) {
                   data-artwork-id="${escapeHtml(featuredArt.id)}"
                   title="Thưởng lãm kiệt tác này trong không gian 3D tương tác"
                   aria-label="Thưởng lãm 3D kiệt tác ${escapeHtml(featuredArt.title)}">
-                  <span class="sparkle-icon">✦</span> Thưởng Lãm 3D Chiếu Sáng
+                  <span class="sparkle-icon">✦</span> ${escapeHtml(i18n.t('room-featured-3d-btn'))}
                 </button>
               </div>
             </div>
             <div class="room-featured-content">
-              <span class="room-section-label">✦ KIỆT TÁC TIÊU BIỂU</span>
+              <span class="room-section-label">${escapeHtml(i18n.t('room-featured-kicker'))}</span>
               <h2 class="featured-art-title">${escapeHtml(featuredArt.title)}</h2>
               <div class="featured-art-meta">
                 <span class="featured-artist">${escapeHtml(featuredArt.artist)}</span>
@@ -123,14 +129,14 @@ export async function renderRoomView(container, roomId) {
               <p class="featured-art-narrative">${escapeHtml(featuredArt.narrative)}</p>
               <div class="featured-actions-row">
                 <a href="#artwork/${escapeHtml(featuredArt.id)}" class="btn-dossier-link" aria-label="Xem hồ sơ toàn phần ${escapeHtml(featuredArt.title)}">
-                  Hồ Sơ Toàn Phần &amp; Giám Tuyển →
+                  ${escapeHtml(i18n.t('room-dossier-link'))}
                 </a>
                 <button 
                   type="button" 
                   class="btn-room-secondary btn-launch-3d-relighting"
                   data-artwork-id="${escapeHtml(featuredArt.id)}"
                   aria-label="Xem 3D kiệt tác ${escapeHtml(featuredArt.title)}">
-                  ✦ Xem 3D
+                  ${escapeHtml(i18n.t('room-view-3d'))}
                 </button>
               </div>
             </div>
@@ -160,8 +166,8 @@ export async function renderRoomView(container, roomId) {
                   <img src="${escapeHtml(art.image)}" alt="${escapeHtml(art.alt || art.title)}" class="room-art-thumb" loading="lazy" decoding="async" />
                 </a>
                 <div class="room-card-hover-actions">
-                  <a href="#artwork/${escapeHtml(art.id)}" class="btn-card-inspect" aria-label="Xem chi tiết ${escapeHtml(art.title)}">Chi Tiết</a>
-                  <button type="button" class="btn-card-3d btn-launch-3d-relighting" data-artwork-id="${escapeHtml(art.id)}" title="Mở 3D" aria-label="Xem 3D kiệt tác ${escapeHtml(art.title)}">✦ 3D</button>
+                  <a href="#artwork/${escapeHtml(art.id)}" class="btn-card-inspect" aria-label="Xem chi tiết ${escapeHtml(art.title)}">${escapeHtml(i18n.t('room-inspect'))}</a>
+                  <button type="button" class="btn-card-3d btn-launch-3d-relighting" data-artwork-id="${escapeHtml(art.id)}" title="Mở 3D" aria-label="Xem 3D kiệt tác ${escapeHtml(art.title)}">${escapeHtml(i18n.t('room-view-3d'))}</button>
                 </div>
               </div>
               <div class="room-art-info">
@@ -461,44 +467,48 @@ export async function renderStoriesIndexView(container) {
   container.innerHTML = `
     <div class="stories-index-wrapper">
       <header class="stories-index-header">
-        <span class="stories-kicker">CHỈ MỤC BÀI LUẬN GIÁM TUYỂN (ESSAIS CURATORIAUX)</span>
-        <h1 class="stories-title">Bản Tuyên Ngôn Vật Liệu &amp; Ý Niệm Bên Lề</h1>
+        <span class="stories-kicker">${escapeHtml(i18n.t('stories-index-kicker'))}</span>
+        <h1 class="stories-title">${escapeHtml(i18n.t('stories-index-title'))}</h1>
         <p class="stories-lead">
-          Khảo cứu vi mô về cấu trúc bề mặt, hoá học sắc tố và bản chất nhị phân của các loại chất liệu nghệ thuật cổ truyền.
-          Được biên soạn bởi Hội đồng Giám tuyển ÉTHÉRÉ Atelier.
+          ${escapeHtml(i18n.t('stories-index-lead'))}
         </p>
       </header>
 
       <div class="stories-grid-container">
         ${stories
           .map(
-            (story, index) => `
+            (story, index) => {
+              const locStory = i18n.getStoryLocalization(story.id) || story;
+              const storyTitle = locStory.title || story.title;
+              const storySubtitle = locStory.subtitle || story.subtitle;
+              const storyCategory = locStory.category || story.category;
+              return `
           <article class="story-index-card">
             <div class="story-index-header">
               <div class="story-badge-row">
-                <span class="story-numeral-pill">BÀI LUẬN ${escapeHtml(story.numeral)}</span>
-                <span class="story-category-tag">${escapeHtml(story.category)}</span>
+                <span class="story-numeral-pill">${escapeHtml(i18n.t('story-essay-num'))} ${escapeHtml(story.numeral)}</span>
+                <span class="story-category-tag">${escapeHtml(storyCategory)}</span>
               </div>
               <h2 class="story-index-title">
-                <a href="#story/${escapeHtml(story.id)}" class="story-index-title-link">${escapeHtml(story.title)}</a>
+                <a href="#story/${escapeHtml(story.id)}" class="story-index-title-link">${escapeHtml(storyTitle)}</a>
               </h2>
-              <div class="story-index-sub">${escapeHtml(story.subtitle)}</div>
+              <div class="story-index-sub">${escapeHtml(storySubtitle)}</div>
             </div>
 
             <div class="story-index-body">
               <div class="story-secret-snippet">
-                <span class="snippet-label">✦ Bí Mật Khảo Cổ:</span>
+                <span class="snippet-label">${escapeHtml(i18n.t('story-secret-lbl'))}</span>
                 <p class="snippet-text">${escapeHtml(story.historicalSecret)}</p>
               </div>
 
               ${story.quote ? `<blockquote class="story-index-quote">${escapeHtml(story.quote)}</blockquote>` : ''}
 
               <div class="story-covered-wings">
-                <span class="covered-label">Cánh liên quan:</span>
+                <span class="covered-label">${escapeHtml(i18n.t('story-related-wings'))}</span>
                 ${(story.rooms || [])
                   .map(
                     (r) => `
-                  <a href="#room/${escapeHtml(r)}" class="wing-tag">Cánh ${escapeHtml(r)}</a>
+                  <a href="#room/${escapeHtml(r)}" class="wing-tag">${escapeHtml(i18n.tRoute('roomPrefix'))} ${escapeHtml(r)}</a>
                 `
                   )
                   .join('')}
@@ -507,11 +517,12 @@ export async function renderStoriesIndexView(container) {
 
             <div class="story-index-footer">
               <a href="#story/${escapeHtml(story.id)}" class="btn-read-story-index">
-                Đọc Toàn Văn Khảo Cứu &amp; Số Liệu →
+                ${escapeHtml(i18n.t('story-read-full'))}
               </a>
             </div>
           </article>
-        `
+        `;
+            }
           )
           .join('')}
       </div>
@@ -527,13 +538,18 @@ export async function renderStoryView(container, storyId) {
   if (!story) {
     container.innerHTML = `
       <section class="view-not-found" style="padding: 120px 24px; text-align: center;">
-        <h2 style="font-family: var(--font-serif); font-size: 2rem;">Không Tìm Thấy Bài Luận</h2>
-        <p style="color: var(--color-muted); margin: 16px 0 24px;">Bài luận "${escapeHtml(storyId)}" không có trong danh mục.</p>
-        <a href="#stories" class="btn-room-cta">← Trở Về Chỉ Mục Bài Luận</a>
+        <h2 style="font-family: var(--font-serif); font-size: 2rem;">${escapeHtml(i18n.t('story-not-found'))}</h2>
+        <p style="color: var(--color-muted); margin: 16px 0 24px;">${escapeHtml(i18n.t('story-not-found-desc'))}</p>
+        <a href="#stories" class="btn-room-cta">← ${escapeHtml(i18n.t('story-back'))}</a>
       </section>
     `;
     return;
   }
+
+  const locStory = i18n.getStoryLocalization(story.id) || story;
+  const storyTitle = locStory.title || story.title;
+  const storySubtitle = locStory.subtitle || story.subtitle;
+  const storyCategory = locStory.category || story.category;
 
   // Get artworks referenced in this story
   const allArtworks = await getAllArtworks();
@@ -546,25 +562,25 @@ export async function renderStoryView(container, storyId) {
       <!-- Back Navigation -->
       <nav class="story-top-nav" aria-label="Điều hướng bài luận">
         <a href="#stories" class="btn-back-to-stories">
-          <span aria-hidden="true">←</span> Quay lại Chỉ Mục Bài Luận
+          <span aria-hidden="true">←</span> ${escapeHtml(i18n.t('story-back'))}
         </a>
         <div class="story-top-category">
-          ${escapeHtml(story.category)} · Bài Luận ${escapeHtml(story.numeral)}
+          ${escapeHtml(storyCategory)} · ${escapeHtml(i18n.t('story-essay-num'))} ${escapeHtml(story.numeral)}
         </div>
       </nav>
 
       <!-- Editorial Header -->
       <header class="single-story-header">
-        <div class="story-numeral-kicker">CHƯƠNG GIÁM TUYỂN ${escapeHtml(story.numeral)}</div>
-        <h1 class="single-story-title">${escapeHtml(story.title)}</h1>
-        <p class="single-story-subtitle">${escapeHtml(story.subtitle)}</p>
+        <div class="story-numeral-kicker">${escapeHtml(i18n.t('story-chapter-kicker'))} ${escapeHtml(story.numeral)}</div>
+        <h1 class="single-story-title">${escapeHtml(storyTitle)}</h1>
+        <p class="single-story-subtitle">${escapeHtml(storySubtitle)}</p>
         
         <div class="story-wings-bar">
-          <span class="wings-bar-label">Phạm vi khảo cứu trong bảo tàng:</span>
+          <span class="wings-bar-label">${escapeHtml(i18n.t('story-scope'))}</span>
           ${(story.rooms || [])
             .map(
               (r) => `
-            <a href="#room/${escapeHtml(r)}" class="story-wing-pill">Cánh ${escapeHtml(r)}</a>
+            <a href="#room/${escapeHtml(r)}" class="story-wing-pill">${escapeHtml(i18n.tRoute('roomPrefix'))} ${escapeHtml(r)}</a>
           `
             )
             .join('')}
@@ -577,7 +593,7 @@ export async function renderStoryView(container, storyId) {
           ? `
         <figure class="story-pull-quote-wrapper">
           <blockquote class="story-pull-quote">${escapeHtml(story.quote)}</blockquote>
-          <figcaption class="story-quote-caption">Trích yếu luận cương giám tuyển ÉTHÉRÉ</figcaption>
+          <figcaption class="story-quote-caption">${escapeHtml(i18n.t('story-quote-caption'))}</figcaption>
         </figure>
       `
           : ''
@@ -588,7 +604,7 @@ export async function renderStoryView(container, storyId) {
         <div class="story-narrative-column">
           <!-- Section 1: Historical Secret -->
           <section class="story-essay-section">
-            <h2 class="section-title">✦ Bí Mật Bảo Tồn &amp; Khảo Cổ</h2>
+            <h2 class="section-title">${escapeHtml(i18n.t('story-secret-heading'))}</h2>
             <div class="section-prose">
               <p>${escapeHtml(story.historicalSecret)}</p>
             </div>
@@ -596,7 +612,7 @@ export async function renderStoryView(container, storyId) {
 
           <!-- Section 2: Peripheral Idea -->
           <section class="story-essay-section">
-            <h2 class="section-title">✦ Ý Niệm Bên Lề &amp; Giải Phẫu Xúc Giác</h2>
+            <h2 class="section-title">${escapeHtml(i18n.t('story-peripheral-heading'))}</h2>
             <div class="section-prose">
               <p>${escapeHtml(story.peripheralIdea)}</p>
             </div>
@@ -611,7 +627,7 @@ export async function renderStoryView(container, storyId) {
           </div>
 
           <div class="story-metrics-card">
-            <h3 class="metrics-card-heading">Thông Số Quang Học &amp; Vật Liệu</h3>
+            <h3 class="metrics-card-heading">${escapeHtml(i18n.t('story-specs-heading'))}</h3>
             <div class="metrics-grid">
               ${(story.metrics || [])
                 .map(
