@@ -97,7 +97,66 @@ export async function renderRoomView(container, roomId) {
         <section class="room-featured-section" aria-label="Kiệt tác tiêu biểu của cánh">
           <div class="room-featured-card">
             <div class="room-featured-visual">
-              <img src="${escapeHtml(art.image)}" alt="${escapeHtml(art.alt || art.title)}" class="room-art-thumb" loading="lazy" />
+              <img 
+                src="${escapeHtml(featuredArt.image)}" 
+                alt="${escapeHtml(featuredArt.alt || featuredArt.title)}" 
+                class="room-featured-img" 
+                loading="eager" />
+              <div class="room-featured-overlay-actions">
+                <button 
+                  type="button" 
+                  class="btn-featured-3d btn-launch-3d-relighting" 
+                  data-artwork-id="${escapeHtml(featuredArt.id)}"
+                  title="Thưởng lãm kiệt tác này trong không gian 3D tương tác">
+                  <span class="sparkle-icon">✦</span> Thưởng Lãm 3D Chiếu Sáng
+                </button>
+              </div>
+            </div>
+            <div class="room-featured-content">
+              <span class="room-section-label">✦ KIỆT TÁC TIÊU BIỂU</span>
+              <h2 class="featured-art-title">${escapeHtml(featuredArt.title)}</h2>
+              <div class="featured-art-meta">
+                <span class="featured-artist">${escapeHtml(featuredArt.artist)}</span>
+                <span class="meta-sep">·</span>
+                <span class="featured-century">${escapeHtml(featuredArt.century)} (${escapeHtml(featuredArt.year)})</span>
+              </div>
+              <p class="featured-art-narrative">${escapeHtml(featuredArt.narrative)}</p>
+              <div class="featured-actions-row">
+                <a href="#artwork/${escapeHtml(featuredArt.id)}" class="btn-dossier-link">
+                  Hồ Sơ Toàn Phần &amp; Giám Tuyển →
+                </a>
+                <button 
+                  type="button" 
+                  class="btn-room-secondary btn-launch-3d-relighting"
+                  data-artwork-id="${escapeHtml(featuredArt.id)}">
+                  ✦ Xem 3D
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      `
+          : ''
+      }
+
+      <!-- Artworks Grid in this Room -->
+      <section class="room-artworks-section" aria-label="Tất cả hiện vật trong cánh ${escapeHtml(room.numeral)}">
+        <div class="room-section-header">
+          <div>
+            <span class="room-section-label">DANH MỤC HIỆN VẬT</span>
+            <h2 class="room-grid-heading">Không Gian Trưng Bày (${roomArtworks.length} Kiệt Tác)</h2>
+          </div>
+          <a href="#collection" class="room-view-all-link">Xem trong kho lưu trữ chung →</a>
+        </div>
+
+        <div class="room-artworks-grid">
+          ${roomArtworks
+            .map(
+              (art) => `
+            <article class="room-art-card">
+              <div class="room-art-thumb-wrap">
+                <a href="#artwork/${escapeHtml(art.id)}" class="room-art-thumb-link" aria-label="Xem chi tiết ${escapeHtml(art.title)}">
+                  <img src="${escapeHtml(art.image)}" alt="${escapeHtml(art.alt || art.title)}" class="room-art-thumb" loading="lazy" />
                 </a>
                 <div class="room-card-hover-actions">
                   <a href="#artwork/${escapeHtml(art.id)}" class="btn-card-inspect">Chi Tiết</a>
