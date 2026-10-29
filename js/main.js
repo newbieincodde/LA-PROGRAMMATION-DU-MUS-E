@@ -118,6 +118,103 @@ let mouseY = window.innerHeight / 2;
 let torchX = mouseX;
 let torchY = mouseY;
 
+
+/* ==========================================================================
+   ACCESSIBILITY: FOCUS TRAP & RESTORATION UTILITY
+   ========================================================================== */
+function createFocusTrap(container, initialFocusEl, triggerEl = null) {
+  if (!container) return null;
+  const lastActive = triggerEl || document.activeElement;
+  const selector = 'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+  const getFocusables = () => {
+    return Array.from(container.querySelectorAll(selector))
+      .filter((el) => {
+        if (typeof el.checkVisibility === 'function') {
+          return el.checkVisibility({ checkOpacity: false, checkVisibilityCSS: true });
+        }
+        return el.offsetParent !== null || window.getComputedStyle(el).display !== 'none';
+      });
+  };
+
+  const onKeydown = (e) => {
+    if (e.key !== 'Tab') return;
+    const focusables = getFocusables();
+
+    if (!focusables.length) {
+      e.preventDefault();
+      if (!container.hasAttribute('tabindex')) {
+        container.setAttribute('tabindex', '-1');
+      }
+      container.focus();
+      return;
+    }
+
+    if (focusables.length === 1) {
+      e.preventDefault();
+      focusables[0].focus();
+      return;
+    }
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+
+    if (e.shiftKey) {
+      if (document.activeElement === first || !container.contains(document.activeElement)) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (document.activeElement === last || !container.contains(document.activeElement)) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  };
+
+  container.addEventListener('keydown', onKeydown);
+  if (initialFocusEl && typeof initialFocusEl.focus === 'function') {
+    initialFocusEl.focus();
+  } else {
+    const focusables = getFocusables();
+    if (focusables[0]) {
+      focusables[0].focus();
+    } else {
+      if (!container.hasAttribute('tabindex')) {
+        container.setAttribute('tabindex', '-1');
+      }
+      container.focus();
+    }
+  }
+
+  return {
+    release: (restoreFocus = true) => {
+      container.removeEventListener('keydown', onKeydown);
+      if (restoreFocus) {
+        if (lastActive && typeof lastActive.focus === 'function' && document.body.contains(lastActive) && lastActive.offsetParent !== null) {
+          try {
+            lastActive.focus();
+          } catch (e) {}
+        } else {
+          const fallback = document.getElementById('main-content') || document.querySelector('main');
+          if (fallback && typeof fallback.focus === 'function') {
+            if (!fallback.hasAttribute('tabindex')) fallback.setAttribute('tabindex', '-1');
+            try {
+              fallback.focus({ preventScroll: true });
+            } catch (e) {}
+          }
+        }
+      }
+    },
+  };
+}
+
+let activeZenTrap = null;
+let activeDossierTrap = null;
+let activeSearchTrap = null;
+let activeShadersTrap = null;
+let activeMobileTrap = null;
+
 /* ==========================================================================
    1. PROCEDURAL MUSEUM AUDIO GUIDE (Web Audio API Synthesizer)
    ========================================================================== */
@@ -165,11 +262,13 @@ function initAudioGuide() {
       audioGain.gain.cancelScheduledValues(audioCtx.currentTime);
       audioGain.gain.setTargetAtTime(0.045, audioCtx.currentTime, 1.2);
       btnAudio?.classList.add('is-playing');
+      btnAudio?.setAttribute('aria-pressed', 'true');
       if (iconAudio) iconAudio.textContent = '🔊';
     } else {
       audioGain.gain.cancelScheduledValues(audioCtx.currentTime);
       audioGain.gain.setTargetAtTime(0.00001, audioCtx.currentTime, 0.8);
       btnAudio?.classList.remove('is-playing');
+      btnAudio?.setAttribute('aria-pressed', 'false');
       if (iconAudio) iconAudio.textContent = '♫';
     }
   };
@@ -180,7 +279,7 @@ function initAudioGuide() {
 /* ==========================================================================
    2. FOCUS 3D RELIGHTING ZEN MODE STAGE (Collapsible Dock & Dossier)
    ========================================================================== */
-export async function openFocusArtwork(artworkInput) {
+export async function openFocusArtwork(artworkInput, triggerEl = null) {
   if (typeof window !== 'undefined') window.openFocusArtwork = openFocusArtwork;
   let artwork = artworkInput;
   if (typeof artworkInput === 'string') {
@@ -198,6 +297,9 @@ export async function openFocusArtwork(artworkInput) {
 
   // Reveal Zen Stage & activate torch spotlight
   exhibitionStage?.classList.add('is-active');
+  exhibitionStage?.setAttribute('aria-hidden', 'false');
+  if (activeZenTrap) activeZenTrap.release(false);
+  activeZenTrap = createFocusTrap(exhibitionStage, document.getElementById('btn-exit-zen'), triggerEl);
   if (torch) torch.style.display = 'block';
 
   // Ensure Dock is in initial ready state
@@ -270,7 +372,20 @@ export function exitFocusMode() {
   const exhibitionStage = document.getElementById('exhibition');
   const torch = document.getElementById('torch-spotlight');
 
+  // If Curatorial Dossier drawer is open inside 3D mode, close it first
+  const dossier = document.getElementById('artwork-dossier-drawer');
+  if (dossier?.classList.contains('is-open')) {
+    document.getElementById('btn-close-dossier')?.click();
+  }
+
+  // Release focus trap before hiding exhibition stage to ensure focus leaves aria-hidden tree
+  if (activeZenTrap) {
+    activeZenTrap.release(true);
+    activeZenTrap = null;
+  }
+
   exhibitionStage?.classList.remove('is-active');
+  exhibitionStage?.setAttribute('aria-hidden', 'true');
   if (torch) torch.style.display = 'none';
 
   const dock = document.getElementById('zen-bottom-dock');
@@ -366,12 +481,22 @@ function setupDossierDrawer() {
   const openDrawer = () => {
     if (currentArtwork) populateDossierDrawer(currentArtwork);
     drawer?.classList.add('is-open');
+    drawer?.setAttribute('aria-hidden', 'false');
     backdrop?.classList.add('is-open');
+    btnOpen?.setAttribute('aria-expanded', 'true');
+    if (activeDossierTrap) activeDossierTrap.release(false);
+    activeDossierTrap = createFocusTrap(drawer, btnClose, btnOpen);
   };
 
   const closeDrawer = () => {
     drawer?.classList.remove('is-open');
     backdrop?.classList.remove('is-open');
+    btnOpen?.setAttribute('aria-expanded', 'false');
+    if (activeDossierTrap) {
+      activeDossierTrap.release(true);
+      activeDossierTrap = null;
+    }
+    drawer?.setAttribute('aria-hidden', 'true');
   };
 
   btnOpen?.addEventListener('click', openDrawer);
@@ -391,13 +516,22 @@ function setupSearchModal() {
 
   const openModal = () => {
     modal?.classList.add('is-open');
-    input?.focus();
+    modal?.setAttribute('aria-hidden', 'false');
+    btnOpen?.setAttribute('aria-expanded', 'true');
+    if (activeSearchTrap) activeSearchTrap.release(false);
+    activeSearchTrap = createFocusTrap(document.querySelector('.search-modal-box'), input, btnOpen);
     renderSearchResults(allArtworksList.slice(0, 6));
   };
 
   const closeModal = () => {
     modal?.classList.remove('is-open');
+    btnOpen?.setAttribute('aria-expanded', 'false');
     if (input) input.value = '';
+    if (activeSearchTrap) {
+      activeSearchTrap.release(true);
+      activeSearchTrap = null;
+    }
+    modal?.setAttribute('aria-hidden', 'true');
   };
 
   btnOpen?.addEventListener('click', openModal);
@@ -417,10 +551,15 @@ function setupSearchModal() {
       return;
     }
 
+    const liveStatus = document.getElementById('search-status-live');
+    if (liveStatus) {
+      liveStatus.textContent = list.length ? `Tìm thấy ${list.length} tác phẩm` : 'Không tìm thấy tác phẩm nào phù hợp.';
+    }
+
     resultsContainer.innerHTML = list
       .map(
         (art) => `
-        <div class="search-result-item" data-art-id="${art.id}">
+        <div class="search-result-item" data-art-id="${art.id}" role="button" tabindex="0" aria-label="Xem tác phẩm ${art.title}, ${art.artist || ''}">
           <img src="${art.image}" alt="${art.title}" class="search-result-thumb" loading="lazy" decoding="async" />
           <div class="search-result-info">
             <span class="search-result-title">${art.title}</span>
@@ -432,10 +571,17 @@ function setupSearchModal() {
       .join('');
 
     resultsContainer.querySelectorAll('.search-result-item').forEach((item) => {
-      item.addEventListener('click', () => {
+      const selectArt = () => {
         const artId = item.getAttribute('data-art-id');
         closeModal();
         openFocusArtwork(artId);
+      };
+      item.addEventListener('click', selectArt);
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectArt();
+        }
       });
     });
   };
@@ -489,10 +635,12 @@ function setupMobileNavigation() {
 
   function openMobileNav() {
     mobileNavDrawer?.classList.add('is-open');
+    mobileNavDrawer?.setAttribute('aria-hidden', 'false');
     mobileNavBackdrop?.classList.add('is-open');
     btnMobileMenu?.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
-    btnCloseMobileMenu?.focus();
+    if (activeMobileTrap) activeMobileTrap.release(false);
+    activeMobileTrap = createFocusTrap(mobileNavDrawer, btnCloseMobileMenu, btnMobileMenu);
   }
 
   function closeMobileNav() {
@@ -500,6 +648,11 @@ function setupMobileNavigation() {
     mobileNavBackdrop?.classList.remove('is-open');
     btnMobileMenu?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
+    if (activeMobileTrap) {
+      activeMobileTrap.release(true);
+      activeMobileTrap = null;
+    }
+    mobileNavDrawer?.setAttribute('aria-hidden', 'true');
   }
 
   btnMobileMenu?.addEventListener('click', () => {
@@ -558,19 +711,23 @@ function renderCollectionCards(artworks) {
       const loadingAttr = isAboveFold ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
 
       return `
-      <article class="artwork-card" data-art-id="${art.id}" tabindex="0" role="button" aria-label="Xem hồ sơ chi tiết ${art.title}">
+      <article class="artwork-card" data-art-id="${art.id}">
         <div class="card-media">
-          <img src="${art.image}" alt="${art.alt || art.title}" class="card-img" ${loadingAttr} decoding="async" />
-          <span class="card-room-badge">${art.roomName || 'Cánh Triển Lãm'}</span>
+          <a href="#artwork/${art.id}" class="card-thumb-link" aria-label="Xem chi tiết ${art.title}">
+            <img src="${art.image}" alt="${art.alt || art.title}" class="card-img" ${loadingAttr} decoding="async" />
+          </a>
+          <span class="card-room-badge" aria-hidden="true">${art.roomName || 'Cánh Triển Lãm'}</span>
         </div>
         <div class="card-details">
           <span class="card-meta-line">${art.category || 'MỸ THUẬT'}</span>
-          <h3 class="card-title">${art.title}</h3>
+          <h3 class="card-title">
+            <a href="#artwork/${art.id}" class="card-title-link">${art.title}</a>
+          </h3>
           <span class="card-artist-year">${art.artist || ''} · ${art.year || ''}</span>
           ${mediumSpec ? `<span style="font-size:0.72rem; color:var(--color-muted); margin-top:2px;">${mediumSpec}</span>` : ''}
           <div class="card-actions-quick" style="display:flex; gap:8px; margin-top:12px;">
-            <a href="#artwork/${art.id}" class="btn-card-inspect" style="text-decoration:none;">Hồ Sơ</a>
-            <button type="button" class="btn-card-3d btn-launch-3d-relighting" data-artwork-id="${art.id}">✦ 3D</button>
+            <a href="#artwork/${art.id}" class="btn-card-inspect" style="text-decoration:none;" aria-label="Xem hồ sơ chi tiết ${art.title}">Hồ Sơ</a>
+            <button type="button" class="btn-card-3d btn-launch-3d-relighting" data-artwork-id="${art.id}" aria-label="Thưởng lãm 3D kiệt tác ${art.title}">✦ 3D</button>
           </div>
         </div>
       </article>
@@ -722,12 +879,19 @@ function setupCircadianControl() {
 
     chips.forEach((c) => {
       const ch = parseFloat(c.getAttribute('data-hour'));
-      if (Math.abs(ch - circadianCurrentHour) < 1.0) {
+      const isActive = Math.abs(ch - circadianCurrentHour) < 1.0;
+      if (isActive) {
         c.classList.add('active');
+        c.setAttribute('aria-pressed', 'true');
       } else {
         c.classList.remove('active');
+        c.setAttribute('aria-pressed', 'false');
       }
     });
+    if (slider) {
+      slider.setAttribute('aria-valuenow', String(circadianCurrentHour));
+      slider.setAttribute('aria-valuetext', readout?.textContent || String(circadianCurrentHour));
+    }
   };
 
   slider?.addEventListener('input', (e) => {
@@ -746,6 +910,8 @@ function setupCircadianControl() {
   const stopAutoplay = () => {
     isCircadianAutoplay = false;
     btnAutoplay?.classList.remove('is-playing');
+    btnAutoplay?.setAttribute('aria-pressed', 'false');
+    btnAutoplay?.setAttribute('aria-label', 'Bật chu kỳ tự động 24 giờ');
     const playIcon = document.getElementById('circadian-play-icon');
     if (playIcon) playIcon.textContent = '▶';
     if (circadianLoopAnimId) {
@@ -757,6 +923,8 @@ function setupCircadianControl() {
   const startAutoplay = () => {
     isCircadianAutoplay = true;
     btnAutoplay?.classList.add('is-playing');
+    btnAutoplay?.setAttribute('aria-pressed', 'true');
+    btnAutoplay?.setAttribute('aria-label', 'Dừng chu kỳ tự động 24 giờ');
     const playIcon = document.getElementById('circadian-play-icon');
     if (playIcon) playIcon.textContent = '❚❚';
 
@@ -941,10 +1109,17 @@ function setupTorchSpotlight() {
   });
 
   const renderTorch = () => {
-    torchX += (mouseX - torchX) * 0.16;
-    torchY += (mouseY - torchY) * 0.16;
-    torch.style.left = `${torchX}px`;
-    torch.style.top = `${torchY}px`;
+    if (torch.style.display !== 'none') {
+      if (isReducedMotion()) {
+        torchX = mouseX;
+        torchY = mouseY;
+      } else {
+        torchX += (mouseX - torchX) * 0.16;
+        torchY += (mouseY - torchY) * 0.16;
+      }
+      torch.style.left = `${torchX}px`;
+      torch.style.top = `${torchY}px`;
+    }
     requestAnimationFrame(renderTorch);
   };
   requestAnimationFrame(renderTorch);
@@ -962,12 +1137,22 @@ function setupShadersDrawer() {
 
   const openDrawer = () => {
     drawer?.classList.add('is-open');
+    drawer?.setAttribute('aria-hidden', 'false');
     backdrop?.classList.add('is-open');
+    btnHeader?.setAttribute('aria-expanded', 'true');
+    if (activeShadersTrap) activeShadersTrap.release(false);
+    activeShadersTrap = createFocusTrap(drawer, btnClose, btnHeader);
   };
 
   const closeDrawer = () => {
     drawer?.classList.remove('is-open');
     backdrop?.classList.remove('is-open');
+    btnHeader?.setAttribute('aria-expanded', 'false');
+    if (activeShadersTrap) {
+      activeShadersTrap.release(true);
+      activeShadersTrap = null;
+    }
+    drawer?.setAttribute('aria-hidden', 'true');
   };
 
   btnHeader?.addEventListener('click', openDrawer);
@@ -975,18 +1160,45 @@ function setupShadersDrawer() {
   btnClose?.addEventListener('click', closeDrawer);
   backdrop?.addEventListener('click', closeDrawer);
 
-  const tabs = document.querySelectorAll('.code-tab-btn');
-  tabs.forEach((tab) => {
-    tab.addEventListener('click', (e) => {
-      const targetTab = e.currentTarget.getAttribute('data-tab');
-      tabs.forEach((t) => t.classList.remove('active'));
-      e.currentTarget.classList.add('active');
+  const tabs = Array.from(document.querySelectorAll('.code-tab-btn'));
+  const selectTab = (targetBtn) => {
+    const targetTab = targetBtn.getAttribute('data-tab');
+    tabs.forEach((t) => {
+      t.classList.remove('active');
+      t.setAttribute('aria-selected', 'false');
+      t.setAttribute('tabindex', '-1');
+    });
+    targetBtn.classList.add('active');
+    targetBtn.setAttribute('aria-selected', 'true');
+    targetBtn.setAttribute('tabindex', '0');
+    targetBtn.focus();
 
-      document.querySelectorAll('.code-tab-content').forEach((c) => {
-        c.style.display = 'none';
-      });
-      const activeContent = document.getElementById(`tab-${targetTab}`);
-      if (activeContent) activeContent.style.display = 'block';
+    document.querySelectorAll('.code-tab-content').forEach((c) => {
+      c.style.display = 'none';
+    });
+    const activeContent = document.getElementById(`tab-${targetTab}`);
+    if (activeContent) activeContent.style.display = 'block';
+  };
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => selectTab(tab));
+    tab.addEventListener('keydown', (e) => {
+      let newIndex = index;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        newIndex = (index + 1) % tabs.length;
+        selectTab(tabs[newIndex]);
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        newIndex = (index - 1 + tabs.length) % tabs.length;
+        selectTab(tabs[newIndex]);
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        selectTab(tabs[0]);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        selectTab(tabs[tabs.length - 1]);
+      }
     });
   });
 }
@@ -1318,16 +1530,32 @@ async function initApp() {
 
   // Keyboard Shortcuts
   window.addEventListener('keydown', async (e) => {
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
-
     if (e.key === 'Escape') {
-      exitFocusMode();
-      document.getElementById('artwork-dossier-drawer')?.classList.remove('is-open');
-      document.getElementById('dossier-drawer-backdrop')?.classList.remove('is-open');
-      document.getElementById('search-modal-backdrop')?.classList.remove('is-open');
-      document.getElementById('shaders-drawer')?.classList.remove('is-open');
-      document.getElementById('shaders-drawer-backdrop')?.classList.remove('is-open');
-    } else if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') {
+      const dossier = document.getElementById('artwork-dossier-drawer');
+      const searchModal = document.getElementById('search-modal-backdrop');
+      const shadersDrawer = document.getElementById('shaders-drawer');
+      const mobileDrawer = document.getElementById('mobile-nav-drawer');
+      const exhibitionStage = document.getElementById('exhibition');
+
+      if (dossier?.classList.contains('is-open')) {
+        document.getElementById('btn-close-dossier')?.click();
+        return;
+      } else if (searchModal?.classList.contains('is-open')) {
+        document.getElementById('btn-close-search-modal')?.click();
+        return;
+      } else if (shadersDrawer?.classList.contains('is-open')) {
+        document.getElementById('btn-close-shaders-drawer')?.click();
+        return;
+      } else if (mobileDrawer?.classList.contains('is-open')) {
+        document.getElementById('btn-close-mobile-menu')?.click();
+        return;
+      } else if (exhibitionStage?.classList.contains('is-active')) {
+        exitFocusMode();
+        return;
+      }
+    }
+
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return; else if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') {
       const exhibitionStage = document.getElementById('exhibition');
       if (exhibitionStage?.classList.contains('is-active')) {
         navigateArtworkStep(-1);

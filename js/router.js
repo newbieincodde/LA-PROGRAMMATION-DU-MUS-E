@@ -403,6 +403,13 @@ export async function navigateTo(hashOrRoute, replace = false) {
 
   // Close any open navigation flyouts
   closeAllNavFlyouts();
+
+  // Announce page route change to screen readers
+  const announcer = document.getElementById('route-announcer');
+  if (announcer) {
+    const crumbTitle = document.getElementById('crumb-title')?.textContent || targetViewName;
+    announcer.textContent = `Đã chuyển đến: ${crumbTitle}`;
+  }
 }
 
 /**
@@ -436,9 +443,11 @@ function closeMobileMenu() {
   const btnMenu = document.getElementById('btn-mobile-menu');
   if (drawer?.classList.contains('is-open')) {
     drawer.classList.remove('is-open');
+    drawer.setAttribute('aria-hidden', 'true');
     backdrop?.classList.remove('is-open');
     btnMenu?.setAttribute('aria-expanded', 'false');
     document.body.classList.remove('menu-open');
+    btnMenu?.focus();
   }
 }
 

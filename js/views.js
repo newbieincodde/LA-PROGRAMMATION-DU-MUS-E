@@ -106,7 +106,8 @@ export async function renderRoomView(container, roomId) {
                   type="button" 
                   class="btn-featured-3d btn-launch-3d-relighting" 
                   data-artwork-id="${escapeHtml(featuredArt.id)}"
-                  title="Thưởng lãm kiệt tác này trong không gian 3D tương tác">
+                  title="Thưởng lãm kiệt tác này trong không gian 3D tương tác"
+                  aria-label="Thưởng lãm 3D kiệt tác ${escapeHtml(featuredArt.title)}">
                   <span class="sparkle-icon">✦</span> Thưởng Lãm 3D Chiếu Sáng
                 </button>
               </div>
@@ -121,13 +122,14 @@ export async function renderRoomView(container, roomId) {
               </div>
               <p class="featured-art-narrative">${escapeHtml(featuredArt.narrative)}</p>
               <div class="featured-actions-row">
-                <a href="#artwork/${escapeHtml(featuredArt.id)}" class="btn-dossier-link">
+                <a href="#artwork/${escapeHtml(featuredArt.id)}" class="btn-dossier-link" aria-label="Xem hồ sơ toàn phần ${escapeHtml(featuredArt.title)}">
                   Hồ Sơ Toàn Phần &amp; Giám Tuyển →
                 </a>
                 <button 
                   type="button" 
                   class="btn-room-secondary btn-launch-3d-relighting"
-                  data-artwork-id="${escapeHtml(featuredArt.id)}">
+                  data-artwork-id="${escapeHtml(featuredArt.id)}"
+                  aria-label="Xem 3D kiệt tác ${escapeHtml(featuredArt.title)}">
                   ✦ Xem 3D
                 </button>
               </div>
@@ -158,8 +160,8 @@ export async function renderRoomView(container, roomId) {
                   <img src="${escapeHtml(art.image)}" alt="${escapeHtml(art.alt || art.title)}" class="room-art-thumb" loading="lazy" decoding="async" />
                 </a>
                 <div class="room-card-hover-actions">
-                  <a href="#artwork/${escapeHtml(art.id)}" class="btn-card-inspect">Chi Tiết</a>
-                  <button type="button" class="btn-card-3d btn-launch-3d-relighting" data-artwork-id="${escapeHtml(art.id)}" title="Mở 3D">✦ 3D</button>
+                  <a href="#artwork/${escapeHtml(art.id)}" class="btn-card-inspect" aria-label="Xem chi tiết ${escapeHtml(art.title)}">Chi Tiết</a>
+                  <button type="button" class="btn-card-3d btn-launch-3d-relighting" data-artwork-id="${escapeHtml(art.id)}" title="Mở 3D" aria-label="Xem 3D kiệt tác ${escapeHtml(art.title)}">✦ 3D</button>
                 </div>
               </div>
               <div class="room-art-info">
@@ -170,7 +172,7 @@ export async function renderRoomView(container, roomId) {
                 <p class="room-art-artist">${escapeHtml(art.artist)}</p>
                 <div class="room-art-footer">
                   <span class="room-art-year">${escapeHtml(art.year)}</span>
-                  <a href="#artwork/${escapeHtml(art.id)}" class="room-card-arrow" aria-label="Xem ${escapeHtml(art.title)}">→</a>
+                  <a href="#artwork/${escapeHtml(art.id)}" class="room-card-arrow" aria-hidden="true" tabindex="-1">→</a>
                 </div>
               </div>
             </article>
@@ -428,8 +430,9 @@ export async function renderArtworkView(container, artworkId) {
                 (rel) => `
               <article class="rel-art-card">
                 <div class="rel-thumb-wrap">
-                  <img src="${escapeHtml(rel.image)}" alt="${escapeHtml(rel.alt || rel.title)}" class="rel-thumb" loading="lazy" decoding="async" />
-                  <a href="#artwork/${escapeHtml(rel.id)}" class="rel-overlay-link" aria-label="Xem ${escapeHtml(rel.title)}"></a>
+                  <a href="#artwork/${escapeHtml(rel.id)}" class="rel-thumb-link" aria-label="Xem chi tiết ${escapeHtml(rel.title)}">
+                    <img src="${escapeHtml(rel.image)}" alt="${escapeHtml(rel.alt || rel.title)}" class="rel-thumb" loading="lazy" decoding="async" />
+                  </a>
                 </div>
                 <div class="rel-info">
                   <div class="rel-category">${escapeHtml(rel.category)}</div>
@@ -641,10 +644,12 @@ export async function renderStoryView(container, storyId) {
                 (art) => `
               <article class="story-art-card">
                 <div class="story-art-visual">
-                  <img src="${escapeHtml(art.image)}" alt="${escapeHtml(art.alt || art.title)}" class="story-art-img" loading="lazy" decoding="async" />
+                  <a href="#artwork/${escapeHtml(art.id)}" class="story-art-thumb-link" aria-label="Xem chi tiết ${escapeHtml(art.title)}">
+                    <img src="${escapeHtml(art.image)}" alt="${escapeHtml(art.alt || art.title)}" class="story-art-img" loading="lazy" decoding="async" />
+                  </a>
                   <div class="story-art-actions">
-                    <a href="#artwork/${escapeHtml(art.id)}" class="btn-inspect-art">Hồ Sơ</a>
-                    <button type="button" class="btn-art-3d btn-launch-3d-relighting" data-artwork-id="${escapeHtml(art.id)}">✦ 3D</button>
+                    <a href="#artwork/${escapeHtml(art.id)}" class="btn-inspect-art" aria-label="Xem hồ sơ ${escapeHtml(art.title)}">Hồ Sơ</a>
+                    <button type="button" class="btn-art-3d btn-launch-3d-relighting" data-artwork-id="${escapeHtml(art.id)}" aria-label="Xem 3D kiệt tác ${escapeHtml(art.title)}">✦ 3D</button>
                   </div>
                 </div>
                 <div class="story-art-details">

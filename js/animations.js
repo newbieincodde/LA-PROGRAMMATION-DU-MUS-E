@@ -1529,3 +1529,21 @@ export function initAmbientDustParticles(mountEl) {
     return null;
   }
 }
+
+// Dynamic accessibility listener: adapt smoothly if user toggles prefers-reduced-motion
+if (typeof window !== 'undefined' && window.matchMedia) {
+  try {
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    motionQuery.addEventListener('change', (e) => {
+      if (e.matches) {
+        if (lenisInstance) {
+          lenisInstance.destroy();
+          lenisInstance = null;
+          window.lenis = null;
+        }
+      } else {
+        initSmoothScrolling();
+      }
+    });
+  } catch (e) {}
+}

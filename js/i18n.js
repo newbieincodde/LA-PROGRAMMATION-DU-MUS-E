@@ -319,10 +319,13 @@ export class I18nManager {
 
     // Update active button state
     document.querySelectorAll('.utility-lang .lang-item').forEach((btn) => {
-      if (btn.getAttribute('data-lang')?.toLowerCase() === lang) {
+      const isCurrent = btn.getAttribute('data-lang')?.toLowerCase() === lang;
+      if (isCurrent) {
         btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
       } else {
         btn.classList.remove('active');
+        btn.setAttribute('aria-pressed', 'false');
       }
     });
 

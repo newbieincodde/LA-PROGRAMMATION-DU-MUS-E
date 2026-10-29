@@ -96,8 +96,8 @@
     <!-- Tier 1: Utility Rail (Search, Hours, Languages, Shaders, Tickets, Theme) -->
     <div class="header-utility-bar">
       <div class="utility-left">
-        <button type="button" id="btn-utility-search" class="btn-utility-search" title="Tìm kiếm tác phẩm [Phím /]">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+        <button type="button" id="btn-utility-search" class="btn-utility-search" title="Tìm kiếm tác phẩm [Phím /]" aria-haspopup="dialog" aria-expanded="false" aria-controls="search-modal-backdrop">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
@@ -113,16 +113,16 @@
       <div class="utility-right">
         <!-- Internationalization Language Selector (VI / FR / EN) -->
         <div class="utility-lang" role="group" aria-label="Lựa chọn ngôn ngữ / Language selection">
-          <button type="button" class="lang-item active" data-lang="vi">VI</button>
-          <span>/</span>
-          <button type="button" class="lang-item" data-lang="fr">FR</button>
-          <span>/</span>
-          <button type="button" class="lang-item" data-lang="en">EN</button>
+          <button type="button" class="lang-item active" data-lang="vi" aria-pressed="true" aria-label="Tiếng Việt (VI)">VI</button>
+          <span aria-hidden="true">/</span>
+          <button type="button" class="lang-item" data-lang="fr" aria-pressed="false" aria-label="Français (FR)">FR</button>
+          <span aria-hidden="true">/</span>
+          <button type="button" class="lang-item" data-lang="en" aria-pressed="false" aria-label="English (EN)">EN</button>
         </div>
 
         <!-- Shader & Code Modal Button -->
-        <button type="button" id="btn-open-shaders" class="btn-header-shader" title="Xem mã nguồn Shaders và Kiến trúc [Phím ?]">
-          <span>✦</span> <span data-i18n="shaders-btn">Shaders &amp; Code</span>
+        <button type="button" id="btn-open-shaders" class="btn-header-shader" title="Xem mã nguồn Shaders và Kiến trúc [Phím ?]" aria-haspopup="dialog" aria-expanded="false" aria-controls="shaders-drawer">
+          <span aria-hidden="true">✦</span> <span data-i18n="shaders-btn">Shaders &amp; Code</span>
         </button>
 
         <!-- Haute-Couture Louvre Billetterie / Ticket & Purchase Pill CTA -->
@@ -346,7 +346,7 @@
   <!-- =======================================================================
        MAIN CONTENT CONTAINER: MULTI-VIEW PAGES ARCHITECTURE
        ======================================================================= -->
-  <main id="main-content">
+  <main id="main-content" tabindex="-1">
     
     <!-- =====================================================================
          VIEW 1: HOME FOYER (Tiền sảnh tráng lệ & Băng chuyền Cinema Loom)
@@ -370,7 +370,7 @@
             <button type="button" id="btn-hero-enter-3d" class="btn-hero-primary">
               <span class="btn-icon">▶</span> <span data-i18n="btn-enter-3d">Bước Vào Triển Lãm 3D</span>
             </button>
-            <button type="button" id="btn-toggle-audio" class="btn-hero-secondary" title="Bật/Tắt không gian âm thanh viện bảo tàng">
+            <button type="button" id="btn-toggle-audio" class="btn-hero-secondary" title="Bật/Tắt không gian âm thanh viện bảo tàng" aria-pressed="false">
               <span id="audio-icon">♫</span> <span data-i18n="btn-audio-guide">Âm Thanh Bảo Tàng</span>
             </button>
           </div>
@@ -496,7 +496,7 @@
       <!-- ===================================================================
            CHAPTER V: ARCHITECTURAL COLOPHON & MUSEUM CREDENTIALS
            =================================================================== -->
-      <footer class="home-architectural-footer">
+      <footer class="home-architectural-footer" role="contentinfo">
         <div class="footer-inner">
           <div class="footer-mast">
             <div class="footer-logo">ÉTHÉRÉ</div>
@@ -859,7 +859,7 @@
   <!-- =======================================================================
        FULL-SCREEN 3D RELIGHTING ZEN MODE STAGE
        ======================================================================= -->
-  <div id="exhibition" role="region" aria-label="Phòng thưởng lãm 3D chuyên sâu">
+  <div id="exhibition" role="region" aria-label="Phòng thưởng lãm 3D chuyên sâu" aria-hidden="true">
     <!-- 3D Canvas Stage -->
     <div id="focus-relighting-stage"></div>
 
@@ -894,8 +894,8 @@
 
       <!-- Center Action: Open Detailed Curatorial Dossier -->
       <div class="zen-dock-actions">
-        <button type="button" id="btn-open-dossier" class="btn-dock-dossier" aria-label="Xem hồ sơ chi tiết tác phẩm">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+        <button type="button" id="btn-open-dossier" class="btn-dock-dossier" aria-label="Xem hồ sơ chi tiết tác phẩm" aria-haspopup="dialog" aria-expanded="false" aria-controls="artwork-dossier-drawer">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <circle cx="12" cy="12" r="10"></circle>
             <line x1="12" y1="16" x2="12" y2="12"></line>
             <line x1="12" y1="8" x2="12.01" y2="8"></line>
@@ -910,31 +910,31 @@
           <div class="circadian-dock-top">
             <span class="circadian-dock-tag">NHỊP SINH HỌC 24H:</span>
             <span class="circadian-readout" id="circadian-time-display">☀️ 17:30 Hoàng Hôn Hổ Phách</span>
-            <button type="button" id="btn-circadian-autoplay" class="btn-circadian-autoplay" title="Bật/Tắt chu kỳ tự động xoay 24 giờ của mặt trời">
-              <span id="circadian-play-icon">▶</span> Tự Động 24H
+            <button type="button" id="btn-circadian-autoplay" class="btn-circadian-autoplay" title="Bật/Tắt chu kỳ tự động xoay 24 giờ của mặt trời" aria-pressed="false">
+              <span id="circadian-play-icon" aria-hidden="true">▶</span> Tự Động 24H
             </button>
           </div>
           <div class="circadian-slider-row">
-            <input type="range" id="circadian-slider" class="circadian-range" min="0" max="24" step="0.25" value="17.5" aria-label="Điều khiển thời gian trong ngày 24 giờ">
-            <div class="circadian-milestones" data-lenis-prevent>
-              <button type="button" class="circadian-chip" data-hour="6">06:00 Sương Mai</button>
-              <button type="button" class="circadian-chip" data-hour="12">12:00 Giếng Trời</button>
-              <button type="button" class="circadian-chip active" data-hour="17.5">17:30 Hoàng Hôn</button>
-              <button type="button" class="circadian-chip" data-hour="21">21:00 Đèn Đêm</button>
-              <button type="button" class="circadian-chip" data-hour="2">02:00 Ánh Trăng</button>
+            <input type="range" id="circadian-slider" class="circadian-range" min="0" max="24" step="0.25" value="17.5" aria-label="Điều khiển thời gian trong ngày 24 giờ" aria-valuemin="0" aria-valuemax="24" aria-valuenow="17.5" aria-valuetext="17:30 Hoàng Hôn Hổ Phách">
+            <div class="circadian-milestones" data-lenis-prevent role="group" aria-label="Mốc thời gian ánh sáng">
+              <button type="button" class="circadian-chip" data-hour="6" aria-pressed="false">06:00 Sương Mai</button>
+              <button type="button" class="circadian-chip" data-hour="12" aria-pressed="false">12:00 Giếng Trời</button>
+              <button type="button" class="circadian-chip active" data-hour="17.5" aria-pressed="true">17:30 Hoàng Hôn</button>
+              <button type="button" class="circadian-chip" data-hour="21" aria-pressed="false">21:00 Đèn Đêm</button>
+              <button type="button" class="circadian-chip" data-hour="2" aria-pressed="false">02:00 Ánh Trăng</button>
             </div>
           </div>
         </div>
 
-        <button type="button" id="btn-dock-collapse" class="btn-dock-collapse" title="Thu gọn bảng điều khiển để ngắm trọn vẹn tác phẩm">
+        <button type="button" id="btn-dock-collapse" class="btn-dock-collapse" title="Thu gọn bảng điều khiển để ngắm trọn vẹn tác phẩm" aria-expanded="true" aria-controls="zen-bottom-dock">
           ▼ Thu Gọn
         </button>
       </div>
     </div>
 
     <!-- Floating Trigger Pill (hiện ra khi dock được thu gọn để tối đa diện tích ngắm tranh) -->
-    <button type="button" id="btn-show-dock" class="btn-zen-show-dock" aria-label="Mở bảng điều khiển tác phẩm">
-      <span>✦</span> Thông Tin &amp; Ánh Sáng ▲
+    <button type="button" id="btn-show-dock" class="btn-zen-show-dock" aria-label="Mở bảng điều khiển tác phẩm" aria-expanded="false" aria-controls="zen-bottom-dock">
+      <span aria-hidden="true">✦</span> Thông Tin &amp; Ánh Sáng ▲
     </button>
   </div>
 
@@ -942,7 +942,7 @@
        SLIDE-OVER CURATORIAL DOSSIER DRAWER (Hồ sơ tác phẩm chuyên sâu)
        ======================================================================= -->
   <div id="dossier-drawer-backdrop" class="dossier-drawer-backdrop" aria-hidden="true"></div>
-  <aside id="artwork-dossier-drawer" class="dossier-drawer" role="dialog" aria-modal="true" aria-label="Hồ sơ chi tiết hiện vật bảo tàng">
+  <aside id="artwork-dossier-drawer" class="dossier-drawer" role="dialog" aria-modal="true" aria-label="Hồ sơ chi tiết hiện vật bảo tàng" aria-hidden="true">
     <div class="dossier-drawer-header">
       <span class="dossier-header-badge" id="dossier-badge">HỒ SƠ BẢO TÀNG CHUYÊN SÂU</span>
       <button type="button" id="btn-close-dossier" class="btn-close-dossier" aria-label="Đóng hồ sơ">✕</button>
@@ -992,7 +992,7 @@
   <div id="search-modal-backdrop" class="search-modal-backdrop" aria-hidden="true">
     <div class="search-modal-box" role="dialog" aria-modal="true" aria-label="Tìm kiếm tác phẩm trong bảo tàng">
       <div class="search-modal-input-wrap">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
@@ -1000,10 +1000,13 @@
           type="search" 
           id="modal-search-input" 
           class="search-modal-input" 
-          placeholder="Tìm kiếm tác phẩm, họa sĩ, chất liệu..." 
-          autocomplete="off" />
-        <button type="button" id="btn-close-search-modal" style="background:none; border:none; font-size:1.2rem; cursor:pointer; color:var(--color-muted);">✕</button>
+          placeholder="Tìm kiếm tác phẩm, họa sĩ, chất liệu..."
+          autocomplete="off"
+          aria-label="Nhập từ khóa tìm kiếm tác phẩm" />
+        <button type="button" id="btn-close-search-modal" aria-label="Đóng tìm kiếm tác phẩm" style="background:none; border:none; font-size:1.2rem; cursor:pointer; color:var(--color-muted);">✕</button>
       </div>
+
+      <div id="search-status-live" class="sr-only" role="status" aria-live="polite"></div>
 
       <div id="modal-search-results" class="search-modal-results" data-lenis-prevent>
         <!-- Results dynamically inserted here -->
@@ -1015,7 +1018,7 @@
        CODE & SHADERS DRAWER (Easter Egg)
        ======================================================================= -->
   <div id="shaders-drawer-backdrop" class="shaders-drawer-backdrop" aria-hidden="true"></div>
-  <aside id="shaders-drawer" class="shaders-drawer" role="dialog" aria-modal="true" aria-label="Bảng mã nguồn Shaders và Kiến Trúc">
+  <aside id="shaders-drawer" class="shaders-drawer" role="dialog" aria-modal="true" aria-label="Bảng mã nguồn Shaders và Kiến Trúc" aria-hidden="true">
     <div class="drawer-header">
       <h3 class="drawer-title">✦ Shaders &amp; Kiến Trúc Mã Nguồn</h3>
       <button type="button" id="btn-close-shaders-drawer" class="btn-close-dossier" aria-label="Đóng bảng mã nguồn">✕</button>
@@ -1026,13 +1029,13 @@
         Khám phá các thuật toán đồ họa Three.js WebGPU / WebGL cốt lõi tạo nên trải nghiệm triển lãm xúc giác độc bản.
       </p>
 
-      <div class="code-tabs">
-        <button type="button" class="code-tab-btn active" data-tab="relighting">3D Relighting GLSL</button>
-        <button type="button" class="code-tab-btn" data-tab="unwoven">Unwoven Ribbon Loom</button>
-        <button type="button" class="code-tab-btn" data-tab="config">Zero-Code JSON</button>
+      <div class="code-tabs" role="tablist" aria-label="Thuật toán mã nguồn">
+        <button type="button" id="tab-btn-relighting" class="code-tab-btn active" data-tab="relighting" role="tab" aria-selected="true" aria-controls="tab-relighting" tabindex="0">3D Relighting GLSL</button>
+        <button type="button" id="tab-btn-unwoven" class="code-tab-btn" data-tab="unwoven" role="tab" aria-selected="false" aria-controls="tab-unwoven" tabindex="-1">Unwoven Ribbon Loom</button>
+        <button type="button" id="tab-btn-config" class="code-tab-btn" data-tab="config" role="tab" aria-selected="false" aria-controls="tab-config" tabindex="-1">Zero-Code JSON</button>
       </div>
 
-      <div id="tab-relighting" class="code-tab-content">
+      <div id="tab-relighting" class="code-tab-content" role="tabpanel" aria-labelledby="tab-btn-relighting" tabindex="0">
         <pre class="code-snippet-box"><code>// 3D Relighting: Dynamic Surface Normal &amp; Self-Shadowing Raymarch
 vec3 normal = computeSurfaceNormal(vUv, uDepthMap, uNormalStrength);
 vec3 lightDir = normalize(vec3(uPointer.xy - vUv, uElevation));
@@ -1047,7 +1050,7 @@ for(int i = 1; i &lt;= 12; i++) {
 }</code></pre>
       </div>
 
-      <div id="tab-unwoven" class="code-tab-content" style="display: none;">
+      <div id="tab-unwoven" class="code-tab-content" role="tabpanel" aria-labelledby="tab-btn-unwoven" tabindex="0" style="display: none;">
         <pre class="code-snippet-box"><code>// Unwoven: 26 Horizontal Ribbon BufferGeometries
 for (let i = 0; i &lt; 26; i++) {
   const ribbonGeom = new THREE.PlaneGeometry(cardWidth, ribbonHeight, 32, 1);
@@ -1057,7 +1060,7 @@ for (let i = 0; i &lt; 26; i++) {
 }</code></pre>
       </div>
 
-      <div id="tab-config" class="code-tab-content" style="display: none;">
+      <div id="tab-config" class="code-tab-content" role="tabpanel" aria-labelledby="tab-btn-config" tabindex="0" style="display: none;">
         <pre class="code-snippet-box"><code>// assets/data/content.json (Single Source of Truth)
 {
   "theme": {
@@ -1075,7 +1078,7 @@ for (let i = 0; i &lt; 26; i++) {
        MOBILE CURATORIAL NAVIGATION DRAWER (Full-Bleed Luxury Frosted Glass)
        ======================================================================= -->
   <div id="mobile-nav-backdrop" class="mobile-nav-backdrop" aria-hidden="true"></div>
-  <aside id="mobile-nav-drawer" class="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Menu điều hướng di động">
+  <aside id="mobile-nav-drawer" class="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Menu điều hướng di động" aria-hidden="true">
     <div class="mobile-drawer-header">
       <div class="brand-emblem-wrap">
         <span class="brand-logo-text">ÉTHÉRÉ</span>
@@ -1190,17 +1193,17 @@ for (let i = 0; i &lt; 26; i++) {
 
       <div class="mobile-drawer-footer">
         <div class="utility-lang" role="group" aria-label="Lựa chọn ngôn ngữ / Language selection" style="margin-bottom: 12px; width: 100%; justify-content: center;">
-          <button type="button" class="lang-item active" data-lang="vi">VI</button>
-          <span>/</span>
-          <button type="button" class="lang-item" data-lang="fr">FR</button>
-          <span>/</span>
-          <button type="button" class="lang-item" data-lang="en">EN</button>
+          <button type="button" class="lang-item active" data-lang="vi" aria-pressed="true" aria-label="Tiếng Việt (VI)">VI</button>
+          <span aria-hidden="true">/</span>
+          <button type="button" class="lang-item" data-lang="fr" aria-pressed="false" aria-label="Français (FR)">FR</button>
+          <span aria-hidden="true">/</span>
+          <button type="button" class="lang-item" data-lang="en" aria-pressed="false" aria-label="English (EN)">EN</button>
         </div>
-        <button type="button" id="btn-mobile-shaders" class="btn-mobile-action">
-          <span>✦</span> Shaders &amp; Code
+        <button type="button" id="btn-mobile-shaders" class="btn-mobile-action" aria-haspopup="dialog" aria-expanded="false" aria-controls="shaders-drawer">
+          <span aria-hidden="true">✦</span> Shaders &amp; Code
         </button>
-        <button type="button" id="btn-mobile-search" class="btn-mobile-action">
-          <span>🔍</span> Tìm Kiếm
+        <button type="button" id="btn-mobile-search" class="btn-mobile-action" aria-haspopup="dialog" aria-expanded="false" aria-controls="search-modal-backdrop">
+          <span aria-hidden="true">🔍</span> Tìm Kiếm
         </button>
       </div>
     </div>
